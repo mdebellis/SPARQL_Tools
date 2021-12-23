@@ -6,6 +6,9 @@ PREFIX dmn: <http://www.semanticweb.org/mdebe/ontologies/small_example#>
 #Transformations to change an ontology from user defined names to UUIDs
 #The dmn PREFIX above should be bound to the prefix for the domain ontology
 
+# NOTE: I HAVEN'T TRIED THIS FOR ONTOLOGIES WITH SWRL RULES
+# I THINK IT SHOULD WORK BUT BE AWARE IF YOU TRY IT ON SUCH AN ONTOLOGY
+
 # Create the entityCopy annotation property
 # This will store a new UUID IRI for each entity
 INSERT DATA
