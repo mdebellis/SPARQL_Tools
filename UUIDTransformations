@@ -1,0 +1,72 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dmn: <http://www.semanticweb.org/mdebe/ontologies/small_example#>
+
+#Transformations to change an ontology from user defined names to UUIDs
+#The dmn PREFIX above should be bound to the prefix for the domain ontology
+
+# Create the entityCopy annotation property
+# This will store a new UUID IRI for each entity
+INSERT DATA
+	{dmn:entityCopy a owl:AnnotationProperty.}	
+
+#For debugging
+SELECT ?i 
+WHERE {?i a owl:NamedIndividual.}
+
+SELECT ?s  ?o 
+WHERE {?s dmn:entityCopy ?o .}
+
+#Make UUID copy  for each individual
+INSERT	{?i dmn:entityCopy ?niri.}
+WHERE {?i a owl:NamedIndividual.
+	   BIND (IRI(CONCAT(xsd:string(dmn:),"NamedIndividual", STRUUID())) AS ?niri).}
+
+#Make UUID copy  for each class
+#Check for anonymous classes, don't need UUID for them. 
+INSERT	{?c dmn:entityCopy ?niri.}
+WHERE {?c a owl:Class.
+       BIND(STRAFTER(STR(?c), '#') as ?name).
+	   BIND (IRI(CONCAT(xsd:string(dmn:),"OwlClass", STRUUID())) AS ?niri).
+	   FILTER(?c != owl:Thing && ?c != owl:Nothing && !isBlank(?c)).}		
+
+#Make UUID copy  for each object property 		
+INSERT {?pr dmn:entityCopy ?niri.}
+WHERE {?pr a owl:ObjectProperty.
+	   BIND (IRI(CONCAT(xsd:string(dmn:),"ObjectProperty",STRUUID())) AS ?niri).}
+	   
+#Make UUID copy  for each data property 		
+INSERT {?pr dmn:entityCopy ?niri.}
+WHERE {?pr a owl:DatatypeProperty.
+	   BIND (IRI(CONCAT(xsd:string(dmn:),"DataProperty", STRUUID())) AS ?niri).}
+
+#Change the triples to use the new UUIDs 	
+DELETE {?e ?p ?o.}		
+INSERT {?newe ?newp ?newo.}
+WHERE {?e ?p ?o.
+		OPTIONAL{?e dmn:entityCopy ?ne.}
+		OPTIONAL{?p dmn:entityCopy ?np.}
+		OPTIONAL{?o dmn:entityCopy ?no.}
+	    BIND(IF (BOUND(?ne),?ne, ?e) AS ?newe).
+		BIND(IF (BOUND(?np),?np, ?p) AS ?newp).	
+	    BIND(IF (BOUND(?no),?no, ?o) AS ?newo).
+		FILTER(?p != dmn:entityCopy)}
+		
+
+#Delete the value for all entityCopy properties. This makes all the 
+#old IRIs orphans which will not be saved. 
+DELETE {?e dmn:entityCopy ?niri.}
+WHERE {?e dmn:entityCopy ?niri.}
+
+#Delete all the links from the entityCopy property to make it an orphan. 
+DELETE {dmn:entityCopy ?p ?o.}
+WHERE {dmn:entityCopy ?p ?o.}
+
+#Queries below used for debugging
+SELECT *
+WHERE {?i a owl:NamedIndividual;
+		dmn:entityCopy ?niri.}
+		
+SELECT *
+WHERE {?e dmn:entityCopy ?niri.}
