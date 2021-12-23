@@ -12,13 +12,20 @@ PREFIX pizza: <http://www.semanticweb.org/pizzatutorial/ontologies/2020/PizzaTut
 #Each transformation checks to see if a label already exists and doesn't create one
 #if one already exists. To change that remove the !BOUND test in the FILETERs
 
+# Useful for debugging: SELECT ?c ?name ?lblname
+# Added test: !isBlank(?c) to filter out 
+# Anonymous classes which don't require labels
+# Changed the way the class labeling query finds classes
+# Did this because it can be useful to work in Allegro without
+# Adding materializer inferences
+
 INSERT {?c rdfs:label ?lblname.}
-WHERE {?c rdfs:subClassOf owl:Thing.
+WHERE {?c a owl:Class.
         BIND(STRAFTER(STR(?c), '#') as ?name)
 		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?namewbs)
 		BIND (IF (STRSTARTS(?namewbs," "),SUBSTR(?namewbs,2),?namewbs) AS ?lblname)
 		OPTIONAL{?c rdfs:label ?elbl.}
-		FILTER(?c != owl:Thing && ?c != owl:Nothing && !BOUND(?elbl))}
+		FILTER(?c != owl:Thing && ?c != owl:Nothing && !isBlank(?c) && !BOUND(?elbl))}
 		
 INSERT {?i rdfs:label ?lblname.}
 WHERE {?i a owl:Thing.
