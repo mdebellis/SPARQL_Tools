@@ -1,0 +1,27 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dmn: <http://www.semanticweb.org/pizzatutorial/ontologies/2020/PizzaTutorial#>
+
+#Queries to print out the IRIs for entities that have UUIDs so that SPARQL Queries
+#that utilize them can still be intuitive
+#Print the new classes as prefixes
+SELECT ?prc
+WHERE  {?c a owl:Class;
+		 rdfs:label ?lbl. 
+		 BIND(REPLACE(?lbl, " ", "") AS ?prfxname)
+		 BIND(CONCAT("PREFIX ",?prfxname, ": <",str(?c),">") AS ?prc)}
+		 
+#Print the new object properties as prefixes
+SELECT ?prop
+WHERE  {?op a owl:ObjectProperty;
+		 rdfs:label ?lbl. 
+		 BIND(REPLACE(?lbl, " ", "") AS ?prfxname)
+		 BIND(CONCAT("PREFIX ",?prfxname, ": <",str(?op),">") AS ?prop)}
+		 
+#Print the new data properties as prefixes
+SELECT ?prdp
+WHERE  {?dp a owl:DatatypeProperty;
+		 rdfs:label ?lbl. 
+		 BIND(REPLACE(?lbl, " ", "") AS ?prfxname)
+		 BIND(CONCAT("PREFIX ",?prfxname, ": <",str(?dp),">") AS ?prdp)}
