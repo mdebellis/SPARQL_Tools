@@ -38,7 +38,7 @@ WHERE {?p a owl:ObjectProperty.
         BIND(STRAFTER(STR(?p), '#') as ?name)
 		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?lblname)
 		OPTIONAL{?p rdfs:label ?elbl.}
-		FILTER(!BOUND(?elbl))}	
+		FILTER(?p != owl:topObjectProperty && !BOUND(?elbl))}	
 
 #Create labels for all Data Properties
 CONSTRUCT {?p rdfs:label ?lblname.}
@@ -46,8 +46,7 @@ WHERE {?p a owl:DatatypeProperty.
         BIND(STRAFTER(STR(?p), '#') as ?name)
 		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?lblname)		
 		OPTIONAL{?p rdfs:label ?elbl.}
-		FILTER(!BOUND(?elbl))}	
-
+		FILTER(?p != owl:topDataProperty && !BOUND(?elbl))}	
 
 
 	
