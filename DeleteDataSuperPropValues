@@ -1,0 +1,32 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+#The query below deletes all values for data properties that are super-properties
+#This is useful because it is very common to group data properties under a super-properties
+#in order to organize them better and make sense of them easier in tools like Protege
+#But when you do that and run the reasoner you end up doubling the number of property values
+#With a bunch of redundant triples. In my experience, it is difficult to disable this with many reasoners
+#E.g., with Pellet in Protege, even with the inferences for data properties not checked Pellet still adds them
+#This first query is just to get some idea of some of the properties that will be deleted. Mainly this was to
+#help me debug the real query below. At first I neglected the FILTER statement with the result that ALL data
+#property values ended up getting deleted.
+SELECT ?s ?sp ?o
+WHERE {?sp a owl:DatatypeProperty.
+       ?dp rdfs:subPropertyOf ?sp.
+	   ?s ?sp ?o. 
+FILTER(?sp != ?dp)	   
+	   } LIMIT 500
+
+#This is the real query. It will delete assertions on super-properties but not on their sub-properties.
+#The filter is needed because properties are relations and relations are sets so the reasoner makes all
+#properties sub-properties of themself
+#Also, if you want to exclude some super properties from the deletion (i.e., there are some datatype super
+#properties where you do want the inferred values) just add an or statement and the name of the super property.
+#E.g., if you don't want to delete the values for ex:fooSuperProperty the FILTER statement should be:
+# FILTER(?sp != ?dp || ?sp = ex:fooSuperProperty)	   
+DELETE {?s ?sp ?o.}
+WHERE {?sp a owl:DatatypeProperty.
+       ?dp rdfs:subPropertyOf ?sp.
+	   ?s ?sp ?o. 
+FILTER(?sp != ?dp)}
