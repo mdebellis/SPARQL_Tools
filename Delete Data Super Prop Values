@@ -24,7 +24,7 @@ FILTER(?sp != ?dp)
 #Also, if you want to exclude some super properties from the deletion (i.e., there are some datatype super
 #properties where you do want the inferred values) just add an or statement and the name of the super property.
 #E.g., if you don't want to delete the values for ex:fooSuperProperty the FILTER statement should be:
-# FILTER(?sp != ?dp || ?sp != ex:fooSuperProperty)	
+# FILTER(?sp != ?dp && ?sp != ex:fooSuperProperty)	
 #Note: I originally had the second test wrong, I forgot the not before the equal which would have done the
 #opposite of what was intended. 
 DELETE {?s ?sp ?o.}
