@@ -3,6 +3,12 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dmn: <http://www.semanticweb.org/pizzatutorial/ontologies/2020/PizzaTutorial#>
 
+# It can't be this simple. Just replace the Jays with old name and new name.
+INSERT {JayGatsby :p :o.;
+               skos:altLabel "Jay_Gatsby";
+			   rdfs:comment "Added alt label Jay_Gatsby previous name: Date".}
+DELETE {Jay_Gatsby :p :o.}
+WHERE {Jay_Gatsby :p :o.}
 #Queries to print out the IRIs for entities that have UUIDs so that SPARQL Queries
 #that utilize them can still be intuitive
 #Print the new classes as prefixes

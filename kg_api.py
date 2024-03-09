@@ -1,7 +1,8 @@
 from franz.openrdf.connect import ag_connect
 from franz.openrdf.vocabulary import RDF
+from franz.openrdf.query.query import QueryLanguage
 
-conn = ag_connect('nasa', host='localhost', port=10035, user='user name', password='password')
+conn = ag_connect('people', host='localhost', port=10035, user='mdebellis', password='df1559')
 
 owl_named_individual = conn.createURI("http://www.w3.org/2002/07/owl#NamedIndividual")
 owl_datatype_property = conn.createURI("http://www.w3.org/2002/07/owl#DatatypeProperty")
@@ -10,7 +11,7 @@ owl_object_property = conn.createURI("http://www.w3.org/2002/07/owl#ObjectProper
 owl_class = conn.createURI("http://www.w3.org/2002/07/owl#Class")
 rdfs_label_property = conn.createURI("http://www.w3.org/2000/01/rdf-schema#label")
 skos_pref_label_property = conn.createURI("http://www.w3.org/2004/02/skos/core#prefLabel")
-ontology_string = "http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/"
+ontology_string = "http://www.semanticweb.org/mdebe/ontologies/example#"
 
 # Given the last part of an IRI will return the full IRI string
 # E.g., given "Person" returns "http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/Person"
@@ -109,9 +110,8 @@ def get_values(instance, owl_property):
     return values
 
 # Creates a new instance of a class and returns the new instance
-def make_instance (instance_name, class_name):
+def make_instance (instance_name, instance_class):
     instance_iri = conn.createURI(make_iri_string(instance_name))
-    instance_class = find_class(class_name)
     conn.add(instance_iri, RDF.TYPE, owl_named_individual)
     conn.add(instance_iri, RDF.TYPE, instance_class)
     return instance_iri
@@ -151,33 +151,38 @@ def put_value(instance, kg_property, new_value):
 def delete_value(instance, kg_property, old_value):
     conn.removeTriples(instance, kg_property, old_value)
 
-"""
+
+def rename_object(old_name, new_name):
+    query_string = "INSERT {" + new_name  + ":p :o.; skos:altLabel " + old_name + "; rdfs:comment Added alt label " + old_name "previous name: Date.} DELETE {" + old_name + " :p :o.}  WHERE {" + old_name + " :p :o.}"
+    tuple_query = self.conn.prepareTupleQuery(QueryLanguage.SPARQL, query_string)
+    result = tuple_query.evaluate()
+
 #Test data, in each case the comment below is what should be returned (with the current ontology)
-print(find_instance_from_iri("SanFrancisco"))
-# <http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/SanFrancisco>
-print(get_values(find_instance_from_iri("USA"), find_property("contains")))
-# [<http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/SanFrancisco>, <http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/CA>,... ]
-print(get_value(find_instance_from_iri("MichaelDeBellis"), find_property("email")))
-# "mdebellissf@gmail.com"^^<http://www.w3.org/2001/XMLSchema#anyURI>
-print(convert_to_string(get_value(find_instance_from_iri("MichaelDeBellis"), find_property("email"))))
-# mdebellissf@gmail.com
-print(find_class("Agent"))
-# <http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/Agent>
+print(find_instance_from_iri("Jay_Gatsby"))
+# <http://www.semanticweb.org/mdebe/ontologies/example#Jay_Gatsby>
+print(get_values(find_instance_from_iri("Jay_Gatsby"), find_property("has_Friend")))
+# [<http://www.semanticweb.org/mdebe/ontologies/example#Nick_Carraway>, <http://www.semanticweb.org/mdebe/ontologies/example#John_Smith>,... ]
+print(get_value(find_instance_from_iri("Jay_Gatsby"), find_property("has_Age")))
+# "42"^^<http://www.w3.org/2001/XMLSchema#integer>
+print(convert_to_string(get_value(find_instance_from_iri("Jay_Gatsby"), find_property("has_Age"))))
+# 42
+print(find_class("Person"))
+# <http://www.semanticweb.org/mdebe/ontologies/example#Person>
 print(find_class("Foo"))
 # Error Foo is not a class
 # None
 print(find_instances_of_class("Person"))
 # [<http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/DanielDuffy>, <http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/RyanMcGranaghan>,...]
-print(object_to_string(find_class("Organization")))
+print(object_to_string(find_class("Adult")))
 # "Organization"
-put_value(find_instance_from_iri("USA"), find_property("contains"), make_instance("Alaska", "State"))
+put_value(find_instance_from_iri("Daisy_Buchanan"), find_property("has_Social_Relation_With"), make_instance("Allen_Turing", find_class("Person")))
 conn.deleteDuplicates("spo")   # So we can run the test data without creating lots of Alaskas
-print(get_values(find_instance_from_iri("USA"), find_property("contains")))
-# List should include Alaska
-delete_value(find_instance_from_iri("USA"), find_property("contains"),find_instance_from_iri("Alaska"))
-print(get_values(find_instance_from_iri("USA"),find_property("contains")))
-# List should not include Alaska
-print(find_object_from_label("Adam Kellerman"))
+print(get_values(find_instance_from_iri("Daisy_Buchanan"), find_property("has_Social_Relation_With")))
+# List should include Allen_Turing
+delete_value(find_instance_from_iri("Daisy_Buchanan"), find_property("has_Social_Relation_With"),find_instance_from_iri("Allen_Turing"))
+print(get_values(find_instance_from_iri("Daisy_Buchanan"), find_property("has_Social_Relation_With")))
+# List should not include Allen_Turing
+print(find_object_from_label("Jay Gatsby"))
 # <http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/AdamKellerman>
-"""
+
 
