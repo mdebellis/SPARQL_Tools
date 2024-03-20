@@ -1,8 +1,12 @@
 from franz.openrdf.connect import ag_connect
 from franz.openrdf.vocabulary import RDF
 from franz.openrdf.query.query import QueryLanguage
+import datetime
 
+now = datetime.datetime.now()
 conn = ag_connect('people', host='localhost', port=10035, user='mdebellis', password='df1559')
+
+conn.setNamespace('ex', 'http://www.semanticweb.org/mdebe/ontologies/example#')
 
 owl_named_individual = conn.createURI("http://www.w3.org/2002/07/owl#NamedIndividual")
 owl_datatype_property = conn.createURI("http://www.w3.org/2002/07/owl#DatatypeProperty")
@@ -15,14 +19,14 @@ ontology_string = "http://www.semanticweb.org/mdebe/ontologies/example#"
 
 # Given the last part of an IRI will return the full IRI string
 # E.g., given "Person" returns "http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/Person"
-def make_iri_string (iri_name):
+def make_iri_string(iri_name):
     return ontology_string + iri_name
 
 # Finds a class with the the IRI class_name
 # If no such class exists, returns None
 # Note: when we refer to "IRI name" we mean last part of the IRI after the ontology prefix
 # E.g., IRI name of "http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/Person" is "Person"
-def find_class (class_name):
+def find_class(class_name):
     iri_str = make_iri_string(class_name)
     class_object = conn.createURI(iri_str)
     for _ in conn.getStatements(class_object, RDF.TYPE, owl_class):
@@ -96,10 +100,10 @@ def get_value(instance, owl_property):
                 return statement.getObject()
             elif len(statements) == 1:
                 return statement.getObject()
-    print(f'Error: No property value for: {iri_name, property_string}.')
+    print(f'Error: No property value for: {instance, owl_property}.')
     return None
 
-# Returns the values of a the property of an instance in a list if no values returns an empty list
+# Returns the values of the property of an instance in a list if no values returns an empty list
 def get_values(instance, owl_property):
     values = []
     statements = conn.getStatements(instance, owl_property, None)
@@ -152,11 +156,19 @@ def delete_value(instance, kg_property, old_value):
     conn.removeTriples(instance, kg_property, old_value)
 
 
-def rename_object(old_name, new_name):
-    query_string = "INSERT {" + new_name  + ":p :o.; skos:altLabel " + old_name + "; rdfs:comment Added alt label " + old_name "previous name: Date.} DELETE {" + old_name + " :p :o.}  WHERE {" + old_name + " :p :o.}"
-    tuple_query = self.conn.prepareTupleQuery(QueryLanguage.SPARQL, query_string)
-    result = tuple_query.evaluate()
+def create_rename_object_query(old_name, new_name):
+    query_string = "DELETE {ex:" + old_name + " ?p ?o.} "
+    query_string = query_string + "INSERT {ex:" + new_name  + " ?p ?o; skos:altLabel  \"" + old_name + "\"" + "; "
+    query_string = query_string + "rdfs:label  \"" + new_name + "\" "
+    query_string = query_string + "; rdfs:comment \"" + "Added alt label for old name: " + old_name + " on date: " + str(now) + "\""
+    query_string = query_string + ".}  WHERE {ex:" + old_name + " ?p ?o.}"
+    return query_string
 
+#tuple_query = self.conn.prepareTupleQuery(QueryLanguage.SPARQL, query_string)
+#result = tuple_query.evaluate()
+
+
+"""
 #Test data, in each case the comment below is what should be returned (with the current ontology)
 print(find_instance_from_iri("Jay_Gatsby"))
 # <http://www.semanticweb.org/mdebe/ontologies/example#Jay_Gatsby>
@@ -184,5 +196,6 @@ print(get_values(find_instance_from_iri("Daisy_Buchanan"), find_property("has_So
 # List should not include Allen_Turing
 print(find_object_from_label("Jay Gatsby"))
 # <http://www.semanticweb.org/ontologies/2022/1/CfHA_Ontology/AdamKellerman>
+"""
 
-
+print(create_rename_object_query("Jay_Gatsby", "JayGatsby"))
