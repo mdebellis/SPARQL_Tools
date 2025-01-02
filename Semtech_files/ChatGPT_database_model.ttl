@@ -1,0 +1,157 @@
+@prefix : <http://example.com/database#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Database_System a owl:Class ;
+  rdfs:label "Database System" .
+
+### OLTP
+:OLTP a owl:Class ;
+  rdfs:subClassOf :Database_System ;
+  rdfs:label "OLTP (Online Transaction Processing)" .
+
+:Relational a owl:Class ;
+  rdfs:subClassOf :OLTP ;
+  rdfs:label "Relational" .
+
+:Oracle a owl:NamedIndividual ;
+  a :Relational ;
+  rdfs:label "Oracle" .
+
+:SQL_Server a owl:NamedIndividual ;
+  a :Relational ;
+  rdfs:label "SQL Server" .
+
+:PostgreSQL a owl:NamedIndividual ;
+  a :Relational ;
+  rdfs:label "PostgreSQL" .
+
+:MySQL a owl:NamedIndividual ;
+  a :Relational ;
+  rdfs:label "MySQL" .
+
+:NoSQL a owl:Class ;
+  rdfs:subClassOf :OLTP ;
+  rdfs:label "NoSQL" .
+
+:Document a owl:Class ;
+  rdfs:subClassOf :NoSQL ;
+  rdfs:label "Document" .
+
+:MongoDB a owl:NamedIndividual ;
+  a :Document ;
+  rdfs:label "MongoDB" .
+
+:Couchbase a owl:NamedIndividual ;
+  a :Document ;
+  rdfs:label "Couchbase" .
+
+:Key_Value a owl:Class ;
+  rdfs:subClassOf :NoSQL ;
+  rdfs:label "Key-Value" .
+
+:Redis a owl:NamedIndividual ;
+  a :Key_Value ;
+  rdfs:label "Redis" .
+
+:DynamoDB a owl:NamedIndividual ;
+  a :Key_Value ;
+  rdfs:label "DynamoDB" .
+
+:Columnar a owl:Class ;
+  rdfs:subClassOf :NoSQL ;
+  rdfs:label "Columnar" .
+
+:Cassandra a owl:NamedIndividual ;
+  a :Columnar ;
+  rdfs:label "Cassandra" .
+
+:HBase a owl:NamedIndividual ;
+  a :Columnar ;
+  rdfs:label "HBase" .
+
+### OLAP
+:OLAP a owl:Class ;
+  rdfs:subClassOf :Database_System ;
+  rdfs:label "OLAP (Online Analytical Processing)" .
+
+:Graph a owl:Class ;
+  rdfs:subClassOf :OLAP ;
+  rdfs:label "Graph" .
+
+:RDF_OWL a owl:Class ;
+  rdfs:subClassOf :Graph ;
+  rdfs:label "RDF/OWL (Semantic Graphs)" .
+
+:AllegroGraph a owl:NamedIndividual ;
+  a :RDF_OWL ;
+  rdfs:label "AllegroGraph" .
+
+:Stardog a owl:NamedIndividual ;
+  a :RDF_OWL ;
+  rdfs:label "Stardog" .
+
+:GraphDB a owl:NamedIndividual ;
+  a :RDF_OWL ;
+  rdfs:label "GraphDB" .
+
+:Apache_Jena_TDB a owl:NamedIndividual ;
+  a :RDF_OWL ;
+  rdfs:label "Apache Jena TDB" .
+
+:Property_Graph a owl:Class ;
+  rdfs:subClassOf :Graph ;
+  rdfs:label "Property Graphs" .
+
+:Neo4j a owl:NamedIndividual ;
+  a :Property_Graph ;
+  rdfs:label "Neo4j" .
+
+:TigerGraph a owl:NamedIndividual ;
+  a :Property_Graph ;
+  rdfs:label "TigerGraph" .
+
+:Big_Data a owl:Class ;
+  rdfs:subClassOf :OLAP ;
+  rdfs:label "Big Data" .
+
+:Big_Data_Key_Value a owl:Class ;
+  rdfs:subClassOf :Big_Data ;
+  rdfs:label "Key-Value" .
+
+:Big_Data_Columnar a owl:Class ;
+  rdfs:subClassOf :Big_Data ;
+  rdfs:label "Columnar (Wide-Column Stores)" .
+
+:Google_BigTable a owl:NamedIndividual ;
+  a :Big_Data_Columnar ;
+  rdfs:label "Google BigTable" .
+
+:Distributed_Relational a owl:Class ;
+  rdfs:subClassOf :Big_Data ;
+  rdfs:label "Distributed Relational" .
+
+:Apache_Hive a owl:NamedIndividual ;
+  a :Distributed_Relational ;
+  rdfs:label "Apache Hive" .
+
+:Google_BigQuery a owl:NamedIndividual ;
+  a :Distributed_Relational ;
+  rdfs:label "Google BigQuery" .
+
+:Snowflake a owl:NamedIndividual ;
+  a :Distributed_Relational ;
+  rdfs:label "Snowflake" .
+
+:Multi_Model a owl:Class ;
+  rdfs:subClassOf :OLAP ;
+  rdfs:label "Multi-Model" .
+
+:ArangoDB a owl:NamedIndividual ;
+  a :Multi_Model ;
+  rdfs:label "ArangoDB" .
+
+:CosmosDB a owl:NamedIndividual ;
+  a :Multi_Model ;
+  rdfs:label "CosmosDB" .
