@@ -1,0 +1,549 @@
+@prefix : <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix fn: <http://www.w3.org/2005/xpath-functions#> .
+@prefix kw: <http://franz.com/ns/keyword#> .
+@prefix nd: <http://franz.com/ns/allegrograph/5.0/geo/nd#> .
+@prefix xs: <http://www.w3.org/2001/XMLSchema#> .
+@prefix err: <http://www.w3.org/2005/xqt-errors#> .
+@prefix fti: <http://franz.com/ns/allegrograph/2.2/textindex/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ndfn: <http://franz.com/ns/allegrograph/5.0/geo/nd/fn#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix keyword: <http://franz.com/ns/keyword#> .
+@base <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology> .
+
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/contributor
+dcterms:contributor rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> rdf:type owl:ObjectProperty ;
+                                                                                  owl:inverseOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/is_Vendor_For> ;
+                                                                                  rdfs:domain <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Software_System> ;
+                                                                                  rdfs:range <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Agent> ;
+                                                                                  rdfs:label "has Vendor" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/is_Vendor_For
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/is_Vendor_For> rdf:type owl:ObjectProperty ;
+                                                                                     dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                                     dcterms:created "2025-01-02T21:40:18Z"^^xsd:dateTime ;
+                                                                                     rdfs:label "is Vendor For" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> rdf:type owl:DatatypeProperty ;
+                                                                                             rdfs:domain <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Database_System> ;
+                                                                                             rdfs:label "ranking on DB-Engines" ;
+                                                                                             skos:definition "The ranking as defined on: https://db-engines.com/en/ranking" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> rdf:type owl:DatatypeProperty ;
+                                                                                 rdfs:domain <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Software_System> ;
+                                                                                 rdfs:label "strengths" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> rdf:type owl:DatatypeProperty ;
+                                                                                  rdfs:domain <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Software_System> ;
+                                                                                  rdfs:label "weaknesses" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.obolibrary.org/obo/Organization
+<http://purl.obolibrary.org/obo/Organization> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Agent> ;
+                                              dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                              dcterms:created "2025-01-02T21:28:54Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Agent
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Agent> rdf:type owl:Class ;
+                                                                             rdfs:label "Agent" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Big_Data
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Big_Data> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/OLAP> ;
+                                                                                rdfs:label "Big Data" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Columnar
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Columnar> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/NoSQL> ;
+                                                                                rdfs:label "Columnar" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> rdf:type owl:Class ;
+                                                                                   rdfs:subClassOf <http://purl.obolibrary.org/obo/Organization> ;
+                                                                                   rdfs:label "Corporation" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Database_System
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Database_System> rdf:type owl:Class ;
+                                                                                       rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Software_System> ;
+                                                                                       rdfs:label "Database System" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Distributed_Relational
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Distributed_Relational> rdf:type owl:Class ;
+                                                                                              rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Big_Data> ;
+                                                                                              rdfs:label "Distributed Relational" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Document
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Document> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/NoSQL> ;
+                                                                                rdfs:label "Document" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Graph
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Graph> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/OLAP> ;
+                                                                             rdfs:label "Graph" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Key_Value
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Key_Value> rdf:type owl:Class ;
+                                                                                 rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/NoSQL> ;
+                                                                                 rdfs:label "Key-Value" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/NoSQL
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/NoSQL> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/OLTP> ;
+                                                                             rdfs:label "NoSQL" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/OLAP
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/OLAP> rdf:type owl:Class ;
+                                                                            rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Database_System> ;
+                                                                            rdfs:label "OLAP (Online Analytical Processing)" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/OLTP
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/OLTP> rdf:type owl:Class ;
+                                                                            rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Database_System> ;
+                                                                            rdfs:label "OLTP (Online Transaction Processing)" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Open_Source_Organization
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Open_Source_Organization> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://purl.obolibrary.org/obo/Organization> ;
+                                                                                                rdfs:label "Open Source Organization" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Person
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Person> rdf:type owl:Class ;
+                                                                              rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Agent> ;
+                                                                              dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                              dcterms:created "2025-01-02T23:45:55Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Property_Graph
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Property_Graph> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Graph> ;
+                                                                                      rdfs:label "Property Graph" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/RDF_OWL
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/RDF_OWL> rdf:type owl:Class ;
+                                                                               rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Graph> ;
+                                                                               rdfs:label "RDF/OWL (Semantic Graphs)" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Relational
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Relational> rdf:type owl:Class ;
+                                                                                  rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/OLTP> ;
+                                                                                  rdfs:label "Relational" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Software_System
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Software_System> rdf:type owl:Class ;
+                                                                                       dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                                       dcterms:created "2025-01-02T21:40:59Z"^^xsd:dateTime .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/AllegroGraph
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/AllegroGraph> rdf:type owl:NamedIndividual ,
+                                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/RDF_OWL> ;
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Franz_Inc> ;
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 51 ;
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "High-performance graph database with advanced reasoning and query capabilities. https://franz.com/" ;
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Niche market focus; may not be suitable for general-purpose database needs." ;
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://franz.com" ;
+                                                                                    rdfs:label "AllegroGraph" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Amazon
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Amazon> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Apache
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Apache> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Open_Source_Organization> ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://apache.org" ;
+                                                                              rdfs:label "Apache" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Apache_Hive
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Apache_Hive> rdf:type owl:NamedIndividual ,
+                                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Distributed_Relational> ;
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Apache> ;
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 31 ;
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "SQL-based data warehouse infrastructure, highly scalable. https://hive.apache.org/" ;
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Performance limited compared to dedicated OLAP solutions. https://hive.apache.org/" ;
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://hive.apache.org" ,
+                                                                                                                                                              "https://hive.apache.org/" ;
+                                                                                   rdfs:label "Apache Hive" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ArangoDB
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ArangoDB> rdf:type owl:NamedIndividual ,
+                                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Document> ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ArangoDB_Inc> ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 49 ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Multi-model database supporting graph, document, and key-value data. https://www.arangodb.com/" ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Smaller community support compared to major NoSQL players. https://www.arangodb.com/" ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.arangodb.com" ,
+                                                                                                                                                           "https://www.arangodb.com/" ;
+                                                                                rdfs:label "ArangoDB" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ArangoDB_Inc
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ArangoDB_Inc> rdf:type owl:NamedIndividual ,
+                                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> <https://arangodb.com/> .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Cassandra
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Cassandra> rdf:type owl:NamedIndividual ,
+                                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Columnar> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Apache> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 12 ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Highly scalable and optimized for high write loads. https://cassandra.apache.org/" ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Complex setup and maintenance; lacks advanced querying capabilities. https://cassandra.apache.org/" ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://cassandra.apache.org" ,
+                                                                                                                                                            "https://cassandra.apache.org/" ;
+                                                                                 rdfs:label "Cassandra" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/CosmosDB
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/CosmosDB> rdf:type owl:NamedIndividual ,
+                                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Document> ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Microsoft> ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 18 ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Globally distributed multi-model database with strong availability. https://azure.microsoft.com/en-us/services/cosmos-db/" ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "High pricing for large-scale deployments. https://azure.microsoft.com/en-us/services/cosmos-db/" ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://azure.microsoft.com/en-us/services/cosmos-db/" ;
+                                                                                rdfs:label "CosmosDB" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Couchbase
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Couchbase> rdf:type owl:NamedIndividual ,
+                                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Document> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Couchbase_Inc> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 27 ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "High performance with integrated caching; suitable for real-time applications. https://www.couchbase.com/" ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Complex setup and maintenance; may require significant resources for scaling." ,
+                                                                                                                                                                   "Complex setup and maintenance; may require significant resources for scaling. https://www.couchbase.com/" ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.couchbase.com" ,
+                                                                                                                                                            "https://www.couchbase.com/" ;
+                                                                                 rdfs:label "Couchbase" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Couchbase_Inc
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Couchbase_Inc> rdf:type owl:NamedIndividual ,
+                                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.couchbase.com" ;
+                                                                                     rdfs:label "Couchbase Inc." .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/DynamoDB
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/DynamoDB> rdf:type owl:NamedIndividual ,
+                                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Key_Value> ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Amazon> ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 15 ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Fast and fully managed key-value and document database for internet-scale applications. https://aws.amazon.com/dynamodb/" ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Limited querying capabilities compared to traditional databases. https://aws.amazon.com/dynamodb/" ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://aws.amazon.com/dynamodb/" ;
+                                                                                rdfs:label "DynamoDB" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Franz_Inc
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Franz_Inc> rdf:type owl:NamedIndividual ,
+                                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://franz.com" ;
+                                                                                 rdfs:label "Franz Inc." .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Google
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Google> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.google.com" ;
+                                                                              rdfs:label "Google" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Google_BigQuery
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Google_BigQuery> rdf:type owl:NamedIndividual ,
+                                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Distributed_Relational> ;
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Google> ;
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 10 ;
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Fully managed, serverless data warehouse with real-time analytics and scalable architecture." ;
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Pricing can be complex; performance may vary with very large datasets. https://cloud.google.com/bigquery" ;
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://cloud.google.com/bigquery" ;
+                                                                                       rdfs:label "Google BigQuery" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Google_BigTable
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Google_BigTable> rdf:type owl:NamedIndividual ,
+                                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Columnar> ;
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Google> ;
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 22 ;
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "High-throughput database for structured data, optimized for large workloads. https://cloud.google.com/bigtable" ;
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Limited SQL support; designed for specific use cases. https://cloud.google.com/bigtable" ;
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://cloud.google.com/bigtable" ;
+                                                                                       rdfs:label "Google BigTable" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/GraphDB
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/GraphDB> rdf:type owl:NamedIndividual ,
+                                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/RDF_OWL> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Ontotext> ,
+                                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Ontotext_Corporation> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 55 ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Semantic graph database optimized for linked data and RDF/OWL operations. https://www.ontotext.com/products/graphdb/" ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Limited scalability for very large datasets. https://www.ontotext.com/products/graphdb/" ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.ontotext.com/products/graphdb/" ;
+                                                                               rdfs:label "GraphDB" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/HBase
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/HBase> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Columnar> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Apache> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 20 ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Scalable and designed for big data workloads. https://hbase.apache.org/" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Limited SQL support and requires expertise in distributed systems. https://hbase.apache.org/" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://hbase.apache.org" ,
+                                                                                                                                                        "https://hbase.apache.org/" ;
+                                                                             rdfs:label "HBase" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Microsoft
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Microsoft> rdf:type owl:NamedIndividual ,
+                                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> <https://www.microsoft.com/> .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/MongoDB
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/MongoDB> rdf:type owl:NamedIndividual ,
+                                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Document> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/MongoDB_Inc> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 5 ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Flexible schema design, high scalability, and strong community support. https://www.mongodb.com/" ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Lacks support for complex transactions; potential consistency issues in certain scenarios. https://www.mongodb.com/" ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.mongodb.com" ,
+                                                                                                                                                          "https://www.mongodb.com/" ;
+                                                                               rdfs:label "MongoDB" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/MongoDB_Inc
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/MongoDB_Inc> rdf:type owl:NamedIndividual ,
+                                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.mongodb.com" ;
+                                                                                   rdfs:label "MongoDB Inc." .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/MySQL
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/MySQL> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Relational> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Oracle_Corporation> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 2 ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Reliable and widely used relational database with extensive community support. https://www.mysql.com/" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Lags behind in some enterprise features compared to PostgreSQL. https://www.mysql.com/" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.mysql.com" ,
+                                                                                                                                                        "https://www.mysql.com/" ;
+                                                                             rdfs:label "MySQL" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Neo4j
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Neo4j> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Property_Graph> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Neo4j_Inc> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 21 ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Leading graph database with robust querying capabilities for complex relational data. https://neo4j.com/" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Can be resource-intensive; may require specialized knowledge for optimization. https://neo4j.com/" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://neo4j.com" ,
+                                                                                                                                                        "https://neo4j.com/" ;
+                                                                             rdfs:label "Neo4j" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Neo4j_Inc
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Neo4j_Inc> rdf:type owl:NamedIndividual ,
+                                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://neo4j.com" ;
+                                                                                 rdfs:label "Neo4j Inc." .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Ontotext
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Ontotext> rdf:type owl:NamedIndividual ,
+                                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/RDF_OWL> ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Ontotext_Corporation> ;
+                                                                                dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                                dcterms:created "2025-01-02T21:50:15Z"^^xsd:dateTime ;
+                                                                                rdfs:label "Ontotext" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Ontotext_Corporation
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Ontotext_Corporation> rdf:type owl:NamedIndividual ,
+                                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                                            rdfs:label "Ontotext Corporation" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Oracle
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Oracle> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Relational> ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Oracle_Corporation> ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 1 ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Highly scalable and feature-rich RDBMS with extensive enterprise support. https://www.oracle.com/" ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Complex licensing model and high costs. https://www.oracle.com/" ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.oracle.com" ,
+                                                                                                                                                         "https://www.oracle.com/" ;
+                                                                              rdfs:label "Oracle" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Oracle_Corporation
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Oracle_Corporation> rdf:type owl:NamedIndividual ,
+                                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/PostgreSQL
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/PostgreSQL> rdf:type owl:NamedIndividual ,
+                                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Relational> ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/PostgreSQL_Community> ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 4 ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Open-source RDBMS with extensive features and strong community support. https://www.postgresql.org/" ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Performance may lag under extremely high workloads. https://www.postgresql.org/" ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.postgresql.org" ,
+                                                                                                                                                             "https://www.postgresql.org/" ;
+                                                                                  rdfs:label "PostgreSQL" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/PostgreSQL_Community
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/PostgreSQL_Community> rdf:type owl:NamedIndividual ,
+                                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Open_Source_Organization> .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Redis
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Redis> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Key_Value> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Redis_Labs> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 6 ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Extremely fast in-memory data store; supports various data structures. https://redis.io/" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Data persistence can be challenging; limited querying capabilities compared to traditional databases. https://redis.io/" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://redis.io" ,
+                                                                                                                                                        "https://redis.io/" ;
+                                                                             rdfs:label "Redis" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Redis_Labs
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Redis_Labs> rdf:type owl:NamedIndividual ,
+                                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://redis.io" ;
+                                                                                  rdfs:label "Redis Labs" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Snowflake
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Snowflake> rdf:type owl:NamedIndividual ,
+                                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Distributed_Relational> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Snowflake_Inc> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 7 ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Cloud-native data platform with seamless scaling and advanced analytics features. https://www.snowflake.com/" ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Dependency on cloud infrastructure; potential latency issues with large data transfers. https://www.snowflake.com/" ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.snowflake.com" ,
+                                                                                                                                                            "https://www.snowflake.com/" ;
+                                                                                 rdfs:label "Snowflake" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Snowflake_Inc
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Snowflake_Inc> rdf:type owl:NamedIndividual ,
+                                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.snowflake.com" ;
+                                                                                     rdfs:label "Snowflake Inc." .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Stardog
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Stardog> rdf:type owl:NamedIndividual ,
+                                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/RDF_OWL> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Stardog_Inc> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.stardog.com" ;
+                                                                               rdfs:label "Stardog" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Stardog_Inc
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Stardog_Inc> rdf:type owl:NamedIndividual ,
+                                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/TigerGraph
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/TigerGraph> rdf:type owl:NamedIndividual ,
+                                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Property_Graph> ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/has_Vendor> <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/TigerGraph_Inc> ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/ranking_on-db-engines> 55 ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/strengths> "Optimized for deep link analytics; capable of handling large-scale graph queries." ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/weaknesses> "Smaller community compared to competitors; steep learning curve for new users." ;
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.tigergraph.com" ;
+                                                                                  rdfs:label "TigerGraph" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/TigerGraph_Inc
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/TigerGraph_Inc> rdf:type owl:NamedIndividual ,
+                                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/Corporation> ;
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/database_ontology/url> "https://www.tigergraph.com" ;
+                                                                                      rdfs:label "TigerGraph Inc." .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
