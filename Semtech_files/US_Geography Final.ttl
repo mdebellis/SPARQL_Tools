@@ -1,0 +1,980 @@
+@prefix : <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix fn: <http://www.w3.org/2005/xpath-functions#> .
+@prefix kw: <http://franz.com/ns/keyword#> .
+@prefix nd: <http://franz.com/ns/allegrograph/5.0/geo/nd#> .
+@prefix xs: <http://www.w3.org/2001/XMLSchema#> .
+@prefix err: <http://www.w3.org/2005/xqt-errors#> .
+@prefix fti: <http://franz.com/ns/allegrograph/2.2/textindex/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ndfn: <http://franz.com/ns/allegrograph/5.0/geo/nd/fn#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix keyword: <http://franz.com/ns/keyword#> .
+@base <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography#> .
+
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/contributor
+dcterms:contributor rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/borders
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/borders> rdf:type owl:ObjectProperty ,
+                                                                                   owl:SymmetricProperty ;
+                                                                          rdfs:domain <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Place> ;
+                                                                          dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                          dcterms:created "2025-01-01T23:20:51Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/containedIn
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/containedIn> rdf:type owl:ObjectProperty ;
+                                                                              owl:inverseOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/contains> ;
+                                                                              dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                              dcterms:created "2025-01-01T19:40:18Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/contains
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/contains> rdf:type owl:ObjectProperty ,
+                                                                                    owl:TransitiveProperty ;
+                                                                           rdfs:domain <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Place> ;
+                                                                           rdfs:range <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Place> ;
+                                                                           dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                           dcterms:created "2025-01-01T19:40:07Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> rdf:type owl:ObjectProperty ;
+                                                                                  rdfs:subPropertyOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/contains> ;
+                                                                                  rdfs:domain <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                                  rdfs:range <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                                  dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                                  dcterms:created "2025-01-01T21:10:31Z"^^xsd:dateTime .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> rdf:type owl:DatatypeProperty ;
+                                                                        rdfs:subPropertyOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/stateProperty> ;
+                                                                        dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                        dcterms:created "2025-01-01T19:58:13Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> rdf:type owl:DatatypeProperty ;
+                                                                       rdfs:domain <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Place> ;
+                                                                       dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                       dcterms:created "2025-01-01T19:54:09Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/celebrity
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/celebrity> rdf:type owl:DatatypeProperty ;
+                                                                            rdfs:subPropertyOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/stateProperty> ;
+                                                                            dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                            dcterms:created "2025-01-01T21:13:00Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> rdf:type owl:DatatypeProperty ;
+                                                                           rdfs:subPropertyOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/stateProperty> ;
+                                                                           dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                           dcterms:created "2025-01-01T19:53:28Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> rdf:type owl:DatatypeProperty ;
+                                                                             rdfs:subPropertyOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/stateProperty> ;
+                                                                             dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                             dcterms:created "2025-01-01T19:45:25Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/stateProperty
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/stateProperty> rdf:type owl:DatatypeProperty ;
+                                                                                rdfs:domain <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                                dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                                dcterms:created "2025-01-01T21:13:34Z"^^xsd:dateTime .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> rdf:type owl:Class ;
+                                                                       rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Place> ;
+                                                                       dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                       dcterms:created "2025-01-01T19:39:48Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nation
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nation> rdf:type owl:Class ;
+                                                                         rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Place> ;
+                                                                         dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                         dcterms:created "2025-01-01T19:39:48Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Place
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Place> rdf:type owl:Class ;
+                                                                        dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                        dcterms:created "2025-01-01T19:39:06Z"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> rdf:type owl:Class ;
+                                                                        rdfs:subClassOf <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Place> ;
+                                                                        dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                        dcterms:created "2025-01-01T19:39:48Z"^^xsd:dateTime .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Alabama
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Alabama> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Montgomery> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1819" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "52,420 square miles" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Kay Ivey" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "4,903,185" ;
+                                                                          rdfs:label "Alabama" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Alaska
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Alaska> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Juneau> ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1959" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "663,300 square miles" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Mike Dunleavy" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "731,000" ;
+                                                                         rdfs:label "Alaska" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Albany
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Albany> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                         rdfs:label "Albany" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Annapolis
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Annapolis> rdf:type owl:NamedIndividual ,
+                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                            rdfs:label "Annapolis" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Arizona
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Arizona> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Phoenix> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1912" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "113,990 square miles" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Doug Ducey" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "7,278,717" ;
+                                                                          rdfs:label "Arizona" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Arkansas
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Arkansas> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1836" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "53,179 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Asa Hutchinson" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "3,013,825" ;
+                                                                           rdfs:label "Arkansas" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Atlanta
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Atlanta> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Atlanta" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Augusta
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Augusta> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Augusta" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Austin
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Austin> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                         rdfs:label "Austin" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Bismarck
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Bismarck> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                           rdfs:label "Bismarck" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Boise
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Boise> rdf:type owl:NamedIndividual ,
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                        rdfs:label "Boise" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Boston
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Boston> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                         rdfs:label "Boston" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/California
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/California> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Sacramento> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1850" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "163,696 square miles" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Gavin Newsom" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "39,538,223" ;
+                                                                             rdfs:label "California" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Charleston
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Charleston> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                             rdfs:label "Charleston" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Cheyenne
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Cheyenne> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                           rdfs:label "Cheyenne" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Colorado
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Colorado> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Denver> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1876" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "104,094 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Jared Polis" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "5.8 million" ;
+                                                                           rdfs:label "Colorado" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Columbia
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Columbia> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                           rdfs:label "Columbia" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Columbus
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Columbus> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                           rdfs:label "Columbus" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Concord
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Concord> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Concord" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Connecticut
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Connecticut> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Hartford> ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1788" ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "5,543 square miles" ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Ned Lamont" ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "3.57 million" ;
+                                                                              rdfs:label "Connecticut" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Delaware
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Delaware> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Dover> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1787" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "2,489 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "John Carney" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "989,948" ;
+                                                                           rdfs:label "Delaware" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Denver
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Denver> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                         rdfs:label "Denver" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Dover
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Dover> rdf:type owl:NamedIndividual ,
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                        rdfs:label "Dover" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Florida
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Florida> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Tallahassee> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1845" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "65,758 square miles" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Ron DeSantis" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "21,477,737" ;
+                                                                          rdfs:label "Florida" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Frankfort
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Frankfort> rdf:type owl:NamedIndividual ,
+                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                            rdfs:label "Frankfort" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Georgia
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Georgia> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Atlanta> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1788" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "59,425 square miles" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Brian Kemp" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "10.62 million" ;
+                                                                          rdfs:label "Georgia" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Harrisburg
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Harrisburg> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                             rdfs:label "Harrisburg" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Hartford
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Hartford> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                           rdfs:label "Hartford" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Hawaii
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Hawaii> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Honolulu> ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1959" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "10,931 square miles" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "David Ige" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "1,455,271" ;
+                                                                         rdfs:label "Hawaii" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Helena
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Helena> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                         rdfs:label "Helena" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Honolulu
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Honolulu> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                           rdfs:label "Honolulu" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Idaho
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Idaho> rdf:type owl:NamedIndividual ,
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Boise> ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1890" ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "83,569 square miles" ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Brad Little" ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "1.8 million" ;
+                                                                        rdfs:label "Idaho" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Illinois
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Illinois> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Springfield> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1818" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "57,914 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "J.B. Pritzker" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "12,812,508" ;
+                                                                           rdfs:label "Illinois" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Indiana
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Indiana> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Indianapolis> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1816" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "36,418 square miles" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Eric Holcomb" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "6.7 million" ;
+                                                                          rdfs:label "Indiana" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Indianapolis
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Indianapolis> rdf:type owl:NamedIndividual ,
+                                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                               rdfs:label "Indianapolis" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Iowa
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Iowa> rdf:type owl:NamedIndividual ,
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1846" ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "56,272 square miles" ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Kim Reynolds" ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "3,190,369" ;
+                                                                       rdfs:label "Iowa" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Jackson
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Jackson> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Jackson" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Juneau
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Juneau> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                         rdfs:label "Juneau" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Kansas
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Kansas> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Topeka> ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1861" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "82,278 square miles" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Laura Kelly" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "2,913,314" ;
+                                                                         rdfs:label "Kansas" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Kentucky
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Kentucky> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Frankfort> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1792" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "40,409 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Andy Beshear" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "4.5 million" ;
+                                                                           rdfs:label "Kentucky" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Lansing
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Lansing> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Lansing" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Lincoln
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Lincoln> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Lincoln" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Louisiana
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Louisiana> rdf:type owl:NamedIndividual ,
+                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1812" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "52,378 square miles" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "John Bel Edwards" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "4.65 million" ;
+                                                                            rdfs:label "Louisiana" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Madison
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Madison> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Madison" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Maine
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Maine> rdf:type owl:NamedIndividual ,
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Augusta> ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1820" ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "35,385 square miles" ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Janet Mills" ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "1.344 million" ;
+                                                                        rdfs:label "Maine" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Maryland
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Maryland> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Annapolis> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1788" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "12,407 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Larry Hogan" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "6,177,224" ;
+                                                                           rdfs:label "Maryland" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Massachusetts
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Massachusetts> rdf:type owl:NamedIndividual ,
+                                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Boston> ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1788" ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "10,565 square miles" ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Charlie Baker" ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "6,892,503" ;
+                                                                                rdfs:label "Massachusetts" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Michigan
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Michigan> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Lansing> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1837" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "96,716 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Gretchen Whitmer" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "9,986,857" ;
+                                                                           rdfs:label "Michigan" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Minnesota
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Minnesota> rdf:type owl:NamedIndividual ,
+                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1858" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "86,935 square miles" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Tim Walz" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "5.7 million" ;
+                                                                            rdfs:label "Minnesota" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Mississippi
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Mississippi> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Jackson> ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1817" ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "48,430 square miles" ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Tate Reeves" ;
+                                                                              <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "2,976,149" ;
+                                                                              rdfs:label "Mississippi" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Missouri
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Missouri> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1821" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "69,704 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Mike Parson" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "6,169,270" ;
+                                                                           rdfs:label "Missouri" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Montana
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Montana> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Helena> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1889" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "147,040 square miles" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Greg Gianforte" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "1,084,225" ;
+                                                                          rdfs:label "Montana" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Montgomery
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Montgomery> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                             rdfs:label "Montgomery" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Montpelier
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Montpelier> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                             rdfs:label "Montpelier" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nashville
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nashville> rdf:type owl:NamedIndividual ,
+                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                            rdfs:label "Nashville" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nebraska
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nebraska> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Lincoln> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1867" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "77,220 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Pete Ricketts" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "1,961,504" ;
+                                                                           rdfs:label "Nebraska" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nevada
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nevada> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1864" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "110,572 square miles" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Steve Sisolak" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "3,155,070" ;
+                                                                         rdfs:label "Nevada" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/New_Hampshire
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/New_Hampshire> rdf:type owl:NamedIndividual ,
+                                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Concord> ;
+                                                                                dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                                dcterms:created "2025-01-03T18:05:37Z"^^xsd:dateTime ;
+                                                                                rdfs:label "New Hampshire" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/New_Jersey
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/New_Jersey> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Trenton> ;
+                                                                             dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                             dcterms:created "2025-01-03T18:05:58Z"^^xsd:dateTime ;
+                                                                             rdfs:label "New Jersey" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/New_Mexico
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/New_Mexico> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Santa_Fe> ;
+                                                                             dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                             dcterms:created "2025-01-03T18:06:16Z"^^xsd:dateTime ;
+                                                                             rdfs:label "New Mexico" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/New_York
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/New_York> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Albany> ;
+                                                                           dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                           dcterms:created "2025-01-03T18:06:38Z"^^xsd:dateTime ;
+                                                                           rdfs:label "New York" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/North_Carolina
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/North_Carolina> rdf:type owl:NamedIndividual ,
+                                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Raleigh> ;
+                                                                                 dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                                 dcterms:created "2025-01-03T18:07:00Z"^^xsd:dateTime ;
+                                                                                 rdfs:label "North Carolina" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/North_Dakota
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/North_Dakota> rdf:type owl:NamedIndividual ,
+                                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Bismarck> ;
+                                                                               dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                               dcterms:created "2025-01-03T18:07:22Z"^^xsd:dateTime ;
+                                                                               rdfs:label "North Dakota" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Ohio
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Ohio> rdf:type owl:NamedIndividual ,
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Columbus> ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1803" ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "44,825 square miles" ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Mike DeWine" ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "11,799,448" ;
+                                                                       rdfs:label "Ohio" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Oklahoma
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Oklahoma> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1907" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "69,899 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Kevin Stitt" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "3,959,353" ;
+                                                                           rdfs:label "Oklahoma" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Olympia
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Olympia> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Olympia" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Oregon
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Oregon> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Salem> ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1859" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "98,381 square miles" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Kate Brown" ;
+                                                                         <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "4,237,256" ;
+                                                                         rdfs:label "Oregon" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Pennsylvania
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Pennsylvania> rdf:type owl:NamedIndividual ,
+                                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Harrisburg> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1787" ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "46,055 square miles" ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Tom Wolf" ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "12,801,989" ;
+                                                                               rdfs:label "Pennsylvania" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Phoenix
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Phoenix> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Phoenix" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Pierre
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Pierre> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                         rdfs:label "Pierre" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Providence
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Providence> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                             rdfs:label "Providence" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Raleigh
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Raleigh> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Raleigh" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Rhode_Island
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Rhode_Island> rdf:type owl:NamedIndividual ,
+                                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Providence> ;
+                                                                               dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                               dcterms:created "2025-01-03T18:07:41Z"^^xsd:dateTime ;
+                                                                               rdfs:label "Rhode Island" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Richmond
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Richmond> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                           rdfs:label "Richmond" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Sacramento
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Sacramento> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                             rdfs:label "Sacramento" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Salem
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Salem> rdf:type owl:NamedIndividual ,
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                        rdfs:label "Salem" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Santa_Fe
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Santa_Fe> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                           dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                           dcterms:created "2025-01-03T18:13:38Z"^^xsd:dateTime ;
+                                                                           rdfs:label "Santa Fe" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/South_Carolina
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/South_Carolina> rdf:type owl:NamedIndividual ,
+                                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Columbia> ;
+                                                                                 dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                                 dcterms:created "2025-01-03T18:08:07Z"^^xsd:dateTime ;
+                                                                                 rdfs:label "South Carolina" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/South_Dakota
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/South_Dakota> rdf:type owl:NamedIndividual ,
+                                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Pierre> ;
+                                                                               dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                               dcterms:created "2025-01-03T18:08:26Z"^^xsd:dateTime ;
+                                                                               rdfs:label "South Dakota" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Springfield
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Springfield> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                              rdfs:label "Springfield" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Tallahassee
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Tallahassee> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                              rdfs:label "Tallahassee" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Tennessee
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Tennessee> rdf:type owl:NamedIndividual ,
+                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nashville> ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1796" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "42,143 square miles" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Bill Lee" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "6.9 million" ;
+                                                                            rdfs:label "Tennessee" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Texas
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Texas> rdf:type owl:NamedIndividual ,
+                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Austin> ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1845" ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "268,596 square miles" ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Greg Abbott" ;
+                                                                        <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "29,360,759" ;
+                                                                        rdfs:label "Texas" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Topeka
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Topeka> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                         rdfs:label "Topeka" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Trenton
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Trenton> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City> ;
+                                                                          rdfs:label "Trenton" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/USA
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/USA> rdf:type owl:NamedIndividual ,
+                                                                               <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nation> ;
+                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/contains> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Alabama> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Alaska> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Arizona> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Arkansas> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/California> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Colorado> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Connecticut> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Delaware> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Florida> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Georgia> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Hawaii> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Idaho> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Illinois> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Indiana> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Iowa> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Kansas> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Kentucky> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Louisiana> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Maine> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Maryland> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Massachusetts> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Michigan> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Minnesota> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Mississippi> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Missouri> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Montana> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nebraska> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nevada> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Ohio> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Oklahoma> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Oregon> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Pennsylvania> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Tennessee> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Texas> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Utah> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Vermont> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Virginia> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Washington> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Wisconsin> ,
+                                                                                                                                                 <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Wyoming> ;
+                                                                      dcterms:contributor <https://orcid.org/0000-0002-8824-9577> ;
+                                                                      dcterms:created "2025-01-01T19:43:49Z"^^xsd:dateTime ;
+                                                                      rdfs:label "U S A" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Utah
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Utah> rdf:type owl:NamedIndividual ,
+                                                                                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1896" ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "84,899 square miles" ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Spencer Cox" ;
+                                                                       <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "3,271,616" ;
+                                                                       rdfs:label "Utah" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Vermont
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Vermont> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Montpelier> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1791" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "9,616 square miles" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Phil Scott" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "623,989" ;
+                                                                          rdfs:label "Vermont" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Virginia
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Virginia> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Richmond> ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1788" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "42,775 square miles" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Ralph Northam" ;
+                                                                           <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "8,631,393" ;
+                                                                           rdfs:label "Virginia" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Washington
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Washington> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Olympia> ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1889" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "71,362 square miles" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Jay Inslee" ;
+                                                                             <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "7,705,281" ;
+                                                                             rdfs:label "Washington" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Wisconsin
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Wisconsin> rdf:type owl:NamedIndividual ,
+                                                                                     <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Madison> ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1848" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "65,497 square miles" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Tony Evers" ;
+                                                                            <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "5,893,718" ;
+                                                                            rdfs:label "Wisconsin" .
+
+
+###  http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Wyoming
+<http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Wyoming> rdf:type owl:NamedIndividual ,
+                                                                                   <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/hasStateCapital> <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Cheyenne> ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/admit> "1890" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/area> "97,813 square miles" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/governor> "Mark Gordon" ;
+                                                                          <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/population> "578,759" ;
+                                                                          rdfs:label "Wyoming" .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/City>
+                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/Nation>
+                <http://www.semanticweb.org/mdebe/ontologies/2025/0/us_geography/State>
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
