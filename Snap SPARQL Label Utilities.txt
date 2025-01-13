@@ -1,53 +1,64 @@
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX pizza: <http://www.semanticweb.org/pizzatutorial/ontologies/2020/PizzaTutorial#>
+PREFIX test: <http://www.semanticweb.org/mdebe/ontologies/2025/0/test/>
 
 #The following SPARQL queries will add a name based on the user supplied IRI
 #The assumptions are that classes and individuals have names in CamelBack and the properties
 #have names in reverseCamelBack. If the IRIs follow that scheme the labels are: "Camel Back" and 
 #"reverse Camel Back" respectively. 
 #This is meant to be used in the Snap SPARQL plugn for Protege. That is why
-#CONSTRUCT is used rather than INSERT. Also, why SUBSTR uses "1" for the leading
+#CONSTRUCT is used rather than INSERT. 
+# Also, why SUBSTR uses "1" for the leading
 #blanks in Class and Individual names. It should use "2" because SUBSTR is 1 based
 #in the spec. But in Snap SPARQL it is 0 based. 
 #Each transformation checks to see if a label already exists and doesn't create one
 #if one already exists. To change that remove the !BOUND test in the FILETERs
 
+# New Queries. These now deal correctly with acronyms. E.g., in old queries "NASAClass" would yield
+# the label "N A S A Class" I used ChatGPT to generate new REGEX matches that handle acronyms correctly
+
 #Create labels for all Classes
 CONSTRUCT {?c rdfs:label ?lblname.}
 WHERE {?c rdfs:subClassOf owl:Thing.
-        BIND(STRAFTER(STR(?c), '#') as ?name)
-		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?namewbs)
-		BIND (IF (STRSTARTS(?namewbs," "),SUBSTR(?namewbs,1),?namewbs) AS ?lblname)
-		OPTIONAL{?c rdfs:label ?elbl.}
-		FILTER(?c != owl:Thing && ?c != owl:Nothing && !BOUND(?elbl))}
-		
+    BIND(STRAFTER(STR(?c), 'test/') as ?name)
+	# First, separate lowercase-uppercase transitions that are not part of an acronym
+    BIND(REPLACE(?name, "([a-z])([A-Z])", "$1 $2") AS ?step1)
+    # Then, separate acronyms from following words
+    BIND(REPLACE(?step1, "([A-Z]+)([A-Z][a-z])", "$1 $2") AS ?lblname)
+	OPTIONAL{?c rdfs:label ?elbl.}
+	FILTER(?c != owl:Thing && ?c != owl:Nothing && !BOUND(?elbl))}	
+
 #Create labels for all Individuals		
 CONSTRUCT {?i rdfs:label ?lblname.}
 WHERE {?i a owl:Thing.
-        BIND(STRAFTER(STR(?i), '#') as ?name)
-		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?namewbs)
-		BIND (IF (STRSTARTS(?namewbs," "),SUBSTR(?namewbs,1),?namewbs) AS ?lblname)
-		OPTIONAL{?i rdfs:label ?elbl.}
-		FILTER(!BOUND(?elbl))}			
+    BIND(STRAFTER(STR(?i), 'test/') as ?name)
+	# First, separate lowercase-uppercase transitions that are not part of an acronym
+    BIND(REPLACE(?name, "([a-z])([A-Z])", "$1 $2") AS ?step1)
+    # Then, separate acronyms from following words
+    BIND(REPLACE(?step1, "([A-Z]+)([A-Z][a-z])", "$1 $2") AS ?lblname)
+	OPTIONAL{?i rdfs:label ?elbl.}
+	FILTER(!BOUND(?elbl))}			
 
 #Create labels for all Object Properties
 CONSTRUCT {?p rdfs:label ?lblname.}
 WHERE {?p a owl:ObjectProperty.
-        BIND(STRAFTER(STR(?p), '#') as ?name)
-		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?lblname)
-		OPTIONAL{?p rdfs:label ?elbl.}
-		FILTER(?p != owl:topObjectProperty && !BOUND(?elbl))}	
+    BIND(STRAFTER(STR(?p), 'test/') as ?name)
+	# First, separate lowercase-uppercase transitions that are not part of an acronym
+    BIND(REPLACE(?name, "([a-z])([A-Z])", "$1 $2") AS ?step1)
+    # Then, separate acronyms from following words
+    BIND(REPLACE(?step1, "([A-Z]+)([A-Z][a-z])", "$1 $2") AS ?lblname)
+	OPTIONAL{?p rdfs:label ?elbl.}
+	FILTER(?p != owl:topObjectProperty &&!BOUND(?elbl))}	
+
 
 #Create labels for all Data Properties
 CONSTRUCT {?p rdfs:label ?lblname.}
 WHERE {?p a owl:DatatypeProperty.
-        BIND(STRAFTER(STR(?p), '#') as ?name)
-		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?lblname)		
-		OPTIONAL{?p rdfs:label ?elbl.}
-		FILTER(?p != owl:topDataProperty && !BOUND(?elbl))}	
-
-
-	
-		
+    BIND(STRAFTER(STR(?p), 'test/') as ?name)
+	# First, separate lowercase-uppercase transitions that are not part of an acronym
+    BIND(REPLACE(?name, "([a-z])([A-Z])", "$1 $2") AS ?step1)
+    # Then, separate acronyms from following words
+    BIND(REPLACE(?step1, "([A-Z]+)([A-Z][a-z])", "$1 $2") AS ?lblname)		
+	OPTIONAL{?p rdfs:label ?elbl.}
+	FILTER(?p != owl:topDataProperty && !BOUND(?elbl))}	
