@@ -22,32 +22,42 @@ PREFIX pizza: <http://www.semanticweb.org/pizzatutorial/ontologies/2020/PizzaTut
 INSERT {?c rdfs:label ?lblname.}
 WHERE {?c a owl:Class.
         BIND(STRAFTER(STR(?c), '#') as ?name)
-		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?namewbs)
-		BIND (IF (STRSTARTS(?namewbs," "),SUBSTR(?namewbs,2),?namewbs) AS ?lblname)
-		OPTIONAL{?c rdfs:label ?elbl.}
-		FILTER(?c != owl:Thing && ?c != owl:Nothing && !isBlank(?c) && !BOUND(?elbl))}
+	# First, separate lowercase-uppercase transitions that are not part of an acronym
+    	BIND(REPLACE(?name, "([a-z])([A-Z])", "$1 $2") AS ?step1)
+    	# Then, separate acronyms from following words
+    	BIND(REPLACE(?step1, "([A-Z]+)([A-Z][a-z])", "$1 $2") AS ?lblname)
+	OPTIONAL{?c rdfs:label ?elbl.}
+	FILTER(?c != owl:Thing && ?c != owl:Nothing && !isBlank(?c) && !BOUND(?elbl))}
 		
 INSERT {?i rdfs:label ?lblname.}
 WHERE {?i a owl:Thing.
         BIND(STRAFTER(STR(?i), '#') as ?name)
-		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?namewbs)
-		BIND (IF (STRSTARTS(?namewbs," "),SUBSTR(?namewbs,2),?namewbs) AS ?lblname)
-		OPTIONAL{?i rdfs:label ?elbl.}
-		FILTER(!BOUND(?elbl))}			
+	# First, separate lowercase-uppercase transitions that are not part of an acronym
+    	BIND(REPLACE(?name, "([a-z])([A-Z])", "$1 $2") AS ?step1)
+    	# Then, separate acronyms from following words
+    	BIND(REPLACE(?step1, "([A-Z]+)([A-Z][a-z])", "$1 $2") AS ?lblname)
+	OPTIONAL{?i rdfs:label ?elbl.}
+	FILTER(!BOUND(?elbl))}			
 
 INSERT {?p rdfs:label ?lblname.}
 WHERE {?p a owl:ObjectProperty.
         BIND(STRAFTER(STR(?p), '#') as ?name)
-		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?lblname)
-		OPTIONAL{?p rdfs:label ?elbl.}
-		FILTER(!BOUND(?elbl))}	
+	# First, separate lowercase-uppercase transitions that are not part of an acronym
+    	BIND(REPLACE(?name, "([a-z])([A-Z])", "$1 $2") AS ?step1)
+    	# Then, separate acronyms from following words
+    	BIND(REPLACE(?step1, "([A-Z]+)([A-Z][a-z])", "$1 $2") AS ?lblname)
+	OPTIONAL{?p rdfs:label ?elbl.}
+	FILTER(!BOUND(?elbl))}	
 
 INSERT {?p rdfs:label ?lblname.}
 WHERE {?p a owl:DatatypeProperty.
         BIND(STRAFTER(STR(?p), '#') as ?name)
-		BIND(REPLACE(?name,"([A-Z])", " $1" ) as ?lblname)		
-		OPTIONAL{?p rdfs:label ?elbl.}
-		FILTER(!BOUND(?elbl))}	
+	# First, separate lowercase-uppercase transitions that are not part of an acronym
+    	BIND(REPLACE(?name, "([a-z])([A-Z])", "$1 $2") AS ?step1)
+    	# Then, separate acronyms from following words
+    	BIND(REPLACE(?step1, "([A-Z]+)([A-Z][a-z])", "$1 $2") AS ?lblname)		
+	OPTIONAL{?p rdfs:label ?elbl.}
+	FILTER(!BOUND(?elbl))}	
 
 
 
