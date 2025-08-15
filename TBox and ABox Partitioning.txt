@@ -1,0 +1,200 @@
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX g:    <http://michaeldebellis.com/graphs/>
+PREFIX :     <http://michaeldebellis.com/people/>
+
+# Reset TBox if needed
+DROP SILENT GRAPH g:TBox ;
+
+########################
+# INSERT into TBox
+########################
+
+# 1) Core schema triples (classes/properties/axioms + explicit typing of restriction bnodes, plus onDatatype/withRestrictions links)
+INSERT { GRAPH g:TBox { ?s ?p ?o } }
+WHERE {
+  {  # schema subjects
+    ?s a ?type .
+    VALUES ?type {
+      owl:Class rdfs:Class
+      rdf:Property owl:ObjectProperty owl:DatatypeProperty owl:AnnotationProperty owl:OntologyProperty
+      owl:Ontology
+    }
+    ?s ?p ?o .
+  }
+  UNION
+  {  # schema predicates (expanded)
+    ?s ?p ?o .
+    VALUES ?p {
+      rdfs:subClassOf rdfs:subPropertyOf rdfs:domain rdfs:range
+      owl:equivalentClass owl:equivalentProperty owl:disjointWith owl:disjointUnionOf
+      owl:inverseOf owl:propertyChainAxiom
+      owl:hasKey
+      owl:intersectionOf owl:unionOf owl:complementOf
+      owl:onProperty owl:someValuesFrom owl:allValuesFrom owl:hasValue
+      owl:minQualifiedCardinality owl:maxQualifiedCardinality owl:qualifiedCardinality
+      owl:minCardinality owl:maxCardinality owl:cardinality
+      owl:onDatatype owl:withRestrictions
+      owl:onClass owl:onDataRange           # <-- add these
+      owl:hasSelf                           # <-- and this (just in case)
+    }
+  }
+  UNION
+  { ?s a owl:Restriction .
+    BIND(rdf:type AS ?p) BIND(owl:Restriction AS ?o) }
+};
+
+# 2) List scaffolding for ALL items in lists (oneOf / unionOf / intersectionOf / keys / chains / withRestrictions)
+
+INSERT { GRAPH g:TBox { ?lnode ?lp ?lo } }
+WHERE  {
+  ?owner ?schemaListPred ?head .
+  VALUES ?schemaListPred {
+    owl:oneOf owl:unionOf owl:intersectionOf
+    owl:propertyChainAxiom owl:hasKey
+    owl:withRestrictions                      # <-- include datatype restriction lists
+  }
+  # walk the whole list, not just the head
+  ?head (rdf:rest*) ?lnode .
+  ?lnode ?lp ?lo .
+  FILTER (?lp IN (rdf:first, rdf:rest))
+};
+
+
+
+# 3a) annotations for all items in owl:oneOf
+INSERT { GRAPH g:TBox { ?enum ?ep ?eo } }
+WHERE  {
+  ?c owl:oneOf ?L .
+  ?L (rdf:rest*/rdf:first) ?enum .
+  ?enum ?ep ?eo .
+  VALUES ?ep { rdfs:label skos:prefLabel rdfs:comment }
+};
+
+# 3b) facet triples for datatype restrictions in owl:withRestrictions
+INSERT { GRAPH g:TBox { ?item ?facet ?val } }
+WHERE  {
+  ?dr owl:withRestrictions ?L .
+  ?L (rdf:rest*/rdf:first) ?item .
+  ?item ?facet ?val .
+  VALUES ?facet {
+    xsd:minInclusive xsd:maxInclusive xsd:minExclusive xsd:maxExclusive
+    xsd:length xsd:minLength xsd:maxLength xsd:pattern
+    xsd:totalDigits xsd:fractionDigits
+  }
+};
+
+# 4) Include datatypes for data props
+INSERT { GRAPH g:TBox { ?dr rdf:type rdfs:Datatype } }
+WHERE  { ?dr owl:onDatatype ?dt . };
+
+# 5) Make sure to get all class restrictions. 
+INSERT { GRAPH g:TBox { ?r a owl:Restriction } }
+WHERE {
+  GRAPH g:TBox {
+    {
+      ?r owl:onProperty ?p .
+    } UNION {
+      ?r owl:someValuesFrom ?x .
+    } UNION {
+      ?r owl:allValuesFrom ?x .
+    } UNION {
+      ?r owl:hasValue ?x .
+    } UNION {
+      ?r owl:minQualifiedCardinality ?n .
+    } UNION {
+      ?r owl:maxQualifiedCardinality ?n .
+    } UNION {
+      ?r owl:qualifiedCardinality ?n .
+    } UNION {
+      ?r owl:minCardinality ?n .
+    } UNION {
+      ?r owl:maxCardinality ?n .
+    } UNION {
+      ?r owl:cardinality ?n .
+    }
+    FILTER NOT EXISTS { ?r a owl:Restriction }
+  }
+}
+
+
+########################
+# INSERT into ABox
+########################
+INSERT {
+  GRAPH g:ABox { ?s ?p ?o . }
+}
+WHERE {
+  ?s ?p ?o .
+
+  # Avoid schema subjects
+  FILTER ( !isBlank(?s) )
+  FILTER NOT EXISTS { ?s a owl:Class }
+  FILTER NOT EXISTS { ?s a rdfs:Class }
+  FILTER NOT EXISTS { ?s a rdf:Property }
+  FILTER NOT EXISTS { ?s a owl:ObjectProperty }
+  FILTER NOT EXISTS { ?s a owl:DatatypeProperty }
+  FILTER NOT EXISTS { ?s a owl:AnnotationProperty }
+  FILTER NOT EXISTS { ?s a owl:OntologyProperty }
+  FILTER NOT EXISTS { ?s a owl:Ontology }
+
+  # Exclude enumeration constants from ABox
+  FILTER NOT EXISTS {
+    ?c owl:oneOf ?L .
+    ?L (rdf:rest*/rdf:first) ?s .
+  }
+
+  # (Optional) also exclude list nodes/restriction bnodes that might sneak in
+  FILTER NOT EXISTS {
+    ?x ?pp ?s .
+    FILTER (?pp IN (rdf:first, rdf:rest))
+  }
+}
+
+########################
+# Quick checks
+########################
+
+# Count triples per bucket
+SELECT ?bucket (COUNT(*) AS ?triples)
+WHERE {
+  { GRAPH g:TBox { ?s ?p ?o } BIND("TBox" AS ?bucket) }
+  UNION
+  { GRAPH g:ABox { ?s ?p ?o } BIND("ABox" AS ?bucket) }
+}
+GROUP BY ?bucket 
+
+# List all the TBox entities
+SELECT DISTINCT ?entity WHERE {
+  GRAPH g:TBox {
+    { ?entity ?p ?o . FILTER(isIRI(?entity)) }
+    UNION
+    { ?s ?p ?entity . FILTER(isIRI(?entity)) }
+  }
+}
+ORDER BY ?entity 
+
+# List all the ABox entities
+SELECT DISTINCT ?entity WHERE {
+  GRAPH g:ABox {
+    { ?entity ?p ?o . FILTER(isIRI(?entity)) }
+    UNION
+    { ?s ?p ?entity . FILTER(isIRI(?entity)) }
+  }
+  # Optional: restrict to your base namespace
+  # FILTER(STRSTARTS(STR(?entity), STR(:)))
+}
+ORDER BY ?entity 
+
+########################
+# List the TBox for export. Do this in the SPARQL editor in AllegroGraph that supports exporting to various files
+########################
+ 
+CONSTRUCT { ?s ?p ?o }
+WHERE {
+  GRAPH g:TBox { ?s ?p ?o }
+}
+
