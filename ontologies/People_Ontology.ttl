@@ -1,4 +1,4 @@
-@prefix : <http://michaeldebellis.com/people/> .
+@prefix : <https://michaeldebellis.com/people/> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -9,27 +9,30 @@
 @prefix swrl: <http://www.w3.org/2003/11/swrl#> .
 @prefix swrla: <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#> .
 @prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
-@base <http://michaeldebellis.com/people/> .
+@base <https://michaeldebellis.com/people/> .
 
-<http://michaeldebellis.com/people> rdf:type owl:Ontology ;
-                                     dct:creator """Michael DeBellis
+<https://michaeldebellis.com/people> rdf:type owl:Ontology ;
+                                      dct:creator """Michael DeBellis
 Orcid ID: 0000-0002-8824-9577""" ;
-                                     dct:license <https://creativecommons.org/licenses/by/4.0/legalcode> ;
-                                     skos:definition "A simple example ontology of People, Organizations, Places, and Animals to illustrate basic Semantic Web concepts from RDF, RDFS, OWL, SPARQL and SHACL" .
+                                      dct:license <https://creativecommons.org/licenses/by/4.0/legalcode> ;
+                                      skos:definition "A simple example ontology of People, Organizations, Places, and Animals to illustrate basic Semantic Web concepts from RDF, RDFS, OWL, SPARQL and SHACL" .
 
 #################################################################
 #    Annotation properties
 #################################################################
 
-###  http://michaeldebellis.com/people/wikidata
-:wikidata rdf:type owl:AnnotationProperty ;
-          rdfs:range xsd:anyURI .
-
-
 ###  http://purl.org/dc/terms/abstract
 dct:abstract rdf:type owl:AnnotationProperty ;
              rdfs:label "abstract" ;
              skos:definition "A summary of the resource." .
+
+
+###  http://purl.org/dc/terms/contributor
+dct:contributor rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/created
+dct:created rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/dc/terms/creator
@@ -106,52 +109,88 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
                rdfs:subPropertyOf rdfs:label .
 
 
+###  https://michaeldebellis.com/people/canonical_unit
+:canonical_unit rdf:type owl:AnnotationProperty ;
+                dct:contributor "Michael DeBellis" ;
+                dct:created "2025-10-13T20:18:59Z"^^xsd:dateTime ;
+                rdfs:label "canonical unit"@en ;
+                rdfs:range :Unit .
+
+
+###  https://michaeldebellis.com/people/wikidata
+:wikidata rdf:type owl:AnnotationProperty ;
+          rdfs:label "wikidata"@en ;
+          rdfs:range xsd:anyURI .
+
+
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://michaeldebellis.com/people/contains
+###  https://michaeldebellis.com/people/born_in
+:born_in rdf:type owl:ObjectProperty ;
+         rdfs:domain :Person ;
+         rdfs:range :Place ;
+         dct:contributor "Michael DeBellis" ;
+         dct:created "2026-02-06T22:14:21Z"^^xsd:dateTime ;
+         rdfs:label "born in"@en .
+
+
+###  https://michaeldebellis.com/people/contains
 :contains rdf:type owl:ObjectProperty ;
           owl:inverseOf :is_contained_in ;
           rdf:type owl:TransitiveProperty ;
-          rdfs:domain :Place ;
-          rdfs:range :Place ;
           rdfs:label "contains" .
 
 
-###  http://michaeldebellis.com/people/contains_Direct
-:contains_Direct rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf :contains ;
-                 owl:inverseOf :is_Contained_In_Direct ;
-                 rdfs:label "contains direct" .
-
-
-###  http://michaeldebellis.com/people/eats
+###  https://michaeldebellis.com/people/eats
 :eats rdf:type owl:ObjectProperty ;
       rdfs:domain :Animal ;
       rdfs:range :Living_Thing ;
       rdfs:label "eats" .
 
 
-###  http://michaeldebellis.com/people/has_Address
-:has_Address rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf :has_Location ;
-             owl:inverseOf :is_Address_For ;
+###  https://michaeldebellis.com/people/equal_to
+:equal_to rdf:type owl:ObjectProperty ;
+          rdfs:domain :Measurement ;
+          rdfs:range :Measurement ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-10-03T04:58:19Z"^^xsd:dateTime ;
+          rdfs:label "equal to" .
+
+
+###  https://michaeldebellis.com/people/greater_than
+:greater_than rdf:type owl:ObjectProperty ;
+              owl:inverseOf :less_than ;
+              rdf:type owl:TransitiveProperty ;
+              rdfs:domain :Measurement ;
+              rdfs:range :Measurement ;
+              dct:contributor "Michael DeBellis" ;
+              dct:created "2025-10-03T04:58:19Z"^^xsd:dateTime ;
+              rdfs:label "greater than" .
+
+
+###  https://michaeldebellis.com/people/has_address
+:has_address rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :has_location ;
+             owl:inverseOf :is_address_for ;
              rdfs:domain :Agent ;
              rdfs:range :Address ;
              rdfs:label "has address" .
 
 
-###  http://michaeldebellis.com/people/has_Aunt
-:has_Aunt rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :has_Family_Relationship ;
-          owl:inverseOf :is_Aunt_Of ;
+###  https://michaeldebellis.com/people/has_aunt
+:has_aunt rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :has_family_relationship ;
+          owl:inverseOf :is_aunt_of ;
+          rdf:type owl:IrreflexiveProperty ;
           rdfs:label "has aunt" .
 
 
-###  http://michaeldebellis.com/people/has_Brother
-:has_Brother rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf :has_Sibling ;
+###  https://michaeldebellis.com/people/has_brother
+:has_brother rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :has_sibling ;
+             rdf:type owl:IrreflexiveProperty ;
              rdfs:range [ rdf:type owl:Class ;
                           owl:unionOf ( :Boy
                                         :Man
@@ -160,23 +199,49 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
              rdfs:label "has brother" .
 
 
-###  http://michaeldebellis.com/people/has_Child
-:has_Child rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf :has_Family_Relationship ;
-           owl:inverseOf :has_Parent ;
+###  https://michaeldebellis.com/people/has_child
+:has_child rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :has_family_relationship ;
+           owl:inverseOf :has_parent ;
+           rdf:type owl:IrreflexiveProperty ;
            rdfs:label "has child" .
 
 
-###  http://michaeldebellis.com/people/has_Colleague
-:has_Colleague rdf:type owl:ObjectProperty ;
-               rdfs:subPropertyOf :has_Social_Relationship ;
-               rdf:type owl:SymmetricProperty ;
+###  https://michaeldebellis.com/people/has_city
+:has_city rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :has_location ;
+          rdfs:domain :Address ;
+          rdfs:range :City ;
+          rdfs:label "has city" .
+
+
+###  https://michaeldebellis.com/people/has_colleague
+:has_colleague rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :has_social_relationship ;
+               rdf:type owl:SymmetricProperty ,
+                        owl:IrreflexiveProperty ;
                rdfs:label "has colleague" .
 
 
-###  http://michaeldebellis.com/people/has_Daughter
-:has_Daughter rdf:type owl:ObjectProperty ;
-              rdfs:subPropertyOf :has_Child ;
+###  https://michaeldebellis.com/people/has_component
+:has_component rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :has_component_transitive ;
+               owl:inverseOf :is_component_of ;
+               dct:contributor "Michael DeBellis" ;
+               dct:created "2025-09-19T15:34:11Z"^^xsd:dateTime ;
+               rdfs:label "has component" .
+
+
+###  https://michaeldebellis.com/people/has_component_transitive
+:has_component_transitive rdf:type owl:ObjectProperty ,
+                                   owl:TransitiveProperty ;
+                          rdfs:label "has component transitive" .
+
+
+###  https://michaeldebellis.com/people/has_daughter
+:has_daughter rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :has_child ;
+              rdf:type owl:IrreflexiveProperty ;
               rdfs:range [ rdf:type owl:Class ;
                            owl:unionOf ( :Girl
                                          :Woman
@@ -185,110 +250,160 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
               rdfs:label "has daughter" .
 
 
-###  http://michaeldebellis.com/people/has_Family_Relationship
-:has_Family_Relationship rdf:type owl:ObjectProperty ;
-                         rdfs:subPropertyOf :has_Social_Relationship ;
+###  https://michaeldebellis.com/people/has_employer
+:has_employer rdf:type owl:ObjectProperty ;
+              owl:inverseOf :is_employer_of ;
+              rdfs:domain :Employee ;
+              rdfs:range :Agent ;
+              rdfs:label "has employer" .
+
+
+###  https://michaeldebellis.com/people/has_family_relationship
+:has_family_relationship rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf :has_social_relationship ;
+                         rdf:type owl:IrreflexiveProperty ;
                          rdfs:label "has family relationship" .
 
 
-###  http://michaeldebellis.com/people/has_Father
-:has_Father rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :has_Parent ;
+###  https://michaeldebellis.com/people/has_father
+:has_father rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :has_parent ;
+            rdf:type owl:IrreflexiveProperty ;
             rdfs:range :Man ;
-            :wikidata <https://www.wikidata.org/wiki/Q7565> ;
-            rdfs:label "has father" .
+            rdfs:label "has father" ;
+            :wikidata <https://www.wikidata.org/wiki/Q7565> .
 
 
-###  http://michaeldebellis.com/people/has_Friend
-:has_Friend rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :has_Social_Relationship ;
-            rdf:type owl:SymmetricProperty ;
+###  https://michaeldebellis.com/people/has_friend
+:has_friend rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :has_social_relationship ;
+            rdf:type owl:SymmetricProperty ,
+                     owl:IrreflexiveProperty ;
             rdfs:label "has friend" .
 
 
-###  http://michaeldebellis.com/people/has_Gender
-:has_Gender rdf:type owl:ObjectProperty ;
+###  https://michaeldebellis.com/people/has_gender
+:has_gender rdf:type owl:ObjectProperty ,
+                     owl:FunctionalProperty ;
             rdfs:domain :Animal ;
             rdfs:range :Gender ;
             rdfs:label "has gender" .
 
 
-###  http://michaeldebellis.com/people/has_Husband
-:has_Husband rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf :has_Spouse ;
+###  https://michaeldebellis.com/people/has_higher_seniority_than
+:has_higher_seniority_than rdf:type owl:ObjectProperty ;
+                           owl:inverseOf :has_lower_seniority_than ;
+                           rdf:type owl:TransitiveProperty ;
+                           rdfs:domain :Role ;
+                           rdfs:range :Role ;
+                           dct:contributor "Michael DeBellis" ;
+                           dct:created "2025-10-01T18:30:32Z"^^xsd:dateTime ;
+                           rdfs:label "has higher seniority than" .
+
+
+###  https://michaeldebellis.com/people/has_husband
+:has_husband rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :has_spouse ;
+             rdf:type owl:IrreflexiveProperty ;
              rdfs:range :Man ;
              rdfs:label "has husband" .
 
 
-###  http://michaeldebellis.com/people/has_Location
-:has_Location rdf:type owl:ObjectProperty ;
+###  https://michaeldebellis.com/people/has_location
+:has_location rdf:type owl:ObjectProperty ;
               rdfs:range :Place ;
               rdfs:label "has location" .
 
 
-###  http://michaeldebellis.com/people/has_Member
-:has_Member rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :has_Part ;
-            owl:inverseOf :is_Member_Of ;
+###  https://michaeldebellis.com/people/has_lower_seniority_than
+:has_lower_seniority_than rdf:type owl:ObjectProperty ,
+                                   owl:TransitiveProperty ;
+                          dct:contributor "Michael DeBellis" ;
+                          dct:created "2025-10-01T18:31:14Z"^^xsd:dateTime ;
+                          rdfs:label "has lower seniority than" .
+
+
+###  https://michaeldebellis.com/people/has_member
+:has_member rdf:type owl:ObjectProperty ;
+            owl:inverseOf :is_member_of ;
             rdfs:domain :Organization ;
             rdfs:range :Agent ;
             rdfs:label "has member" .
 
 
-###  http://michaeldebellis.com/people/has_Mother
-:has_Mother rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :has_Parent ;
+###  https://michaeldebellis.com/people/has_mother
+:has_mother rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :has_parent ;
+            rdf:type owl:IrreflexiveProperty ;
             rdfs:range :Woman ;
-            :wikidata <https://www.wikidata.org/wiki/Q7560> ;
-            rdfs:label "has mother" .
+            rdfs:label "has mother" ;
+            :wikidata <https://www.wikidata.org/wiki/Q7560> .
 
 
-###  http://michaeldebellis.com/people/has_Parent
-:has_Parent rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :has_Family_Relationship ;
+###  https://michaeldebellis.com/people/has_nation
+:has_nation rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :has_location ;
+            rdfs:domain :Address ;
+            rdfs:range :Nation ;
+            dct:contributor "Michael DeBellis" ;
+            dct:created "2025-09-20T06:32:11Z"^^xsd:dateTime ;
+            rdfs:label "has nation" .
+
+
+###  https://michaeldebellis.com/people/has_parent
+:has_parent rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :has_family_relationship ;
+            rdf:type owl:IrreflexiveProperty ;
             rdfs:label "has parent" .
 
 
-###  http://michaeldebellis.com/people/has_Part
-:has_Part rdf:type owl:ObjectProperty ;
-          owl:inverseOf :is_Part_Of ;
-          rdfs:label "has part" .
-
-
-###  http://michaeldebellis.com/people/has_Pet
-:has_Pet rdf:type owl:ObjectProperty ;
-         owl:inverseOf :is_Pet_Of ;
+###  https://michaeldebellis.com/people/has_pet
+:has_pet rdf:type owl:ObjectProperty ;
+         owl:inverseOf :is_pet_of ;
          rdfs:label "has pet" .
 
 
-###  http://michaeldebellis.com/people/has_Sibling
-:has_Sibling rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf :has_Family_Relationship ;
-             rdf:type owl:SymmetricProperty ;
+###  https://michaeldebellis.com/people/has_role
+:has_role rdf:type owl:ObjectProperty ;
+          rdfs:domain :Employee ;
+          rdfs:range :Role ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-10-01T18:13:23Z"^^xsd:dateTime ;
+          rdfs:label "has role" .
+
+
+###  https://michaeldebellis.com/people/has_sibling
+:has_sibling rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :has_family_relationship ;
+             rdf:type owl:SymmetricProperty ,
+                      owl:IrreflexiveProperty ;
              rdfs:label "has sibling" .
 
 
-###  http://michaeldebellis.com/people/has_Sister
-:has_Sister rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :has_Sibling ;
+###  https://michaeldebellis.com/people/has_sister
+:has_sister rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :has_sibling ;
+            rdf:type owl:IrreflexiveProperty ;
             rdfs:range [ rdf:type owl:Restriction ;
-                         owl:onProperty :has_Gender ;
+                         owl:onProperty :has_gender ;
                          owl:hasValue :Female
                        ] ;
             rdfs:label "has sister" .
 
 
-###  http://michaeldebellis.com/people/has_Social_Relationship
-:has_Social_Relationship rdf:type owl:ObjectProperty ,
-                                  owl:SymmetricProperty ;
+###  https://michaeldebellis.com/people/has_social_relationship
+:has_social_relationship rdf:type owl:ObjectProperty ,
+                                  owl:SymmetricProperty ,
+                                  owl:IrreflexiveProperty ;
                          rdfs:domain :Person ;
                          rdfs:range :Person ;
                          rdfs:label "has social relationship" .
 
 
-###  http://michaeldebellis.com/people/has_Son
-:has_Son rdf:type owl:ObjectProperty ;
-         rdfs:subPropertyOf :has_Child ;
+###  https://michaeldebellis.com/people/has_son
+:has_son rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :has_child ;
+         rdf:type owl:IrreflexiveProperty ;
          rdfs:range [ rdf:type owl:Class ;
                       owl:unionOf ( :Boy
                                     :Man
@@ -297,142 +412,175 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
          rdfs:label "has son" .
 
 
-###  http://michaeldebellis.com/people/has_Spouse
-:has_Spouse rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :has_Family_Relationship ;
-            rdf:type owl:FunctionalProperty ,
-                     owl:SymmetricProperty ;
+###  https://michaeldebellis.com/people/has_spouse
+:has_spouse rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :has_family_relationship ;
+            rdf:type owl:SymmetricProperty ,
+                     owl:IrreflexiveProperty ;
             rdfs:domain :Adult ;
             rdfs:range :Adult ;
             rdfs:label "has spouse" .
 
 
-###  http://michaeldebellis.com/people/has_State
-:has_State rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf :has_Location ;
+###  https://michaeldebellis.com/people/has_state
+:has_state rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :has_location ;
+           rdfs:domain :Address ;
            rdfs:range :State ;
            rdfs:label "has state" .
 
 
-###  http://michaeldebellis.com/people/has_Subsidiary
-:has_Subsidiary rdf:type owl:ObjectProperty ;
-                rdfs:subPropertyOf :has_Part ;
+###  https://michaeldebellis.com/people/has_subsidiary
+:has_subsidiary rdf:type owl:ObjectProperty ;
                 owl:inverseOf :is_subsidiary_of ;
                 rdfs:domain :Organization ;
                 rdfs:range :Orgonization_Component ;
                 rdfs:label "has subsidiary" .
 
 
-###  http://michaeldebellis.com/people/has_Uncle
-:has_Uncle rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf :has_Family_Relationship ;
-           owl:inverseOf :is_Uncle_Of ;
+###  https://michaeldebellis.com/people/has_uncle
+:has_uncle rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :has_family_relationship ;
+           owl:inverseOf :is_uncle_of ;
+           rdf:type owl:IrreflexiveProperty ;
            rdfs:label "has uncle" .
 
 
-###  http://michaeldebellis.com/people/has_Wife
-:has_Wife rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :has_Spouse ;
+###  https://michaeldebellis.com/people/has_unit
+:has_unit rdf:type owl:ObjectProperty ;
+          rdfs:domain :Measurement ;
+          rdfs:range :Unit ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-10-03T03:56:54Z"^^xsd:dateTime ;
+          rdfs:label "has unit" .
+
+
+###  https://michaeldebellis.com/people/has_wife
+:has_wife rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :has_spouse ;
+          rdf:type owl:IrreflexiveProperty ;
           rdfs:range :Woman ;
           rdfs:label "has wife" .
 
 
-###  http://michaeldebellis.com/people/has_city
-:has_city rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :has_Location ;
-          rdfs:range :City ;
-          rdfs:label "has city" .
-
-
-###  http://michaeldebellis.com/people/has_employer
-:has_employer rdf:type owl:ObjectProperty ;
-              owl:inverseOf :is_Employer_Of ;
-              rdfs:domain :Employee ;
-              rdfs:range :Agent ;
-              rdfs:label "has employer" .
-
-
-###  http://michaeldebellis.com/people/is_Address_For
-:is_Address_For rdf:type owl:ObjectProperty ;
+###  https://michaeldebellis.com/people/is_address_for
+:is_address_for rdf:type owl:ObjectProperty ;
                 rdfs:label "is address for" .
 
 
-###  http://michaeldebellis.com/people/is_Aunt_Of
-:is_Aunt_Of rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :has_Family_Relationship ;
+###  https://michaeldebellis.com/people/is_aunt_of
+:is_aunt_of rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :has_family_relationship ;
+            rdf:type owl:IrreflexiveProperty ;
             rdfs:label "is aunt of" .
 
 
-###  http://michaeldebellis.com/people/is_Contained_In_Direct
-:is_Contained_In_Direct rdf:type owl:ObjectProperty ;
-                        rdfs:subPropertyOf :is_contained_in ;
-                        rdfs:label "is contained in direct" .
+###  https://michaeldebellis.com/people/is_component_of
+:is_component_of rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :is_component_of_transitive ;
+                 dct:contributor "Michael DeBellis" ;
+                 dct:created "2025-09-19T15:34:38Z"^^xsd:dateTime ;
+                 rdfs:label "is component of" .
 
 
-###  http://michaeldebellis.com/people/is_Employer_Of
-:is_Employer_Of rdf:type owl:ObjectProperty ;
-                rdfs:label "is employer of" .
+###  https://michaeldebellis.com/people/is_component_of_transitive
+:is_component_of_transitive rdf:type owl:ObjectProperty ,
+                                     owl:TransitiveProperty ;
+                            dct:contributor "Michael DeBellis" ;
+                            dct:created "2025-09-19T16:36:13Z"^^xsd:dateTime ;
+                            rdfs:label "is component of transitive" .
 
 
-###  http://michaeldebellis.com/people/is_Member_Of
-:is_Member_Of rdf:type owl:ObjectProperty ;
-              rdfs:subPropertyOf :is_Part_Of ;
-              rdfs:label "is member of" .
-
-
-###  http://michaeldebellis.com/people/is_Part_Of
-:is_Part_Of rdf:type owl:ObjectProperty ;
-            rdfs:label "is part of" .
-
-
-###  http://michaeldebellis.com/people/is_Pet_Of
-:is_Pet_Of rdf:type owl:ObjectProperty ;
-           rdfs:domain :Pet ;
-           rdfs:range :Human ;
-           rdfs:label "is pet of" .
-
-
-###  http://michaeldebellis.com/people/is_Uncle_Of
-:is_Uncle_Of rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf :has_Family_Relationship ;
-             rdfs:label "is uncle of" .
-
-
-###  http://michaeldebellis.com/people/is_contained_in
+###  https://michaeldebellis.com/people/is_contained_in
 :is_contained_in rdf:type owl:ObjectProperty ,
                           owl:TransitiveProperty ;
                  rdfs:label "is contained in" .
 
 
-###  http://michaeldebellis.com/people/is_subsidiary_of
+###  https://michaeldebellis.com/people/is_employer_of
+:is_employer_of rdf:type owl:ObjectProperty ;
+                rdfs:label "is employer of" .
+
+
+###  https://michaeldebellis.com/people/is_member_of
+:is_member_of rdf:type owl:ObjectProperty ;
+              rdfs:label "is member of" .
+
+
+###  https://michaeldebellis.com/people/is_pet_of
+:is_pet_of rdf:type owl:ObjectProperty ;
+           rdfs:domain :Pet ;
+           rdfs:range :Human ;
+           rdfs:label "is pet of" .
+
+
+###  https://michaeldebellis.com/people/is_subsidiary_of
 :is_subsidiary_of rdf:type owl:ObjectProperty ;
-                  rdfs:subPropertyOf :is_Part_Of ;
                   rdfs:label "is subsidiary of" .
+
+
+###  https://michaeldebellis.com/people/is_uncle_of
+:is_uncle_of rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :has_family_relationship ;
+             rdf:type owl:IrreflexiveProperty ;
+             rdfs:label "is uncle of" .
+
+
+###  https://michaeldebellis.com/people/less_than
+:less_than rdf:type owl:ObjectProperty ,
+                    owl:TransitiveProperty ;
+           dct:contributor "Michael DeBellis" ;
+           dct:created "2025-10-03T04:58:19Z"^^xsd:dateTime ;
+           rdfs:label "less than" .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  http://michaeldebellis.com/people/birth_date
+###  https://michaeldebellis.com/people/birth_date
 :birth_date rdf:type owl:DatatypeProperty ,
                      owl:FunctionalProperty ;
+            rdfs:domain :Agent ;
             rdfs:range xsd:dateTime ;
             rdfs:label "birth date" .
 
 
-###  http://michaeldebellis.com/people/email
+###  https://michaeldebellis.com/people/canonical_value
+:canonical_value rdf:type owl:DatatypeProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain :Measurement ;
+                 rdfs:range xsd:decimal ;
+                 dct:contributor "Michael DeBellis" ;
+                 dct:created "2025-10-13T20:48:21Z"^^xsd:dateTime ;
+                 rdfs:label "canonical value"@en .
+
+
+###  https://michaeldebellis.com/people/email
 :email rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Agent ;
+       rdfs:range xsd:anyURI ;
        rdfs:label "email" .
 
 
-###  http://michaeldebellis.com/people/employee_id
+###  https://michaeldebellis.com/people/employee_id
 :employee_id rdf:type owl:DatatypeProperty ;
              rdfs:domain :Employee ;
+             rdfs:range rdfs:Literal ;
              rdfs:label "employee id" .
 
 
-###  http://michaeldebellis.com/people/has_age
+###  https://michaeldebellis.com/people/gender_string
+:gender_string rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :Animal ;
+               rdfs:range xsd:string ;
+               dct:contributor "Michael DeBellis" ;
+               dct:created "2025-09-25T22:07:36Z"^^xsd:dateTime ;
+               rdfs:label "gender string" .
+
+
+###  https://michaeldebellis.com/people/has_age
 :has_age rdf:type owl:DatatypeProperty ,
                   owl:FunctionalProperty ;
          rdfs:domain :Person ;
@@ -443,14 +591,7 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
          skos:prefLabel "has age" .
 
 
-###  http://michaeldebellis.com/people/hired_on_date
-:hired_on_date rdf:type owl:DatatypeProperty ;
-               rdfs:domain :Employee ;
-               rdfs:range xsd:dateTime ;
-               rdfs:label "hired on date" .
-
-
-###  http://michaeldebellis.com/people/nobel_prize_winner
+###  https://michaeldebellis.com/people/nobel_prize_winner
 :nobel_prize_winner rdf:type owl:DatatypeProperty ,
                              owl:FunctionalProperty ;
                     rdfs:domain :Person ;
@@ -458,7 +599,7 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
                     rdfs:label "nobel prize winner" .
 
 
-###  http://michaeldebellis.com/people/number_of_social_relations
+###  https://michaeldebellis.com/people/number_of_social_relations
 :number_of_social_relations rdf:type owl:DatatypeProperty ,
                                      owl:FunctionalProperty ;
                             rdfs:domain :Person ;
@@ -466,28 +607,50 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
                             rdfs:label "number of social relations" .
 
 
-###  http://michaeldebellis.com/people/phone
+###  https://michaeldebellis.com/people/phone
 :phone rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Agent ;
+       rdfs:range rdfs:Literal ;
        rdfs:label "phone" .
 
 
-###  http://michaeldebellis.com/people/street
+###  https://michaeldebellis.com/people/start_date
+:start_date rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Employee ;
+            rdfs:range xsd:dateTime ;
+            rdfs:label "start date" .
+
+
+###  https://michaeldebellis.com/people/street
 :street rdf:type owl:DatatypeProperty ;
         rdfs:domain :Address ;
+        rdfs:range rdfs:Literal ;
         rdfs:label "street" .
 
 
-###  http://michaeldebellis.com/people/unit
+###  https://michaeldebellis.com/people/unit
 :unit rdf:type owl:DatatypeProperty ;
       rdfs:domain :Address ;
+      rdfs:range rdfs:Literal ;
       rdfs:label "unit" ;
-      skos:altLabel "apartment" ,
-                    "suite" .
+      skos:altLabel "suite" ;
+      skos:prefLabel "apartment" .
 
 
-###  http://michaeldebellis.com/people/zip
+###  https://michaeldebellis.com/people/value
+:value rdf:type owl:DatatypeProperty ,
+                owl:FunctionalProperty ;
+       rdfs:domain :Measurement ;
+       rdfs:range xsd:decimal ;
+       dct:contributor "Michael DeBellis" ;
+       dct:created "2025-10-03T03:57:35Z"^^xsd:dateTime ;
+       rdfs:label "value" .
+
+
+###  https://michaeldebellis.com/people/zip
 :zip rdf:type owl:DatatypeProperty ;
      rdfs:domain :Address ;
+     rdfs:range rdfs:Literal ;
      rdfs:label "zip" .
 
 
@@ -495,13 +658,23 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
 #    Classes
 #################################################################
 
-###  http://michaeldebellis.com/people/Address
+###  https://michaeldebellis.com/people/AI_Agent
+:AI_Agent rdf:type owl:Class ;
+          rdfs:subClassOf :Agent ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-09-23T00:48:27Z"^^xsd:dateTime ;
+          rdfs:label "AI Agent" ;
+          skos:definition "An automated software Agent." ;
+          skos:example "ChatGPT in Agent mode." .
+
+
+###  https://michaeldebellis.com/people/Address
 :Address rdf:type owl:Class ;
          rdfs:subClassOf :Place ;
          rdfs:label "Address" .
 
 
-###  http://michaeldebellis.com/people/Adult
+###  https://michaeldebellis.com/people/Adult
 :Adult rdf:type owl:Class ;
        owl:equivalentClass [ owl:intersectionOf ( :Person
                                                   [ rdf:type owl:Restriction ;
@@ -519,12 +692,21 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
        rdfs:label "Adult" .
 
 
-###  http://michaeldebellis.com/people/Agent
+###  https://michaeldebellis.com/people/Agent
 :Agent rdf:type owl:Class ;
        rdfs:label "Agent" .
 
 
-###  http://michaeldebellis.com/people/Animal
+###  https://michaeldebellis.com/people/Airplane
+:Airplane rdf:type owl:Class ;
+          rdfs:subClassOf :Vehicle ;
+          owl:disjointWith :Car ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-09-22T22:56:28Z"^^xsd:dateTime ;
+          rdfs:label "Airplane" .
+
+
+###  https://michaeldebellis.com/people/Animal
 :Animal rdf:type owl:Class ;
         rdfs:subClassOf :Living_Thing ,
                         [ rdf:type owl:Restriction ;
@@ -535,17 +717,17 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
         rdfs:label "Animal" .
 
 
-###  http://michaeldebellis.com/people/Bird
+###  https://michaeldebellis.com/people/Bird
 :Bird rdf:type owl:Class ;
       rdfs:subClassOf :Vertebrate ;
       rdfs:label "Bird" .
 
 
-###  http://michaeldebellis.com/people/Boy
+###  https://michaeldebellis.com/people/Boy
 :Boy rdf:type owl:Class ;
      owl:equivalentClass [ owl:intersectionOf ( :Child
                                                 [ rdf:type owl:Restriction ;
-                                                  owl:onProperty :has_Gender ;
+                                                  owl:onProperty :has_gender ;
                                                   owl:hasValue :Male
                                                 ]
                                               ) ;
@@ -556,13 +738,37 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
      rdfs:label "Boy" .
 
 
-###  http://michaeldebellis.com/people/Cat
+###  https://michaeldebellis.com/people/Bus
+:Bus rdf:type owl:Class ;
+     rdfs:subClassOf :Computer_Component ;
+     dct:contributor "Michael DeBellis" ;
+     dct:created "2025-09-19T15:38:27Z"^^xsd:dateTime ;
+     rdfs:label "Bus" .
+
+
+###  https://michaeldebellis.com/people/CPU
+:CPU rdf:type owl:Class ;
+     rdfs:subClassOf :Computer_Component ;
+     dct:contributor "Michael DeBellis" ;
+     dct:created "2025-09-19T15:38:27Z"^^xsd:dateTime ;
+     rdfs:label "CPU" .
+
+
+###  https://michaeldebellis.com/people/Car
+:Car rdf:type owl:Class ;
+     rdfs:subClassOf :Vehicle ;
+     dct:contributor "Michael DeBellis" ;
+     dct:created "2025-09-22T22:56:14Z"^^xsd:dateTime ;
+     rdfs:label "Car" .
+
+
+###  https://michaeldebellis.com/people/Cat
 :Cat rdf:type owl:Class ;
      rdfs:subClassOf :Mammal ;
      rdfs:label "Cat" .
 
 
-###  http://michaeldebellis.com/people/Child
+###  https://michaeldebellis.com/people/Child
 :Child rdf:type owl:Class ;
        owl:equivalentClass [ owl:intersectionOf ( :Person
                                                   [ rdf:type owl:Restriction ;
@@ -581,25 +787,41 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
        rdfs:label "Child" .
 
 
-###  http://michaeldebellis.com/people/City
+###  https://michaeldebellis.com/people/City
 :City rdf:type owl:Class ;
       rdfs:subClassOf :Place ;
       rdfs:label "City" .
 
 
-###  http://michaeldebellis.com/people/Continent
+###  https://michaeldebellis.com/people/Computer
+:Computer rdf:type owl:Class ;
+          rdfs:subClassOf :Product ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-09-19T15:36:18Z"^^xsd:dateTime ;
+          rdfs:label "Computer" .
+
+
+###  https://michaeldebellis.com/people/Computer_Component
+:Computer_Component rdf:type owl:Class ;
+                    rdfs:subClassOf :Product ;
+                    dct:contributor "Michael DeBellis" ;
+                    dct:created "2025-09-19T15:37:18Z"^^xsd:dateTime ;
+                    rdfs:label "Computer Component" .
+
+
+###  https://michaeldebellis.com/people/Continent
 :Continent rdf:type owl:Class ;
            rdfs:subClassOf :Place ;
            rdfs:label "Continent" .
 
 
-###  http://michaeldebellis.com/people/Corporation
+###  https://michaeldebellis.com/people/Corporation
 :Corporation rdf:type owl:Class ;
              rdfs:subClassOf :Organization ;
              rdfs:label "Corporation" .
 
 
-###  http://michaeldebellis.com/people/Cow
+###  https://michaeldebellis.com/people/Cow
 :Cow rdf:type owl:Class ;
      rdfs:subClassOf :Mammal ,
                      [ rdf:type owl:Restriction ;
@@ -609,23 +831,58 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
      rdfs:label "Cow" .
 
 
-###  http://michaeldebellis.com/people/Division
+###  https://michaeldebellis.com/people/Distance_Measurement
+:Distance_Measurement rdf:type owl:Class ;
+                      owl:equivalentClass [ owl:intersectionOf ( :Measurement
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty :has_unit ;
+                                                                   owl:someValuesFrom :Distance_Unit
+                                                                 ]
+                                                               ) ;
+                                            rdf:type owl:Class
+                                          ] ;
+                      rdfs:subClassOf :Measurement ;
+                      owl:disjointWith :Time_Measurement ;
+                      dct:contributor "Michael DeBellis" ;
+                      dct:created "2025-10-03T03:56:36Z"^^xsd:dateTime ;
+                      rdfs:label "Distance Measurement" ;
+                      :canonical_unit :Meter .
+
+
+###  https://michaeldebellis.com/people/Distance_Unit
+:Distance_Unit rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Class ;
+                                     owl:oneOf ( :Centimeter
+                                                 :Foot
+                                                 :Kilometer
+                                                 :Meter
+                                                 :Mile
+                                               )
+                                   ] ;
+               rdfs:subClassOf :Unit ;
+               owl:disjointWith :Time_Unit ;
+               dct:contributor "Michael DeBellis" ;
+               dct:created "2025-10-03T03:55:48Z"^^xsd:dateTime ;
+               rdfs:label "Distance Unit" .
+
+
+###  https://michaeldebellis.com/people/Division
 :Division rdf:type owl:Class ;
           rdfs:subClassOf :Orgonization_Component ;
           rdfs:label "Division" .
 
 
-###  http://michaeldebellis.com/people/Dog
+###  https://michaeldebellis.com/people/Dog
 :Dog rdf:type owl:Class ;
      rdfs:subClassOf :Mammal ;
      rdfs:label "Dog" .
 
 
-###  http://michaeldebellis.com/people/Einsteins_Wife
+###  https://michaeldebellis.com/people/Einsteins_Wife
 :Einsteins_Wife rdf:type owl:Class ;
                 owl:equivalentClass [ owl:intersectionOf ( :Woman
                                                            [ rdf:type owl:Restriction ;
-                                                             owl:onProperty :has_Husband ;
+                                                             owl:onProperty :has_husband ;
                                                              owl:hasValue :Albert_Einstein
                                                            ]
                                                          ) ;
@@ -634,7 +891,7 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
                 rdfs:label "Einstein's Wife" .
 
 
-###  http://michaeldebellis.com/people/Employee
+###  https://michaeldebellis.com/people/Employee
 :Employee rdf:type owl:Class ;
           owl:equivalentClass [ owl:intersectionOf ( :Person
                                                      [ rdf:type owl:Restriction ;
@@ -648,20 +905,20 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
           rdfs:label "Employee" .
 
 
-###  http://michaeldebellis.com/people/Fish
+###  https://michaeldebellis.com/people/Fish
 :Fish rdf:type owl:Class ;
       rdfs:subClassOf :Vertebrate ;
       rdfs:label "Fish" .
 
 
-###  http://michaeldebellis.com/people/Flower
+###  https://michaeldebellis.com/people/Flower
 :Flower rdf:type owl:Class ;
         rdfs:subClassOf :Plant ;
         owl:disjointWith :Tree ;
         rdfs:label "Flower" .
 
 
-###  http://michaeldebellis.com/people/Gender
+###  https://michaeldebellis.com/people/Gender
 :Gender rdf:type owl:Class ;
         owl:equivalentClass [ rdf:type owl:Class ;
                               owl:oneOf ( :Female
@@ -672,11 +929,11 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
         rdfs:label "Gender" .
 
 
-###  http://michaeldebellis.com/people/Girl
+###  https://michaeldebellis.com/people/Girl
 :Girl rdf:type owl:Class ;
       owl:equivalentClass [ owl:intersectionOf ( :Child
                                                  [ rdf:type owl:Restriction ;
-                                                   owl:onProperty :has_Gender ;
+                                                   owl:onProperty :has_gender ;
                                                    owl:hasValue :Female
                                                  ]
                                                ) ;
@@ -686,37 +943,37 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
       rdfs:label "Girl" .
 
 
-###  http://michaeldebellis.com/people/Gold_Fish
+###  https://michaeldebellis.com/people/Gold_Fish
 :Gold_Fish rdf:type owl:Class ;
            rdfs:subClassOf :Fish ;
            rdfs:label "Gold Fish" .
 
 
-###  http://michaeldebellis.com/people/Grass
+###  https://michaeldebellis.com/people/Grass
 :Grass rdf:type owl:Class ;
        rdfs:subClassOf :Plant ;
        rdfs:label "Grass" .
 
 
-###  http://michaeldebellis.com/people/Haddock
+###  https://michaeldebellis.com/people/Haddock
 :Haddock rdf:type owl:Class ;
          rdfs:subClassOf :Fish ;
          rdfs:label "Haddock" .
 
 
-###  http://michaeldebellis.com/people/Halibut
+###  https://michaeldebellis.com/people/Halibut
 :Halibut rdf:type owl:Class ;
          rdfs:subClassOf :Fish ;
          rdfs:label "Halibut" .
 
 
-###  http://michaeldebellis.com/people/Hedgehog
+###  https://michaeldebellis.com/people/Hedgehog
 :Hedgehog rdf:type owl:Class ;
           rdfs:subClassOf :Mammal ;
           rdfs:label "Hedgehog" .
 
 
-###  http://michaeldebellis.com/people/Herbivore
+###  https://michaeldebellis.com/people/Herbivore
 :Herbivore rdf:type owl:Class ;
            owl:equivalentClass [ owl:intersectionOf ( :Animal
                                                       [ rdf:type owl:Restriction ;
@@ -730,11 +987,11 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
            rdfs:label "Herbivore" .
 
 
-###  http://michaeldebellis.com/people/Hermit
+###  https://michaeldebellis.com/people/Hermit
 :Hermit rdf:type owl:Class ;
         owl:equivalentClass [ owl:intersectionOf ( :Person
                                                    [ rdf:type owl:Restriction ;
-                                                     owl:onProperty :has_Social_Relationship ;
+                                                     owl:onProperty :has_social_relationship ;
                                                      owl:qualifiedCardinality "0"^^xsd:nonNegativeInteger ;
                                                      owl:onClass :Person
                                                    ]
@@ -744,41 +1001,50 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
         rdfs:label "Hermit" .
 
 
-###  http://michaeldebellis.com/people/Human
+###  https://michaeldebellis.com/people/Human
 :Human rdf:type owl:Class ;
        rdfs:subClassOf :Mammal ;
        rdfs:label "Human" .
 
 
-###  http://michaeldebellis.com/people/Insect
+###  https://michaeldebellis.com/people/Insect
 :Insect rdf:type owl:Class ;
         rdfs:subClassOf :Animal ;
         owl:disjointWith :Vertebrate ;
         rdfs:label "Insect" .
 
 
-###  http://michaeldebellis.com/people/Larch
+###  https://michaeldebellis.com/people/Keyboard
+:Keyboard rdf:type owl:Class ;
+          rdfs:subClassOf :Computer_Component ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-09-19T15:38:27Z"^^xsd:dateTime ;
+          rdfs:label "Keyboard" .
+
+
+###  https://michaeldebellis.com/people/Larch
 :Larch rdf:type owl:Class ;
        rdfs:subClassOf :Tree ;
        rdfs:label "Larch" .
 
 
-###  http://michaeldebellis.com/people/Living_Thing
+###  https://michaeldebellis.com/people/Living_Thing
 :Living_Thing rdf:type owl:Class ;
+              owl:disjointWith :Physical_Thing ;
               rdfs:label "Living Thing" .
 
 
-###  http://michaeldebellis.com/people/Mammal
+###  https://michaeldebellis.com/people/Mammal
 :Mammal rdf:type owl:Class ;
         rdfs:subClassOf :Vertebrate ;
         rdfs:label "Mammal" .
 
 
-###  http://michaeldebellis.com/people/Man
+###  https://michaeldebellis.com/people/Man
 :Man rdf:type owl:Class ;
      owl:equivalentClass [ owl:intersectionOf ( :Adult
                                                 [ rdf:type owl:Restriction ;
-                                                  owl:onProperty :has_Gender ;
+                                                  owl:onProperty :has_gender ;
                                                   owl:hasValue :Male
                                                 ]
                                               ) ;
@@ -787,36 +1053,59 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
      rdfs:label "Man" .
 
 
-###  http://michaeldebellis.com/people/Nation
+###  https://michaeldebellis.com/people/Measurement
+:Measurement rdf:type owl:Class ;
+             dct:contributor "Michael DeBellis" ;
+             dct:created "2025-10-03T03:56:01Z"^^xsd:dateTime ;
+             rdfs:label "Measurement" .
+
+
+###  https://michaeldebellis.com/people/Monitor
+:Monitor rdf:type owl:Class ;
+         rdfs:subClassOf :Computer_Component ;
+         dct:contributor "Michael DeBellis" ;
+         dct:created "2025-09-19T15:38:27Z"^^xsd:dateTime ;
+         rdfs:label "Monitor" .
+
+
+###  https://michaeldebellis.com/people/Motherboard
+:Motherboard rdf:type owl:Class ;
+             rdfs:subClassOf :Computer_Component ;
+             dct:contributor "Michael DeBellis" ;
+             dct:created "2025-09-19T15:38:27Z"^^xsd:dateTime ;
+             rdfs:label "Motherboard" .
+
+
+###  https://michaeldebellis.com/people/Nation
 :Nation rdf:type owl:Class ;
         rdfs:subClassOf :Place ;
         rdfs:label "Nation" .
 
 
-###  http://michaeldebellis.com/people/Organization
+###  https://michaeldebellis.com/people/Organization
 :Organization rdf:type owl:Class ;
               rdfs:subClassOf :Agent ;
-              :wikidata <https://www.wikidata.org/wiki/Q43229> ;
-              rdfs:label "Organization" .
+              rdfs:label "Organization" ;
+              :wikidata <https://www.wikidata.org/wiki/Q43229> .
 
 
-###  http://michaeldebellis.com/people/Organization_Unit
+###  https://michaeldebellis.com/people/Organization_Unit
 :Organization_Unit rdf:type owl:Class ;
                    rdfs:subClassOf :Orgonization_Component ;
                    rdfs:label "Organization Unit" .
 
 
-###  http://michaeldebellis.com/people/Orgonization_Component
+###  https://michaeldebellis.com/people/Orgonization_Component
 :Orgonization_Component rdf:type owl:Class ;
                         rdfs:subClassOf :Organization ;
                         rdfs:label "Orgonization Component" .
 
 
-###  http://michaeldebellis.com/people/Parent
+###  https://michaeldebellis.com/people/Parent
 :Parent rdf:type owl:Class ;
         owl:equivalentClass [ owl:intersectionOf ( :Adult
                                                    [ rdf:type owl:Restriction ;
-                                                     owl:onProperty :has_Child ;
+                                                     owl:onProperty :has_child ;
                                                      owl:someValuesFrom :Person
                                                    ]
                                                  ) ;
@@ -825,21 +1114,21 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
         rdfs:label "Parent" .
 
 
-###  http://michaeldebellis.com/people/Person
+###  https://michaeldebellis.com/people/Person
 :Person rdf:type owl:Class ;
         rdfs:subClassOf :Agent ,
                         :Human ;
         rdfs:label "Person" .
 
 
-###  http://michaeldebellis.com/people/Pet
+###  https://michaeldebellis.com/people/Pet
 :Pet rdf:type owl:Class ;
      owl:equivalentClass [ owl:intersectionOf ( :Animal
                                                 [ rdf:type owl:Class ;
                                                   owl:complementOf :Human
                                                 ]
                                                 [ rdf:type owl:Restriction ;
-                                                  owl:onProperty :is_Pet_Of ;
+                                                  owl:onProperty :is_pet_of ;
                                                   owl:someValuesFrom :Human
                                                 ]
                                               ) ;
@@ -849,70 +1138,108 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
      rdfs:label "Pet" .
 
 
-###  http://michaeldebellis.com/people/Place
+###  https://michaeldebellis.com/people/Physical_Thing
+:Physical_Thing rdf:type owl:Class ;
+                dct:contributor "Michael DeBellis" ;
+                dct:created "2025-09-19T15:35:56Z"^^xsd:dateTime ;
+                rdfs:label "Physical Thing" .
+
+
+###  https://michaeldebellis.com/people/Place
 :Place rdf:type owl:Class ;
        rdfs:label "Place" .
 
 
-###  http://michaeldebellis.com/people/Planet
+###  https://michaeldebellis.com/people/Planet
 :Planet rdf:type owl:Class ;
         rdfs:subClassOf :Place ;
         rdfs:label "Planet" .
 
 
-###  http://michaeldebellis.com/people/Plant
+###  https://michaeldebellis.com/people/Plant
 :Plant rdf:type owl:Class ;
        rdfs:subClassOf :Living_Thing ;
        rdfs:label "Plant" .
 
 
-###  http://michaeldebellis.com/people/Province
+###  https://michaeldebellis.com/people/Product
+:Product rdf:type owl:Class ;
+         rdfs:subClassOf :Physical_Thing ;
+         dct:contributor "Michael DeBellis" ;
+         dct:created "2025-09-19T18:40:21Z"^^xsd:dateTime ;
+         rdfs:label "Product" .
+
+
+###  https://michaeldebellis.com/people/Province
 :Province rdf:type owl:Class ;
           rdfs:subClassOf :Place ;
           rdfs:label "Province" .
 
 
-###  http://michaeldebellis.com/people/Region
+###  https://michaeldebellis.com/people/RAM
+:RAM rdf:type owl:Class ;
+     rdfs:subClassOf :Computer_Component ;
+     dct:contributor "Michael DeBellis" ;
+     dct:created "2025-09-19T15:38:27Z"^^xsd:dateTime ;
+     rdfs:label "RAM" .
+
+
+###  https://michaeldebellis.com/people/Region
 :Region rdf:type owl:Class ;
         rdfs:subClassOf :Orgonization_Component ;
         rdfs:label "Region" .
 
 
-###  http://michaeldebellis.com/people/Reptile
+###  https://michaeldebellis.com/people/Reptile
 :Reptile rdf:type owl:Class ;
          rdfs:subClassOf :Vertebrate ;
          rdfs:label "Reptile" .
 
 
-###  http://michaeldebellis.com/people/Research_Institute
+###  https://michaeldebellis.com/people/Research_Institute
 :Research_Institute rdf:type owl:Class ;
                     rdfs:subClassOf :Organization ;
                     rdfs:label "Research Institute" .
 
 
-###  http://michaeldebellis.com/people/Rose
+###  https://michaeldebellis.com/people/Role
+:Role rdf:type owl:Class ;
+      owl:equivalentClass [ rdf:type owl:Class ;
+                            owl:oneOf ( :Director
+                                        :Manager
+                                        :Scientist
+                                        :Senior_Staff
+                                        :Staff
+                                      )
+                          ] ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-10-01T18:13:51Z"^^xsd:dateTime ;
+      rdfs:label "Role" .
+
+
+###  https://michaeldebellis.com/people/Rose
 :Rose rdf:type owl:Class ;
       rdfs:subClassOf :Flower ;
       rdfs:label "Rose" .
 
 
-###  http://michaeldebellis.com/people/Sales_Office
+###  https://michaeldebellis.com/people/Sales_Office
 :Sales_Office rdf:type owl:Class ;
               rdfs:subClassOf :Orgonization_Component ;
               rdfs:label "Sales Office" .
 
 
-###  http://michaeldebellis.com/people/Self_Employee
+###  https://michaeldebellis.com/people/Self_Employee
 :Self_Employee rdf:type owl:Class ;
                rdfs:subClassOf :Employee ;
                rdfs:label "Self Employee" .
 
 
-###  http://michaeldebellis.com/people/Social_Person
+###  https://michaeldebellis.com/people/Social_Person
 :Social_Person rdf:type owl:Class ;
                owl:equivalentClass [ owl:intersectionOf ( :Person
                                                           [ rdf:type owl:Restriction ;
-                                                            owl:onProperty :has_Social_Relationship ;
+                                                            owl:onProperty :has_social_relationship ;
                                                             owl:minQualifiedCardinality "5"^^xsd:nonNegativeInteger ;
                                                             owl:onClass :Person
                                                           ]
@@ -922,35 +1249,91 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
                rdfs:label "Social Person" .
 
 
-###  http://michaeldebellis.com/people/State
+###  https://michaeldebellis.com/people/State
 :State rdf:type owl:Class ;
        rdfs:subClassOf :Place ;
        rdfs:label "State" .
 
 
-###  http://michaeldebellis.com/people/Tree
+###  https://michaeldebellis.com/people/Test_Data
+:Test_Data rdf:type owl:Class ;
+           dct:contributor "Michael DeBellis" ;
+           dct:created "2025-09-23T00:05:40Z"^^xsd:dateTime ;
+           rdfs:label "Test Data" .
+
+
+###  https://michaeldebellis.com/people/Time_Measurement
+:Time_Measurement rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Measurement
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :has_unit ;
+                                                               owl:someValuesFrom :Time_Unit
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf :Measurement ;
+                  dct:contributor "Michael DeBellis" ;
+                  dct:created "2025-10-03T03:56:36Z"^^xsd:dateTime ;
+                  rdfs:label "Time Measurement" .
+
+
+###  https://michaeldebellis.com/people/Time_Unit
+:Time_Unit rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Class ;
+                                 owl:oneOf ( :Day
+                                             :Hour
+                                             :Minute
+                                             :Month
+                                             :Second
+                                             :Week
+                                             :Year
+                                           )
+                               ] ;
+           rdfs:subClassOf :Unit ;
+           dct:contributor "Michael DeBellis" ;
+           dct:created "2025-10-03T03:55:48Z"^^xsd:dateTime ;
+           rdfs:label "Time Unit" .
+
+
+###  https://michaeldebellis.com/people/Tree
 :Tree rdf:type owl:Class ;
       rdfs:subClassOf :Plant ;
       rdfs:label "Tree" .
 
 
-###  http://michaeldebellis.com/people/University
+###  https://michaeldebellis.com/people/Unit
+:Unit rdf:type owl:Class ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-10-03T03:54:20Z"^^xsd:dateTime ;
+      rdfs:label "Unit" .
+
+
+###  https://michaeldebellis.com/people/University
 :University rdf:type owl:Class ;
             rdfs:subClassOf :Organization ;
             rdfs:label "University" .
 
 
-###  http://michaeldebellis.com/people/Vertebrate
+###  https://michaeldebellis.com/people/Vehicle
+:Vehicle rdf:type owl:Class ;
+         rdfs:subClassOf :Product ;
+         dct:contributor "Michael DeBellis" ;
+         dct:created "2025-09-22T22:56:02Z"^^xsd:dateTime ;
+         rdfs:label "Vehicle" .
+
+
+###  https://michaeldebellis.com/people/Vertebrate
 :Vertebrate rdf:type owl:Class ;
             rdfs:subClassOf :Animal ;
             rdfs:label "Vertebrate" .
 
 
-###  http://michaeldebellis.com/people/Woman
+###  https://michaeldebellis.com/people/Woman
 :Woman rdf:type owl:Class ;
        owl:equivalentClass [ owl:intersectionOf ( :Adult
                                                   [ rdf:type owl:Restriction ;
-                                                    owl:onProperty :has_Gender ;
+                                                    owl:onProperty :has_gender ;
                                                     owl:hasValue :Female
                                                   ]
                                                 ) ;
@@ -963,926 +1346,1460 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
 #    Individuals
 #################################################################
 
-###  http://michaeldebellis.com/people/Adam
+###  https://michaeldebellis.com/people/Adam
 :Adam rdf:type owl:NamedIndividual ,
-               :Man ;
+               :Man ,
+               :Test_Data ;
       owl:differentFrom :Steve ;
-      :has_Husband :Steve ;
+      :has_husband :Steve ;
       :has_age 23 ;
       rdfs:label "Adam" .
 
 
-###  http://michaeldebellis.com/people/Address_Of_Marlow_Detective_Agency
+###  https://michaeldebellis.com/people/Address_Of_Marlow_Detective_Agency
 :Address_Of_Marlow_Detective_Agency rdf:type owl:NamedIndividual ,
-                                             :Address ;
-                                    :has_State :California ;
+                                             :Address ,
+                                             :Test_Data ;
                                     :has_city :Los_Angeles ;
+                                    :has_state :California ;
                                     :street "Hollywood Blvd." ,
                                             "the Cahuenga Building" ;
                                     rdfs:isDefinedBy <https://en.wikipedia.org/wiki/The_Big_Sleep> ;
                                     rdfs:label "Address Of Marlow Detective Agency" .
 
 
-###  http://michaeldebellis.com/people/Address_Of_Sherlock_Holmes
+###  https://michaeldebellis.com/people/Address_Of_Sherlock_Holmes
 :Address_Of_Sherlock_Holmes rdf:type owl:NamedIndividual ,
-                                     :Address ;
+                                     :Address ,
+                                     :Test_Data ;
                             :has_city :London ;
                             :street "221B Baker Street" ;
                             rdfs:label "Address Of Sherlock Holmes" .
 
 
-###  http://michaeldebellis.com/people/Address_Of_Spade_Detective_Agency
+###  https://michaeldebellis.com/people/Address_Of_Spade_Detective_Agency
 :Address_Of_Spade_Detective_Agency rdf:type owl:NamedIndividual ,
-                                            :Address ;
-                                   :has_State :California ;
+                                            :Address ,
+                                            :Test_Data ;
                                    :has_city :San_Francisco ;
+                                   :has_state :California ;
                                    :street "617 Bush Street" ;
                                    rdfs:isDefinedBy <https://en.wikipedia.org/wiki/The_Maltese_Falcon_(novel)> ;
                                    rdfs:label "Address Of Spade Detective Agency" .
 
 
-###  http://michaeldebellis.com/people/Africa
+###  https://michaeldebellis.com/people/Africa
 :Africa rdf:type owl:NamedIndividual ,
-                 :Continent ;
+                 :Continent ,
+                 :Test_Data ;
         rdfs:label "Africa" .
 
 
-###  http://michaeldebellis.com/people/Alan_Turing
+###  https://michaeldebellis.com/people/Alan_Turing
 :Alan_Turing rdf:type owl:NamedIndividual ,
-                      :Man ;
-             :has_Colleague :John_von_Neumann ;
+                      :Man ,
+                      :Test_Data ;
+             :born_in :London ;
+             :has_colleague :John_von_Neumann ;
              :birth_date "1912-06-23T00:00:00Z"^^xsd:dateTime ;
              :employee_id "999-99-9999" ;
              rdfs:label "Alan Turing" .
 
 
-###  http://michaeldebellis.com/people/Albert_Einstein
+###  https://michaeldebellis.com/people/Albert_Einstein
 :Albert_Einstein rdf:type owl:NamedIndividual ,
-                          :Man ;
-                 :has_Colleague :Emmy_Noether ,
+                          :Man ,
+                          :Test_Data ;
+                 :born_in :Ulm ;
+                 :has_colleague :Emmy_Noether ,
                                 :John_von_Neumann ;
+                 :has_employer :Swiss_Federal_Office_for_Intellectual_Property ;
                  :birth_date "1879-03-14T00:00:00Z"^^xsd:dateTime ;
                  :employee_id "999-99-1234" ;
-                 :hired_on_date "1933-10-01T00:00:00"^^xsd:dateTime ;
                  :nobel_prize_winner "true"^^xsd:boolean ;
                  :phone "+1 (609) 555-1234" ;
-                 :wikidata <https://www.wikidata.org/wiki/Q937> ;
+                 :start_date "1933-10-01T00:00:00"^^xsd:dateTime ;
                  rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Albert_Einstein> ;
-                 rdfs:label "Albert Einstein" .
+                 rdfs:label "Albert Einstein" ;
+                 :wikidata <https://www.wikidata.org/wiki/Q937> .
 
 
-###  http://michaeldebellis.com/people/Allison
+###  https://michaeldebellis.com/people/Allison
 :Allison rdf:type owl:NamedIndividual ,
-                  :Human ;
-         :has_Friend :Michael ;
-         :has_Gender :Female ;
-         :has_Pet :Ash ;
+                  :Human ,
+                  :Test_Data ;
+         :has_friend :Michael ;
+         :has_gender :Female ;
+         :has_pet :Ash ;
          :has_age 28 ;
          rdfs:label "Allison" .
 
 
-###  http://michaeldebellis.com/people/Alma_Mahler
+###  https://michaeldebellis.com/people/Alma_Mahler
 :Alma_Mahler rdf:type owl:NamedIndividual ,
+                      :Test_Data ,
                       :Woman ;
              rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Alma_Mahler> ;
              rdfs:label "Alma Mahler" .
 
 
-###  http://michaeldebellis.com/people/Alonzo_Church
+###  https://michaeldebellis.com/people/Alonzo_Church
 :Alonzo_Church rdf:type owl:NamedIndividual ,
-                        :Man ;
-               :has_Colleague :Alan_Turing ;
+                        :Man ,
+                        :Test_Data ;
+               :has_colleague :Alan_Turing ;
                rdfs:label "Alonzo Church" .
 
 
-###  http://michaeldebellis.com/people/Antarctica
+###  https://michaeldebellis.com/people/Antarctica
 :Antarctica rdf:type owl:NamedIndividual ,
-                     :Continent ;
+                     :Continent ,
+                     :Test_Data ;
             rdfs:label "Antarctica" .
 
 
-###  http://michaeldebellis.com/people/Apple_Inc
+###  https://michaeldebellis.com/people/Apple_Inc
 :Apple_Inc rdf:type owl:NamedIndividual ,
-                    :Corporation ;
+                    :Corporation ,
+                    :Test_Data ;
            rdfs:label "Apple Inc" .
 
 
-###  http://michaeldebellis.com/people/Ash
+###  https://michaeldebellis.com/people/Ash
 :Ash rdf:type owl:NamedIndividual ,
-              :Cat ;
+              :Cat ,
+              :Test_Data ;
      rdfs:label "Ash" .
 
 
-###  http://michaeldebellis.com/people/Asia
+###  https://michaeldebellis.com/people/Asia
 :Asia rdf:type owl:NamedIndividual ,
-               :Continent ;
+               :Continent ,
+               :Test_Data ;
       rdfs:label "Asia" .
 
 
-###  http://michaeldebellis.com/people/Australia
+###  https://michaeldebellis.com/people/Australia
 :Australia rdf:type owl:NamedIndividual ,
-                    :Continent ;
+                    :Continent ,
+                    :Test_Data ;
            rdfs:label "Australia" .
 
 
-###  http://michaeldebellis.com/people/Aviva_Chomsky
+###  https://michaeldebellis.com/people/Aviva_Chomsky
 :Aviva_Chomsky rdf:type owl:NamedIndividual ,
+                        :Test_Data ,
                         :Woman ;
-               :has_Father :Noam_Chomsky ;
+               :has_father :Noam_Chomsky ;
                :birth_date "1957-04-20T00:00:00Z"^^xsd:dateTime ;
                rdfs:label "Aviva Chomsky" .
 
 
-###  http://michaeldebellis.com/people/Baha_ud-Din_Walad
+###  https://michaeldebellis.com/people/Baha_ud-Din_Walad
 :Baha_ud-Din_Walad rdf:type owl:NamedIndividual ,
-                            :Man ;
-                   :has_Son :Rumi ;
+                            :Man ,
+                            :Test_Data ;
+                   :has_son :Rumi ;
                    rdfs:label "Baha ud-Din Walad" .
 
 
-###  http://michaeldebellis.com/people/Bell_Labs
+###  https://michaeldebellis.com/people/Bell_Labs
 :Bell_Labs rdf:type owl:NamedIndividual ,
-                    :Corporation ;
+                    :Corporation ,
+                    :Test_Data ;
            rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Bell_Labs> ;
            rdfs:label "Bell Labs" .
 
 
-###  http://michaeldebellis.com/people/Berkeley
+###  https://michaeldebellis.com/people/Berkeley
 :Berkeley rdf:type owl:NamedIndividual ,
-                   :City ;
+                   :City ,
+                   :Test_Data ;
           rdfs:label "Berkeley" .
 
 
-###  http://michaeldebellis.com/people/Berlin
+###  https://michaeldebellis.com/people/Berlin
 :Berlin rdf:type owl:NamedIndividual ,
-                 :City ;
+                 :City ,
+                 :Test_Data ;
         rdfs:label "Berlin" .
 
 
-###  http://michaeldebellis.com/people/Brazil
+###  https://michaeldebellis.com/people/Bern
+:Bern rdf:type owl:NamedIndividual ,
+               :City ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2026-02-06T22:36:45Z"^^xsd:dateTime ;
+      rdfs:label "Bern"@en .
+
+
+###  https://michaeldebellis.com/people/Brazil
 :Brazil rdf:type owl:NamedIndividual ,
-                 :Nation ;
+                 :Nation ,
+                 :Test_Data ;
         rdfs:label "Brazil" .
 
 
-###  http://michaeldebellis.com/people/British_Columbia
+###  https://michaeldebellis.com/people/British_Columbia
 :British_Columbia rdf:type owl:NamedIndividual ,
-                           :Province ;
-                  :contains_Direct :Vancouver ;
+                           :Province ,
+                           :Test_Data ;
+                  :contains :Vancouver ;
                   rdfs:label "British Columbia" .
 
 
-###  http://michaeldebellis.com/people/Buddy
+###  https://michaeldebellis.com/people/Buddy
 :Buddy rdf:type owl:NamedIndividual ,
-                :Dog ;
+                :Dog ,
+                :Test_Data ;
        rdfs:label "Buddy" .
 
 
-###  http://michaeldebellis.com/people/California
+###  https://michaeldebellis.com/people/Bus1
+:Bus1 rdf:type owl:NamedIndividual ,
+               :Bus ,
+               :Test_Data ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-09-19T15:40:00Z"^^xsd:dateTime ;
+      rdfs:label "Bus1" .
+
+
+###  https://michaeldebellis.com/people/Bus2
+:Bus2 rdf:type owl:NamedIndividual ,
+               :Bus ,
+               :Test_Data ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-09-19T15:49:17Z"^^xsd:dateTime ;
+      rdfs:label "Bus2" .
+
+
+###  https://michaeldebellis.com/people/CPU1
+:CPU1 rdf:type owl:NamedIndividual ,
+               :CPU ,
+               :Test_Data ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-09-19T15:38:56Z"^^xsd:dateTime ;
+      rdfs:label "CPU1" .
+
+
+###  https://michaeldebellis.com/people/CPU2
+:CPU2 rdf:type owl:NamedIndividual ,
+               :CPU ,
+               :Test_Data ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-09-19T15:39:03Z"^^xsd:dateTime ;
+      rdfs:label "CPU2" .
+
+
+###  https://michaeldebellis.com/people/California
 :California rdf:type owl:NamedIndividual ,
-                     :State ;
-            :contains_Direct :Berkeley ,
-                             :Los_Angeles ,
-                             :San_Francisco ;
+                     :State ,
+                     :Test_Data ;
+            :contains :Berkeley ,
+                      :Los_Angeles ,
+                      :San_Francisco ;
             rdfs:label "California" .
 
 
-###  http://michaeldebellis.com/people/Cambridge
+###  https://michaeldebellis.com/people/Cambridge
 :Cambridge rdf:type owl:NamedIndividual ,
-                    :City ;
+                    :City ,
+                    :Test_Data ;
            rdfs:label "Cambridge" .
 
 
-###  http://michaeldebellis.com/people/Canada
+###  https://michaeldebellis.com/people/Canada
 :Canada rdf:type owl:NamedIndividual ,
-                 :Nation ;
-        :contains_Direct :British_Columbia ;
+                 :Nation ,
+                 :Test_Data ;
+        :contains :British_Columbia ;
         rdfs:label "Canada" .
 
 
-###  http://michaeldebellis.com/people/Celeste_Albaret
+###  https://michaeldebellis.com/people/Celeste_Albaret
 :Celeste_Albaret rdf:type owl:NamedIndividual ,
-                          :Person ;
-                 :has_Social_Relationship :Marcel_Proust ;
+                          :Person ,
+                          :Test_Data ;
+                 :has_social_relationship :Marcel_Proust ;
                  rdfs:label "Céleste Albaret" .
 
 
-###  http://michaeldebellis.com/people/Chicago
+###  https://michaeldebellis.com/people/Centimeter
+:Centimeter rdf:type owl:NamedIndividual ;
+            dct:contributor "Michael DeBellis" ;
+            dct:created "2025-10-03T04:01:53Z"^^xsd:dateTime ;
+            rdfs:label "Centimeter" .
+
+
+###  https://michaeldebellis.com/people/Chicago
 :Chicago rdf:type owl:NamedIndividual ,
-                  :City ;
+                  :City ,
+                  :Test_Data ;
          rdfs:label "Chicago" .
 
 
-###  http://michaeldebellis.com/people/Claude_Shannon
+###  https://michaeldebellis.com/people/Claude_Shannon
 :Claude_Shannon rdf:type owl:NamedIndividual ,
-                         :Man ;
-                :has_Colleague :Alan_Turing ;
+                         :Man ,
+                         :Test_Data ;
+                :has_colleague :Alan_Turing ;
                 :has_employer :Bell_Labs ;
                 :birth_date "1916-04-30T00:00:00Z"^^xsd:dateTime ;
                 :employee_id "abc-de-fghi" ;
-                :hired_on_date "1941-01-01T00:00:00"^^xsd:dateTime ;
                 :phone "+1 (609) 555-6789" ;
+                :start_date "1941-01-01T00:00:00"^^xsd:dateTime ;
                 rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Claude_Shannon> ;
                 rdfs:label "Claude Shannon" .
 
 
-###  http://michaeldebellis.com/people/Confucius
+###  https://michaeldebellis.com/people/Confucius
 :Confucius rdf:type owl:NamedIndividual ,
-                    :Man ;
-           :wikidata <https://www.wikidata.org/wiki/Q21189283> ;
-           rdfs:label "Confucius" .
+                    :Man ,
+                    :Test_Data ;
+           rdfs:label "Confucius" ;
+           :wikidata <https://www.wikidata.org/wiki/Q21189283> .
 
 
-###  http://michaeldebellis.com/people/Creme_Puff
+###  https://michaeldebellis.com/people/Creme_Puff
 :Creme_Puff rdf:type owl:NamedIndividual ,
-                     :Cat ;
-            :wikidata <https://www.wikidata.org/wiki/Q2597104> ;
-            rdfs:label "Creme Puff" .
+                     :Cat ,
+                     :Test_Data ;
+            rdfs:label "Creme Puff" ;
+            :wikidata <https://www.wikidata.org/wiki/Q2597104> .
 
 
-###  http://michaeldebellis.com/people/Daisy_Buchanan
+###  https://michaeldebellis.com/people/Daisy_Buchanan
 :Daisy_Buchanan rdf:type owl:NamedIndividual ,
-                         :Person ;
-                :has_Friend :John_Doe ;
-                :has_Husband :Tom_Buchanan ;
+                         :Person ,
+                         :Test_Data ;
+                :has_friend :John_Doe ;
+                :has_husband :Tom_Buchanan ;
                 :has_age 32 ;
                 rdfs:isDefinedBy <https://en.wikipedia.org/wiki/The_Great_Gatsby> ;
                 rdfs:label "Daisy Buchanan" .
 
 
-###  http://michaeldebellis.com/people/Dinsdale_Piranha
+###  https://michaeldebellis.com/people/Day
+:Day rdf:type owl:NamedIndividual ,
+              :Test_Data ,
+              :Time_Unit ;
+     dct:contributor "Michael DeBellis" ;
+     dct:created "2025-10-03T04:05:37Z"^^xsd:dateTime ;
+     rdfs:label "Day" .
+
+
+###  https://michaeldebellis.com/people/Dinsdale_Piranha
 :Dinsdale_Piranha rdf:type owl:NamedIndividual ,
-                           :Man ;
-                  :has_Pet :Spiny_Norman ;
+                           :Man ,
+                           :Test_Data ;
+                  :has_pet :Spiny_Norman ;
                   rdfs:isDefinedBy <https://www.youtube.com/watch?v=8ZkWL-XvO0U> ;
                   rdfs:label "Dinsdale Piranha" .
 
 
-###  http://michaeldebellis.com/people/Doctor_Watson
+###  https://michaeldebellis.com/people/Director
+:Director rdf:type owl:NamedIndividual ,
+                   :Role ;
+          :has_higher_seniority_than :Scientist ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-10-01T18:15:09Z"^^xsd:dateTime ;
+          rdfs:label "Director" .
+
+
+###  https://michaeldebellis.com/people/Doctor_Watson
 :Doctor_Watson rdf:type owl:NamedIndividual ,
-                        :Person ;
+                        :Person ,
+                        :Test_Data ;
                rdfs:label "Doctor Watson" .
 
 
-###  http://michaeldebellis.com/people/Earth
+###  https://michaeldebellis.com/people/Earth
 :Earth rdf:type owl:NamedIndividual ,
-                :Planet ;
-       :contains_Direct :Africa ,
-                        :Antarctica ,
-                        :Asia ,
-                        :Australia ,
-                        :Europe ,
-                        :North_America ,
-                        :South_America ;
+                :Planet ,
+                :Test_Data ;
+       :contains :Africa ,
+                 :Antarctica ,
+                 :Asia ,
+                 :Australia ,
+                 :Europe ,
+                 :North_America ,
+                 :South_America ;
        rdfs:label "Earth" .
 
 
-###  http://michaeldebellis.com/people/Ellis_Arthur_Franklin
+###  https://michaeldebellis.com/people/Ellis_Arthur_Franklin
 :Ellis_Arthur_Franklin rdf:type owl:NamedIndividual ,
-                                :Man ;
+                                :Man ,
+                                :Test_Data ;
                        rdfs:label "Ellis Arthur Franklin" .
 
 
-###  http://michaeldebellis.com/people/Elsa_Einstein
+###  https://michaeldebellis.com/people/Elsa_Einstein
 :Elsa_Einstein rdf:type owl:NamedIndividual ,
+                        :Test_Data ,
                         :Woman ;
-               :has_Husband :Albert_Einstein ;
+               :has_husband :Albert_Einstein ;
                :birth_date "1876-01-18T00:00:00Z"^^xsd:dateTime ;
                rdfs:label "Elsa Einstein" .
 
 
-###  http://michaeldebellis.com/people/Emmanuelle_Charpentier
+###  https://michaeldebellis.com/people/Emmanuelle_Charpentier
 :Emmanuelle_Charpentier rdf:type owl:NamedIndividual ,
+                                 :Test_Data ,
                                  :Woman ;
-                        :has_Colleague :Jennifer_Doudna ;
+                        :has_colleague :Jennifer_Doudna ;
                         :has_employer :Max_Planck_Unit_for_the_Science_of_Pathogens ;
                         :birth_date "1968-12-11T00:00:00Z"^^xsd:dateTime ;
                         :employee_id "000-99-4321" ;
-                        :hired_on_date "2002-01-01T00:00:00"^^xsd:dateTime ;
                         :nobel_prize_winner "true"^^xsd:boolean ;
+                        :start_date "2002-01-01T00:00:00"^^xsd:dateTime ;
                         rdfs:label "Emmanuelle Charpentier" .
 
 
-###  http://michaeldebellis.com/people/Emmy_Noether
+###  https://michaeldebellis.com/people/Emmy_Noether
 :Emmy_Noether rdf:type owl:NamedIndividual ,
+                       :Test_Data ,
                        :Woman ;
-              :has_Friend :Albert_Einstein ;
+              :has_friend :Albert_Einstein ;
               :birth_date "1882-03-23T00:00:00Z"^^xsd:dateTime ;
               rdfs:label "Emmy Noether" .
 
 
-###  http://michaeldebellis.com/people/Eric_The_Fish
+###  https://michaeldebellis.com/people/Eric_The_Fish
 :Eric_The_Fish rdf:type owl:NamedIndividual ,
-                        :Halibut ;
+                        :Halibut ,
+                        :Test_Data ;
                rdfs:isDefinedBy <https://www.youtube.com/watch?v=M5MnyRZLd8A> ;
                rdfs:label "Eric the Fish" .
 
 
-###  http://michaeldebellis.com/people/Europe
+###  https://michaeldebellis.com/people/Europe
 :Europe rdf:type owl:NamedIndividual ,
-                 :Continent ;
-        :contains_Direct :Germany ,
-                         :United_Kingdom ;
+                 :Continent ,
+                 :Test_Data ;
+        :contains :Germany ,
+                  :Switzerland ,
+                  :United_Kingdom ;
         rdfs:label "Europe" .
 
 
-###  http://michaeldebellis.com/people/Evelyn_Mase
+###  https://michaeldebellis.com/people/Evelyn_Mase
 :Evelyn_Mase rdf:type owl:NamedIndividual ,
+                      :Test_Data ,
                       :Woman ;
-             :has_Husband :Nelson_Mandela ;
+             :has_husband :Nelson_Mandela ;
              rdfs:label "Evelyn Mase" .
 
 
-###  http://michaeldebellis.com/people/Female
+###  https://michaeldebellis.com/people/Female
 :Female rdf:type owl:NamedIndividual ,
                  :Gender ;
         rdfs:label "Female" .
 
 
-###  http://michaeldebellis.com/people/Fido
+###  https://michaeldebellis.com/people/Fido
 :Fido rdf:type owl:NamedIndividual ,
-               :Dog ;
+               :Dog ,
+               :Test_Data ;
       rdfs:label "Fido" .
 
 
-###  http://michaeldebellis.com/people/Germany
+###  https://michaeldebellis.com/people/Five_Feet
+:Five_Feet rdf:type owl:NamedIndividual ,
+                    :Distance_Measurement ;
+           :has_unit :Foot ;
+           :value 5.0 ;
+           dct:contributor "Michael DeBellis" ;
+           dct:created "2025-10-13T21:16:09Z"^^xsd:dateTime ;
+           rdfs:label "5 feet"@en .
+
+
+###  https://michaeldebellis.com/people/Foot
+:Foot rdf:type owl:NamedIndividual ,
+               :Distance_Unit ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-10-13T21:14:24Z"^^xsd:dateTime ;
+      rdfs:label "Foot" .
+
+
+###  https://michaeldebellis.com/people/Germany
 :Germany rdf:type owl:NamedIndividual ,
-                  :Nation ;
-         :contains_Direct :Berlin ;
+                  :Nation ,
+                  :Test_Data ;
+         :contains :Berlin ,
+                   :Ulm ;
          rdfs:label "Germany" .
 
 
-###  http://michaeldebellis.com/people/Grace_Hopper
+###  https://michaeldebellis.com/people/Grace_Hopper
 :Grace_Hopper rdf:type owl:NamedIndividual ,
+                       :Test_Data ,
                        :Woman ;
+              :born_in :New_York_City ;
               :has_employer :Harvard_University ;
               :birth_date "1906-12-09T00:00:00Z"^^xsd:dateTime ;
               rdfs:label "Grace Hopper" .
 
 
-###  http://michaeldebellis.com/people/Gustav_Mahler
+###  https://michaeldebellis.com/people/Gustav_Mahler
 :Gustav_Mahler rdf:type owl:NamedIndividual ,
-                        :Man ;
-               :has_Wife :Alma_Mahler ;
+                        :Man ,
+                        :Test_Data ;
+               :has_wife :Alma_Mahler ;
                rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Gustav_Mahler> ;
                rdfs:label "Gustav Mahler" .
 
 
-###  http://michaeldebellis.com/people/Harvard_University
+###  https://michaeldebellis.com/people/Harvard_University
 :Harvard_University rdf:type owl:NamedIndividual ,
+                             :Test_Data ,
                              :University ;
                     :has_city :Cambridge ;
                     rdfs:label "Harvard University" .
 
 
-###  http://michaeldebellis.com/people/HenryCGatz
+###  https://michaeldebellis.com/people/HenryCGatz
 :HenryCGatz rdf:type owl:NamedIndividual ,
-                     :Man ;
-            :has_Pet :Fido ;
+                     :Man ,
+                     :Test_Data ;
+            :has_pet :Fido ;
             rdfs:isDefinedBy <https://en.wikipedia.org/wiki/The_Great_Gatsby> ;
             rdfs:label "Henry C. Gatz" .
 
 
-###  http://michaeldebellis.com/people/Howard_Aiken
+###  https://michaeldebellis.com/people/Hour
+:Hour rdf:type owl:NamedIndividual ,
+               :Test_Data ,
+               :Time_Unit ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-10-03T04:05:32Z"^^xsd:dateTime ;
+      rdfs:label "Hour" .
+
+
+###  https://michaeldebellis.com/people/Howard_Aiken
 :Howard_Aiken rdf:type owl:NamedIndividual ,
-                       :Person ;
-              :has_Friend :Grace_Hopper ;
+                       :Person ,
+                       :Test_Data ;
+              :has_friend :Grace_Hopper ;
               rdfs:label "Howard Aiken" .
 
 
-###  http://michaeldebellis.com/people/IBM
+###  https://michaeldebellis.com/people/IBM
 :IBM rdf:type owl:NamedIndividual ,
-              :Corporation ;
+              :Corporation ,
+              :Test_Data ;
      rdfs:isDefinedBy <https://www.ibm.com/> ;
      rdfs:label "IBM" .
 
 
-###  http://michaeldebellis.com/people/Illinois
+###  https://michaeldebellis.com/people/Illinois
 :Illinois rdf:type owl:NamedIndividual ,
-                   :State ;
-          :contains_Direct :Chicago ;
+                   :State ,
+                   :Test_Data ;
+          :contains :Chicago ;
           rdfs:label "Illinois" .
 
 
-###  http://michaeldebellis.com/people/India
+###  https://michaeldebellis.com/people/India
 :India rdf:type owl:NamedIndividual ,
-                :Nation ;
+                :Nation ,
+                :Test_Data ;
        rdfs:label "India" .
 
 
-###  http://michaeldebellis.com/people/Institute_For_Advanced_Study
+###  https://michaeldebellis.com/people/Institute_For_Advanced_Study
 :Institute_For_Advanced_Study rdf:type owl:NamedIndividual ,
-                                       :Research_Institute ;
+                                       :Research_Institute ,
+                                       :Test_Data ;
                               :has_city :Princeton ;
-                              :is_Employer_Of :Albert_Einstein ;
+                              :is_employer_of :Albert_Einstein ;
                               rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Institute_for_Advanced_Study> ;
                               rdfs:label "Institute For Advanced Study" .
 
 
-###  http://michaeldebellis.com/people/James_Gatz
-:James_Gatz rdf:type owl:NamedIndividual ;
+###  https://michaeldebellis.com/people/James_Gatz
+:James_Gatz rdf:type owl:NamedIndividual ,
+                     :Test_Data ;
             owl:sameAs :Jay_Gatsby ;
-            :has_Father :HenryCGatz ;
+            :has_father :HenryCGatz ;
             rdfs:label "James Gatz" .
 
 
-###  http://michaeldebellis.com/people/Jay_Gatsby
+###  https://michaeldebellis.com/people/Jay_Gatsby
 
-###  http://michaeldebellis.com/people/Janaki
+###  https://michaeldebellis.com/people/Janaki
 :Janaki rdf:type owl:NamedIndividual ,
-                 :Person ;
-        :has_Husband :Srinivasa_Ramanujan ;
+                 :Person ,
+                 :Test_Data ;
+        :has_husband :Srinivasa_Ramanujan ;
         rdfs:label "Janaki" .
 
 
-###  http://michaeldebellis.com/people/Jane_Smith
+###  https://michaeldebellis.com/people/Jane_Smith
 :Jane_Smith rdf:type owl:NamedIndividual ,
-                     :Person ;
+                     :Person ,
+                     :Test_Data ;
             rdfs:label "Jane Smith" .
 
 
-###  http://michaeldebellis.com/people/Jay_Gatsby
+###  https://michaeldebellis.com/people/Jay_Gatsby
 :Jay_Gatsby rdf:type owl:NamedIndividual ,
-                     :Man ;
+                     :Man ,
+                     :Test_Data ;
             owl:differentFrom :Jordan_Baker ;
-            :has_Friend :Nick_Carraway ;
-            :has_Social_Relationship :Daisy_Buchanan ,
+            :has_friend :Nick_Carraway ;
+            :has_social_relationship :Daisy_Buchanan ,
                                      :Jordan_Baker ,
                                      :Tom_Buchanan ;
-            :wikidata <https://www.wikidata.org/wiki/Q7048121> ;
             rdfs:isDefinedBy <https://en.wikipedia.org/wiki/The_Great_Gatsby> ;
-            rdfs:label "Jay Gatsby" .
+            rdfs:label "Jay Gatsby" ;
+            :wikidata <https://www.wikidata.org/wiki/Q7048121> .
 
 
-###  http://michaeldebellis.com/people/Jennifer_Doudna
+###  https://michaeldebellis.com/people/Jennifer_Doudna
 :Jennifer_Doudna rdf:type owl:NamedIndividual ,
+                          :Test_Data ,
                           :Woman ;
                  :has_employer :University_of_California_Berkeley ;
                  :birth_date "1964-02-19T00:00:00Z"^^xsd:dateTime ;
                  :employee_id "ucb-bio-1234" ;
-                 :hired_on_date "2002-01-01T00:00:00"^^xsd:dateTime ;
                  :nobel_prize_winner "true"^^xsd:boolean ;
+                 :start_date "2002-01-01T00:00:00"^^xsd:dateTime ;
                  rdfs:label "Jennifer Doudna" .
 
 
-###  http://michaeldebellis.com/people/Jim_Doe
+###  https://michaeldebellis.com/people/Jim_Doe
 :Jim_Doe rdf:type owl:NamedIndividual ,
-                  :Person ;
-         :has_Gender :Male ;
+                  :Person ,
+                  :Test_Data ;
+         :has_gender :Male ;
          :has_age 12 ;
          rdfs:label "Jim Doe" .
 
 
-###  http://michaeldebellis.com/people/John
+###  https://michaeldebellis.com/people/John
 :John rdf:type owl:NamedIndividual ,
-               :Human ;
-      :has_Pet :Eric_The_Fish ;
+               :Human ,
+               :Test_Data ;
+      :has_pet :Eric_The_Fish ;
       rdfs:label "John" .
 
 
-###  http://michaeldebellis.com/people/John_Doe
+###  https://michaeldebellis.com/people/John_Doe
 :John_Doe rdf:type owl:NamedIndividual ,
-                   :Person ;
-          :has_Brother :Tom_Doe ;
-          :has_Daughter :Mary_Doe ;
-          :has_Friend :John_Smith ;
-          :has_Sister :Sarah_Doe ;
-          :has_Son :Jim_Doe ;
-          :has_Wife :Jane_Smith ;
+                   :Person ,
+                   :Test_Data ;
+          :has_brother :Tom_Doe ;
+          :has_daughter :Mary_Doe ;
+          :has_friend :John_Smith ;
+          :has_sister :Sarah_Doe ;
+          :has_son :Jim_Doe ;
+          :has_wife :Jane_Smith ;
           :has_age 34 ;
           rdfs:label "John Doe" .
 
 
-###  http://michaeldebellis.com/people/John_G_Kemeny
+###  https://michaeldebellis.com/people/John_G_Kemeny
 :John_G_Kemeny rdf:type owl:NamedIndividual ,
-                        :Man ;
-               :has_Colleague :John_von_Neumann ;
+                        :Man ,
+                        :Test_Data ;
+               :has_colleague :John_von_Neumann ;
                rdfs:label "John G. Kemeny" .
 
 
-###  http://michaeldebellis.com/people/John_Smith
+###  https://michaeldebellis.com/people/John_Smith
 :John_Smith rdf:type owl:NamedIndividual ,
-                     :Person ;
+                     :Person ,
+                     :Test_Data ;
             :has_age 43 ;
             rdfs:label "John Smith" .
 
 
-###  http://michaeldebellis.com/people/John_von_Neumann
+###  https://michaeldebellis.com/people/John_von_Neumann
 :John_von_Neumann rdf:type owl:NamedIndividual ,
-                           :Person ;
+                           :Person ,
+                           :Test_Data ;
                   :has_employer :IBM ,
                                 :Institute_For_Advanced_Study ;
                   :birth_date "1903-12-28T00:00:00Z"^^xsd:dateTime ;
-                  :employee_id "999-00-1234" ,
-                               "999-00-4321" ;
-                  :hired_on_date "1954-01-01T00:00:00"^^xsd:dateTime ;
-                  rdfs:label "John von Neumann" .
+                  :employee_id "3670-DSL" ,
+                               "999-00-1234" ;
+                  :start_date "1933-01-01T00:00:00"^^xsd:dateTime ,
+                              "1954-01-01T00:00:00"^^xsd:dateTime ;
+                  rdfs:label "John Von Neumann" .
 
 
-###  http://michaeldebellis.com/people/Jordan_Baker
+###  https://michaeldebellis.com/people/Jordan_Baker
 :Jordan_Baker rdf:type owl:NamedIndividual ,
-                       :Person ;
-              :has_Friend :Daisy_Buchanan ;
+                       :Person ,
+                       :Test_Data ;
+              :has_friend :Daisy_Buchanan ;
               rdfs:label "Jordan Baker" .
 
 
-###  http://michaeldebellis.com/people/Kings_College
+###  https://michaeldebellis.com/people/Keyboard1
+:Keyboard1 rdf:type owl:NamedIndividual ,
+                    :Keyboard ,
+                    :Test_Data ;
+           dct:contributor "Michael DeBellis" ;
+           dct:created "2025-09-19T15:39:18Z"^^xsd:dateTime ;
+           rdfs:label "Keyboard1" .
+
+
+###  https://michaeldebellis.com/people/Keyboard2
+:Keyboard2 rdf:type owl:NamedIndividual ,
+                    :Keyboard ,
+                    :Test_Data ;
+           dct:contributor "Michael DeBellis" ;
+           dct:created "2025-09-19T15:39:28Z"^^xsd:dateTime ;
+           rdfs:label "Keyboard2" .
+
+
+###  https://michaeldebellis.com/people/Kilometer
+:Kilometer rdf:type owl:NamedIndividual ;
+           dct:contributor "Michael DeBellis" ;
+           dct:created "2025-10-03T04:02:13Z"^^xsd:dateTime ;
+           rdfs:label "Kilometer" .
+
+
+###  https://michaeldebellis.com/people/Kings_College
 :Kings_College rdf:type owl:NamedIndividual ,
+                        :Test_Data ,
                         :University ;
                :has_city :London ;
-               :is_Employer_Of :Alan_Turing ;
+               :is_employer_of :Alan_Turing ;
                rdfs:label "Kings College" .
 
 
-###  http://michaeldebellis.com/people/Klara_Dan_Von_Neumann
+###  https://michaeldebellis.com/people/Klara_Dan_Von_Neumann
 :Klara_Dan_Von_Neumann rdf:type owl:NamedIndividual ,
+                                :Test_Data ,
                                 :Woman ;
-                       :has_Husband :John_von_Neumann ;
+                       :has_husband :John_von_Neumann ;
                        rdfs:label "Klára Dán von Neumann" .
 
 
-###  http://michaeldebellis.com/people/Kong_Li
+###  https://michaeldebellis.com/people/Kong_Li
 :Kong_Li rdf:type owl:NamedIndividual ,
-                  :Man ;
-         :has_Father :Confucius ;
-         :wikidata <https://www.wikidata.org/wiki/Q7240164> ;
-         rdfs:label "Kong Li" .
+                  :Man ,
+                  :Test_Data ;
+         :has_father :Confucius ;
+         rdfs:label "Kong Li" ;
+         :wikidata <https://www.wikidata.org/wiki/Q7240164> .
 
 
-###  http://michaeldebellis.com/people/Kurt_Godel
+###  https://michaeldebellis.com/people/Kurt_Godel
 :Kurt_Godel rdf:type owl:NamedIndividual ,
-                     :Man ;
-            :has_Colleague :Albert_Einstein ;
-            :has_Friend :Albert_Einstein ;
+                     :Man ,
+                     :Test_Data ;
+            :has_colleague :Albert_Einstein ;
+            :has_friend :Albert_Einstein ;
             rdfs:label "Kurt Gödel" .
 
 
-###  http://michaeldebellis.com/people/Lise_Meitner
+###  https://michaeldebellis.com/people/Lise_Meitner
 :Lise_Meitner rdf:type owl:NamedIndividual ,
+                       :Test_Data ,
                        :Woman ;
-              :has_Colleague :Albert_Einstein ;
+              :has_colleague :Albert_Einstein ;
               :birth_date "1878-11-07T00:00:00Z"^^xsd:dateTime ;
               rdfs:label "Lise Meitner" .
 
 
-###  http://michaeldebellis.com/people/London
+###  https://michaeldebellis.com/people/London
 :London rdf:type owl:NamedIndividual ,
-                 :City ;
+                 :City ,
+                 :Test_Data ;
         rdfs:label "London" .
 
 
-###  http://michaeldebellis.com/people/Los_Angeles
+###  https://michaeldebellis.com/people/Los_Angeles
 :Los_Angeles rdf:type owl:NamedIndividual ,
-                      :City ;
+                      :City ,
+                      :Test_Data ;
              rdfs:label "Los Angeles" .
 
 
-###  http://michaeldebellis.com/people/Male
+###  https://michaeldebellis.com/people/Male
 :Male rdf:type owl:NamedIndividual ;
       rdfs:label "Male" .
 
 
-###  http://michaeldebellis.com/people/Manchester
+###  https://michaeldebellis.com/people/Manager
+:Manager rdf:type owl:NamedIndividual ,
+                  :Role ;
+         :has_higher_seniority_than :Senior_Staff ;
+         dct:contributor "Michael DeBellis" ;
+         dct:created "2025-10-01T18:14:47Z"^^xsd:dateTime ;
+         rdfs:label "Manager" .
+
+
+###  https://michaeldebellis.com/people/Manchester
 :Manchester rdf:type owl:NamedIndividual ,
-                     :City ;
+                     :City ,
+                     :Test_Data ;
             rdfs:label "Manchester" .
 
 
-###  http://michaeldebellis.com/people/Marcel
+###  https://michaeldebellis.com/people/Marcel
 :Marcel rdf:type owl:NamedIndividual ,
-                 :Haddock ;
+                 :Haddock ,
+                 :Test_Data ;
         rdfs:isDefinedBy <https://www.youtube.com/watch?v=M5MnyRZLd8A> ;
         rdfs:label "Marcel" .
 
 
-###  http://michaeldebellis.com/people/Marcel_Proust
+###  https://michaeldebellis.com/people/Marcel_Proust
 :Marcel_Proust rdf:type owl:NamedIndividual ,
-                        :Man ;
-               :has_Pet :Marcel ;
+                        :Man ,
+                        :Test_Data ;
+               :has_pet :Marcel ;
                :birth_date "1871-07-10T00:00:00Z"^^xsd:dateTime ;
                rdfs:label "Marcel Proust" .
 
 
-###  http://michaeldebellis.com/people/Mary_Doe
+###  https://michaeldebellis.com/people/Mary_Doe
 :Mary_Doe rdf:type owl:NamedIndividual ,
-                   :Person ;
-          :has_Mother :Jane_Smith ;
-          :has_Sister :Susan_Doe ;
+                   :Person ,
+                   :Test_Data ;
+          :has_mother :Jane_Smith ;
+          :has_sister :Susan_Doe ;
           :has_age 16 ;
           rdfs:label "Mary Doe" .
 
 
-###  http://michaeldebellis.com/people/Massachusetts
+###  https://michaeldebellis.com/people/Massachusetts
 :Massachusetts rdf:type owl:NamedIndividual ,
-                        :State ;
-               :contains_Direct :Cambridge ;
+                        :State ,
+                        :Test_Data ;
+               :contains :Cambridge ;
                rdfs:label "Massachusetts" .
 
 
-###  http://michaeldebellis.com/people/Massachusetts_Institute_of_Technology
+###  https://michaeldebellis.com/people/Massachusetts_Institute_of_Technology
 :Massachusetts_Institute_of_Technology rdf:type owl:NamedIndividual ,
+                                                :Test_Data ,
                                                 :University ;
                                        :has_city :Cambridge ;
-                                       :is_Employer_Of :Noam_Chomsky ;
+                                       :is_employer_of :Noam_Chomsky ;
                                        rdfs:isDefinedBy <https://web.mit.edu/> ;
                                        rdfs:label "Massachusetts Institute of Technology" .
 
 
-###  http://michaeldebellis.com/people/Max_Planck_Unit_for_the_Science_of_Pathogens
+###  https://michaeldebellis.com/people/Max_Planck_Unit_for_the_Science_of_Pathogens
 :Max_Planck_Unit_for_the_Science_of_Pathogens rdf:type owl:NamedIndividual ,
-                                                       :Research_Institute ;
+                                                       :Research_Institute ,
+                                                       :Test_Data ;
                                               :has_city :Berlin ;
                                               rdfs:label "Max Planck Institute for Infection Biology" .
 
 
-###  http://michaeldebellis.com/people/Michael
+###  https://michaeldebellis.com/people/Meter
+:Meter rdf:type owl:NamedIndividual ;
+       dct:contributor "Michael DeBellis" ;
+       dct:created "2025-10-03T04:01:42Z"^^xsd:dateTime ;
+       rdfs:label "Meter" .
+
+
+###  https://michaeldebellis.com/people/Michael
 :Michael rdf:type owl:NamedIndividual ,
-                  :Man ;
-         :has_Colleague :Noam_Chomsky ;
-         :has_Daughter :Oriana ;
-         :has_Pet :Buddy ;
+                  :Man ,
+                  :Test_Data ;
+         :has_colleague :Noam_Chomsky ;
+         :has_daughter :Oriana ;
+         :has_pet :Buddy ;
          rdfs:label "Michael" .
 
 
-###  http://michaeldebellis.com/people/Michele_Besso
+###  https://michaeldebellis.com/people/Michele_Besso
 :Michele_Besso rdf:type owl:NamedIndividual ,
-                        :Man ;
-               :has_Friend :Albert_Einstein ;
+                        :Man ,
+                        :Test_Data ;
+               :has_friend :Albert_Einstein ;
                :birth_date "1873-05-25T00:00:00Z"^^xsd:dateTime ;
                rdfs:label "Michele Besso" .
 
 
-###  http://michaeldebellis.com/people/Miss_Havisham
+###  https://michaeldebellis.com/people/Mile
+:Mile rdf:type owl:NamedIndividual ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-10-03T04:02:07Z"^^xsd:dateTime ;
+      rdfs:label "Mile" .
+
+
+###  https://michaeldebellis.com/people/Minute
+:Minute rdf:type owl:NamedIndividual ,
+                 :Test_Data ,
+                 :Time_Unit ;
+        dct:contributor "Michael DeBellis" ;
+        dct:created "2025-10-03T04:05:27Z"^^xsd:dateTime ;
+        rdfs:label "Minute" .
+
+
+###  https://michaeldebellis.com/people/Miss_Havisham
 :Miss_Havisham rdf:type owl:NamedIndividual ,
-                        :Person ;
-               :has_Gender :Female ;
+                        :Person ,
+                        :Test_Data ;
+               :has_gender :Female ;
                :has_age 65 ;
                rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Miss_Havisham> ;
                rdfs:label "Miss Havisham" .
 
 
-###  http://michaeldebellis.com/people/Muriel_Frances_Waley
+###  https://michaeldebellis.com/people/Monitor1
+:Monitor1 rdf:type owl:NamedIndividual ,
+                   :Monitor ,
+                   :Test_Data ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-09-19T15:50:25Z"^^xsd:dateTime ;
+          rdfs:label "Monitor1" .
+
+
+###  https://michaeldebellis.com/people/Monitor2
+:Monitor2 rdf:type owl:NamedIndividual ,
+                   :Monitor ,
+                   :Test_Data ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-09-19T15:50:33Z"^^xsd:dateTime ;
+          rdfs:label "Monitor2" .
+
+
+###  https://michaeldebellis.com/people/Month
+:Month rdf:type owl:NamedIndividual ,
+                :Test_Data ,
+                :Time_Unit ;
+       dct:contributor "Michael DeBellis" ;
+       dct:created "2025-10-03T04:06:09Z"^^xsd:dateTime ;
+       rdfs:label "Month" .
+
+
+###  https://michaeldebellis.com/people/Motherboard1
+:Motherboard1 rdf:type owl:NamedIndividual ,
+                       :Motherboard ,
+                       :Test_Data ;
+              :has_component :Bus1 ,
+                             :CPU1 ,
+                             :RAM1 ;
+              dct:contributor "Michael DeBellis" ;
+              dct:created "2025-09-19T15:39:40Z"^^xsd:dateTime ;
+              rdfs:label "Motherboard1" .
+
+
+###  https://michaeldebellis.com/people/Motherboard2
+:Motherboard2 rdf:type owl:NamedIndividual ,
+                       :Motherboard ,
+                       :Test_Data ;
+              :has_component :Bus2 ,
+                             :CPU2 ,
+                             :RAM2 ;
+              dct:contributor "Michael DeBellis" ;
+              dct:created "2025-09-19T15:39:49Z"^^xsd:dateTime ;
+              rdfs:label "Motherboard2" .
+
+
+###  https://michaeldebellis.com/people/Muriel_Frances_Waley
 :Muriel_Frances_Waley rdf:type owl:NamedIndividual ,
+                               :Test_Data ,
                                :Woman ;
-                      :has_Daughter :Rosalind_Franklin ;
-                      :has_Husband :Ellis_Arthur_Franklin ;
+                      :has_daughter :Rosalind_Franklin ;
+                      :has_husband :Ellis_Arthur_Franklin ;
                       rdfs:label "Muriel Frances Waley" .
 
 
-###  http://michaeldebellis.com/people/Nelson_Mandela
+###  https://michaeldebellis.com/people/Nelson_Mandela
 :Nelson_Mandela rdf:type owl:NamedIndividual ,
-                         :Man ;
+                         :Man ,
+                         :Test_Data ;
                 rdfs:label "Nelson Mandela" .
 
 
-###  http://michaeldebellis.com/people/New_Jersey
+###  https://michaeldebellis.com/people/New_Jersey
 :New_Jersey rdf:type owl:NamedIndividual ,
-                     :State ;
-            :contains_Direct :Princeton ;
+                     :State ,
+                     :Test_Data ;
+            :contains :Princeton ;
             rdfs:label "New Jersey" .
 
 
-###  http://michaeldebellis.com/people/Nick_Carraway
+###  https://michaeldebellis.com/people/New_York_City
+:New_York_City rdf:type owl:NamedIndividual ,
+                        :City ;
+               dct:contributor "Michael DeBellis" ;
+               dct:created "2026-02-06T22:28:04Z"^^xsd:dateTime ;
+               rdfs:label "New York City" .
+
+
+###  https://michaeldebellis.com/people/New_York_State
+:New_York_State rdf:type owl:NamedIndividual ,
+                         :State ;
+                :contains :New_York_City ;
+                dct:contributor "Michael DeBellis" ;
+                dct:created "2026-02-06T22:27:15Z"^^xsd:dateTime ;
+                rdfs:label "New York State"@en .
+
+
+###  https://michaeldebellis.com/people/Nick_Carraway
 :Nick_Carraway rdf:type owl:NamedIndividual ,
-                        :Person ;
+                        :Person ,
+                        :Test_Data ;
                :has_age 28 ;
                rdfs:isDefinedBy <https://en.wikipedia.org/wiki/The_Great_Gatsby> ;
                rdfs:label "Nick Carraway" .
 
 
-###  http://michaeldebellis.com/people/Noam_Chomsky
+###  https://michaeldebellis.com/people/Noam_Chomsky
 :Noam_Chomsky rdf:type owl:NamedIndividual ,
-                       :Person ;
+                       :Person ,
+                       :Test_Data ;
+              :born_in :Philadelphia ;
               :birth_date "1928-12-07T00:00:00Z"^^xsd:dateTime ;
-              :email "chomsky@mit.edu" ;
+              :email "chomsky@mit.edu"^^xsd:anyURI ;
               :employee_id "MIT-1953" ;
               :has_age 96 ;
-              :hired_on_date "1955-01-01T00:00:00"^^xsd:dateTime ;
-              :wikidata <https://www.wikidata.org/wiki/Q112150900> ;
+              :start_date "1955-01-01T00:00:00"^^xsd:dateTime ;
               rdfs:isDefinedBy <https://chomsky.info/> ;
-              rdfs:label "Noam Chomsky" .
+              rdfs:label "Noam Chomsky" ;
+              :wikidata <https://www.wikidata.org/wiki/Q112150900> .
 
 
-###  http://michaeldebellis.com/people/Non_Binary
+###  https://michaeldebellis.com/people/Non_Binary
 :Non_Binary rdf:type owl:NamedIndividual ,
                      :Gender ;
             rdfs:label "Non Binary" .
 
 
-###  http://michaeldebellis.com/people/North_America
+###  https://michaeldebellis.com/people/North_America
 :North_America rdf:type owl:NamedIndividual ,
-                        :Continent ;
-               :contains_Direct :Canada ,
-                                :USA ;
+                        :Continent ,
+                        :Test_Data ;
+               :contains :Canada ,
+                         :USA ;
                rdfs:label "North America" .
 
 
-###  http://michaeldebellis.com/people/Oriana
+###  https://michaeldebellis.com/people/One_Mile
+:One_Mile rdf:type owl:NamedIndividual ,
+                   :Distance_Measurement ;
+          :value 1.0 ;
+          dct:contributor "Michael DeBellis" ;
+          dct:created "2025-10-14T18:17:50Z"^^xsd:dateTime ;
+          rdfs:label "1 Mile"@en .
+
+
+###  https://michaeldebellis.com/people/Oriana
 :Oriana rdf:type owl:NamedIndividual ,
-                 :Person ;
-        :has_Gender :Female ;
+                 :Person ,
+                 :Test_Data ;
+        :has_gender :Female ;
         :has_age 14 ;
         rdfs:label "Oriana" .
 
 
-###  http://michaeldebellis.com/people/Oskar_Morgenstern
+###  https://michaeldebellis.com/people/Oskar_Morgenstern
 :Oskar_Morgenstern rdf:type owl:NamedIndividual ,
-                            :Man ;
-                   :has_Colleague :John_von_Neumann ;
+                            :Man ,
+                            :Test_Data ;
+                   :has_colleague :John_von_Neumann ;
                    rdfs:label "Oskar Morgenstern" .
 
 
-###  http://michaeldebellis.com/people/Philip_Marlowe
+###  https://michaeldebellis.com/people/PC1
+:PC1 rdf:type owl:NamedIndividual ,
+              :Computer ,
+              :Test_Data ;
+     :has_component :Keyboard1 ,
+                    :Monitor1 ,
+                    :Motherboard1 ;
+     dct:contributor "Michael DeBellis" ;
+     dct:created "2025-09-19T15:36:37Z"^^xsd:dateTime ;
+     rdfs:label "PC1" .
+
+
+###  https://michaeldebellis.com/people/PC2
+:PC2 rdf:type owl:NamedIndividual ,
+              :Computer ,
+              :Test_Data ;
+     :has_component :Keyboard2 ,
+                    :Monitor2 ,
+                    :Motherboard2 ;
+     dct:contributor "Michael DeBellis" ;
+     dct:created "2025-09-19T15:37:03Z"^^xsd:dateTime ;
+     rdfs:label "PC2" .
+
+
+###  https://michaeldebellis.com/people/Pennsylvania
+:Pennsylvania rdf:type owl:NamedIndividual ,
+                       :State ;
+              :contains :Philadelphia ;
+              dct:contributor "Michael DeBellis" ;
+              dct:created "2026-02-06T22:21:58Z"^^xsd:dateTime ;
+              rdfs:label "Pennsylvania" .
+
+
+###  https://michaeldebellis.com/people/Philadelphia
+:Philadelphia rdf:type owl:NamedIndividual ,
+                       :City ;
+              dct:contributor "Michael DeBellis" ;
+              dct:created "2026-02-06T22:21:21Z"^^xsd:dateTime ;
+              rdfs:label "Philadelphia" .
+
+
+###  https://michaeldebellis.com/people/Philip_Marlowe
 :Philip_Marlowe rdf:type owl:NamedIndividual ,
-                         :Man ;
+                         :Man ,
+                         :Test_Data ;
                 rdfs:isDefinedBy <https://en.wikipedia.org/wiki/The_Big_Sleep> ;
                 rdfs:label "Philip Marlowe" .
 
 
-###  http://michaeldebellis.com/people/Princeton
+###  https://michaeldebellis.com/people/Princeton
 :Princeton rdf:type owl:NamedIndividual ,
-                    :City ;
+                    :City ,
+                    :Test_Data ;
            rdfs:label "Princeton" .
 
 
-###  http://michaeldebellis.com/people/Rex
+###  https://michaeldebellis.com/people/RAM1
+:RAM1 rdf:type owl:NamedIndividual ,
+               :RAM ,
+               :Test_Data ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-09-19T15:49:39Z"^^xsd:dateTime ;
+      rdfs:label "RAM1" .
+
+
+###  https://michaeldebellis.com/people/RAM2
+:RAM2 rdf:type owl:NamedIndividual ,
+               :RAM ,
+               :Test_Data ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-09-19T15:50:00Z"^^xsd:dateTime ;
+      rdfs:label "RAM2" .
+
+
+###  https://michaeldebellis.com/people/Rex
 :Rex rdf:type owl:NamedIndividual ,
-              :Dog ;
+              :Dog ,
+              :Test_Data ;
      rdfs:label "Rex" .
 
 
-###  http://michaeldebellis.com/people/Rosalind_Franklin
+###  https://michaeldebellis.com/people/Rosalind_Franklin
 :Rosalind_Franklin rdf:type owl:NamedIndividual ,
+                            :Test_Data ,
                             :Woman ;
                    :birth_date "1920-07-25T00:00:00Z"^^xsd:dateTime ;
                    rdfs:isDefinedBy <https://en.wikipedia.org/wiki/Rosalind_Franklin> ;
                    rdfs:label "Rosalind Franklin" .
 
 
-###  http://michaeldebellis.com/people/Rumi
+###  https://michaeldebellis.com/people/Rumi
 :Rumi rdf:type owl:NamedIndividual ,
-               :Man ;
+               :Man ,
+               :Test_Data ;
       rdfs:label "Rumi" .
 
 
-###  http://michaeldebellis.com/people/Sam_Spade
+###  https://michaeldebellis.com/people/Sam_Spade
 :Sam_Spade rdf:type owl:NamedIndividual ,
-                    :Man ;
-           :has_Address :Address_Of_Spade_Detective_Agency ;
+                    :Man ,
+                    :Test_Data ;
+           :has_address :Address_Of_Spade_Detective_Agency ;
            :has_employer :Sam_Spade ;
            :phone "(415) 555-1212" ;
            rdfs:isDefinedBy <https://en.wikipedia.org/wiki/The_Maltese_Falcon_(novel)> ;
            rdfs:label "Sam Spade" .
 
 
-###  http://michaeldebellis.com/people/San_Francisco
+###  https://michaeldebellis.com/people/San_Francisco
 :San_Francisco rdf:type owl:NamedIndividual ,
-                        :City ;
+                        :City ,
+                        :Test_Data ;
                rdfs:label "San Francisco" .
 
 
-###  http://michaeldebellis.com/people/Sarah_Doe
+###  https://michaeldebellis.com/people/Sarah_Doe
 :Sarah_Doe rdf:type owl:NamedIndividual ,
-                    :Person ;
+                    :Person ,
+                    :Test_Data ;
            rdfs:label "Sarah Doe" .
 
 
-###  http://michaeldebellis.com/people/Sherlock_Holmes
+###  https://michaeldebellis.com/people/Scientist
+:Scientist rdf:type owl:NamedIndividual ,
+                    :Role ;
+           :has_higher_seniority_than :Manager ;
+           dct:contributor "Michael DeBellis" ;
+           dct:created "2025-10-01T18:14:59Z"^^xsd:dateTime ;
+           rdfs:label "Scientist" .
+
+
+###  https://michaeldebellis.com/people/Second
+:Second rdf:type owl:NamedIndividual ,
+                 :Test_Data ,
+                 :Time_Unit ;
+        dct:contributor "Michael DeBellis" ;
+        dct:created "2025-10-03T04:05:19Z"^^xsd:dateTime ;
+        rdfs:label "Second" .
+
+
+###  https://michaeldebellis.com/people/Senior_Staff
+:Senior_Staff rdf:type owl:NamedIndividual ,
+                       :Role ;
+              :has_higher_seniority_than :Staff ;
+              dct:contributor "Michael DeBellis" ;
+              dct:created "2025-10-01T18:14:41Z"^^xsd:dateTime ;
+              rdfs:label "Senior Staff" .
+
+
+###  https://michaeldebellis.com/people/Sherlock_Holmes
 :Sherlock_Holmes rdf:type owl:NamedIndividual ,
-                          :Man ;
-                 :has_Address :Address_Of_Sherlock_Holmes ;
-                 :has_Colleague :Doctor_Watson ;
-                 :wikidata <https://www.wikidata.org/wiki/Q3481944> ;
-                 rdfs:label "Sherlock Holmes" .
+                          :Man ,
+                          :Test_Data ;
+                 :has_address :Address_Of_Sherlock_Holmes ;
+                 :has_colleague :Doctor_Watson ;
+                 rdfs:label "Sherlock Holmes" ;
+                 :wikidata <https://www.wikidata.org/wiki/Q3481944> .
 
 
-###  http://michaeldebellis.com/people/South_America
+###  https://michaeldebellis.com/people/South_America
 :South_America rdf:type owl:NamedIndividual ,
-                        :Continent ;
-               :contains_Direct :Brazil ;
+                        :Continent ,
+                        :Test_Data ;
+               :contains :Brazil ;
                rdfs:label "South America" .
 
 
-###  http://michaeldebellis.com/people/Spiny_Norman
+###  https://michaeldebellis.com/people/Spiny_Norman
 :Spiny_Norman rdf:type owl:NamedIndividual ,
-                       :Hedgehog ;
-              :wikidata <https://www.wikidata.org/wiki/Q7569306> ;
-              rdfs:isDefinedBy <https://www.youtube.com/watch?v=C-FDW1shmqA> ;
-              rdfs:label "Spiny Norman" .
+                       :Hedgehog ,
+                       :Test_Data ;
+              rdfs:isDefinedBy <https://www.youtube.com/watch?v=9515QBnHV-c> ;
+              rdfs:label "Spiny Norman" ;
+              :wikidata <https://www.wikidata.org/wiki/Q7569306> .
 
 
-###  http://michaeldebellis.com/people/Srinivasa_Ramanujan
+###  https://michaeldebellis.com/people/Srinivasa_Ramanujan
 :Srinivasa_Ramanujan rdf:type owl:NamedIndividual ,
-                              :Man ;
+                              :Man ,
+                              :Test_Data ;
                      rdfs:label "Srinivasa Ramanujan" .
 
 
-###  http://michaeldebellis.com/people/Steve
+###  https://michaeldebellis.com/people/Staff
+:Staff rdf:type owl:NamedIndividual ,
+                :Role ;
+       dct:contributor "Michael DeBellis" ;
+       dct:created "2025-10-01T18:14:31Z"^^xsd:dateTime ;
+       rdfs:label "Staff" .
+
+
+###  https://michaeldebellis.com/people/Steve
 :Steve rdf:type owl:NamedIndividual ,
-                :Man ;
+                :Man ,
+                :Test_Data ;
        rdfs:label "Steve" .
 
 
-###  http://michaeldebellis.com/people/Sun_Microsystems
+###  https://michaeldebellis.com/people/Sun_Microsystems
 :Sun_Microsystems rdf:type owl:NamedIndividual ,
-                           :Corporation ;
+                           :Corporation ,
+                           :Test_Data ;
                   rdfs:label "Sun Microsystems" .
 
 
-###  http://michaeldebellis.com/people/Susan_Doe
+###  https://michaeldebellis.com/people/Susan_Doe
 :Susan_Doe rdf:type owl:NamedIndividual ,
-                    :Person ;
+                    :Person ,
+                    :Test_Data ;
            rdfs:label "Susan Doe" .
 
 
-###  http://michaeldebellis.com/people/Terry_Lennox
+###  https://michaeldebellis.com/people/Swiss_Federal_Office_for_Intellectual_Property
+:Swiss_Federal_Office_for_Intellectual_Property rdf:type owl:NamedIndividual ,
+                                                         :Organization ;
+                                                :has_location :Bern ;
+                                                dct:contributor "Michael DeBellis" ;
+                                                dct:created "2026-02-06T22:38:38Z"^^xsd:dateTime ;
+                                                rdfs:label "Swiss Federal Office for Intellectual Property" .
+
+
+###  https://michaeldebellis.com/people/Switzerland
+:Switzerland rdf:type owl:NamedIndividual ,
+                      :Nation ;
+             :contains :Bern ;
+             dct:contributor "Michael DeBellis" ;
+             dct:created "2026-02-06T22:36:59Z"^^xsd:dateTime ;
+             rdfs:label "Switzerland"@en .
+
+
+###  https://michaeldebellis.com/people/Ten_Centimeters
+:Ten_Centimeters rdf:type owl:NamedIndividual ,
+                          :Distance_Measurement ;
+                 :has_unit :Centimeter ;
+                 :value 10 ;
+                 dct:contributor "Michael DeBellis" ;
+                 dct:created "2025-10-13T21:00:13Z"^^xsd:dateTime ;
+                 rdfs:label "10 centimeters" .
+
+
+###  https://michaeldebellis.com/people/Ten_Meters
+:Ten_Meters rdf:type owl:NamedIndividual ,
+                     :Distance_Measurement ;
+            :has_unit :Meter ;
+            :value 10.0 ;
+            dct:contributor "Michael DeBellis" ;
+            dct:created "2025-10-13T21:12:10Z"^^xsd:dateTime ;
+            rdfs:label "10 meters"@en .
+
+
+###  https://michaeldebellis.com/people/Terry_Lennox
 :Terry_Lennox rdf:type owl:NamedIndividual ,
-                       :Person ;
-              :has_Friend :Philip_Marlowe ;
+                       :Person ,
+                       :Test_Data ;
+              :has_friend :Philip_Marlowe ;
               rdfs:label "Terry Lennox" .
 
 
-###  http://michaeldebellis.com/people/The_Larch1
+###  https://michaeldebellis.com/people/The_Larch1
 :The_Larch1 rdf:type owl:NamedIndividual ,
-                     :Larch ;
+                     :Larch ,
+                     :Test_Data ;
             rdfs:label "The Larch1" .
 
 
-###  http://michaeldebellis.com/people/Tom_Buchanan
-:Tom_Buchanan rdf:type owl:NamedIndividual ;
-              :has_Wife :Daisy_Buchanan ;
+###  https://michaeldebellis.com/people/Tom_Buchanan
+:Tom_Buchanan rdf:type owl:NamedIndividual ,
+                       :Test_Data ;
+              :has_wife :Daisy_Buchanan ;
               rdfs:isDefinedBy <https://en.wikipedia.org/wiki/The_Great_Gatsby> ;
               rdfs:label "Tom Buchanan" .
 
 
-###  http://michaeldebellis.com/people/Tom_Doe
+###  https://michaeldebellis.com/people/Tom_Doe
 :Tom_Doe rdf:type owl:NamedIndividual ,
-                  :Person ;
+                  :Person ,
+                  :Test_Data ;
          rdfs:label "Tom Doe" .
 
 
-###  http://michaeldebellis.com/people/USA
+###  https://michaeldebellis.com/people/Two_Hundred_Centimeters
+:Two_Hundred_Centimeters rdf:type owl:NamedIndividual ,
+                                  :Distance_Measurement ;
+                         :has_unit :Centimeter ;
+                         :value 200 ;
+                         dct:contributor "Michael DeBellis" ;
+                         dct:created "2025-10-13T20:52:29Z"^^xsd:dateTime ;
+                         rdfs:label "200 centimeters" .
+
+
+###  https://michaeldebellis.com/people/Two_Kilometers
+:Two_Kilometers rdf:type owl:NamedIndividual ,
+                         :Distance_Measurement ;
+                :has_unit :Kilometer ;
+                :value 2.0 ;
+                dct:contributor "Michael DeBellis" ;
+                dct:created "2025-10-14T17:38:03Z"^^xsd:dateTime ;
+                rdfs:label "2 Kilometers"@en .
+
+
+###  https://michaeldebellis.com/people/USA
 :USA rdf:type owl:NamedIndividual ,
-              :Nation ;
-     :contains_Direct :California ,
-                      :Illinois ,
-                      :Massachusetts ,
-                      :New_Jersey ;
-     :wikidata <https://www.wikidata.org/wiki/Q30> ;
-     rdfs:label "USA" .
+              :Nation ,
+              :Test_Data ;
+     :contains :California ,
+               :Illinois ,
+               :Massachusetts ,
+               :New_Jersey ,
+               :New_York_State ,
+               :Pennsylvania ;
+     rdfs:label "USA" ;
+     :wikidata <https://www.wikidata.org/wiki/Q30> .
 
 
-###  http://michaeldebellis.com/people/United_Kingdom
+###  https://michaeldebellis.com/people/Ulm
+:Ulm rdf:type owl:NamedIndividual ,
+              :City ;
+     dct:contributor "Michael DeBellis" ;
+     dct:created "2026-02-06T22:25:05Z"^^xsd:dateTime ;
+     rdfs:label "Ulm"@en .
+
+
+###  https://michaeldebellis.com/people/United_Kingdom
 :United_Kingdom rdf:type owl:NamedIndividual ,
-                         :Nation ;
-                :contains_Direct :London ,
-                                 :Manchester ;
+                         :Nation ,
+                         :Test_Data ;
+                :contains :London ,
+                          :Manchester ;
                 rdfs:label "United Kingdom" .
 
 
-###  http://michaeldebellis.com/people/University_of_California_Berkeley
+###  https://michaeldebellis.com/people/University_of_California_Berkeley
 :University_of_California_Berkeley rdf:type owl:NamedIndividual ,
+                                            :Test_Data ,
                                             :University ;
                                    :has_city :Berkeley ;
                                    rdfs:isDefinedBy <https://www.berkeley.edu/> ;
                                    rdfs:label "University of California Berkeley" .
 
 
-###  http://michaeldebellis.com/people/University_of_Manchester
+###  https://michaeldebellis.com/people/University_of_Manchester
 :University_of_Manchester rdf:type owl:NamedIndividual ,
+                                   :Test_Data ,
                                    :University ;
                           :has_city :Manchester ;
-                          :is_Employer_Of :Alan_Turing ;
+                          :is_employer_of :Alan_Turing ;
                           rdfs:label "University of Manchester" .
 
 
-###  http://michaeldebellis.com/people/Vancouver
+###  https://michaeldebellis.com/people/Vancouver
 :Vancouver rdf:type owl:NamedIndividual ,
-                    :City ;
+                    :City ,
+                    :Test_Data ;
            rdfs:label "Vancouver" .
 
 
-###  http://michaeldebellis.com/people/Whiskers
+###  https://michaeldebellis.com/people/Week
+:Week rdf:type owl:NamedIndividual ,
+               :Test_Data ,
+               :Time_Unit ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-10-03T04:08:13Z"^^xsd:dateTime ;
+      rdfs:label "Week" .
+
+
+###  https://michaeldebellis.com/people/Whiskers
 :Whiskers rdf:type owl:NamedIndividual ,
-                   :Cat ;
-          :is_Pet_Of :Oriana ;
+                   :Cat ,
+                   :Test_Data ;
+          :is_pet_of :Oriana ;
           rdfs:label "Whiskers" .
 
 
-###  http://michaeldebellis.com/people/Xerox_PARC
+###  https://michaeldebellis.com/people/Xerox_PARC
 :Xerox_PARC rdf:type owl:NamedIndividual ,
-                     :Research_Institute ;
+                     :Research_Institute ,
+                     :Test_Data ;
             rdfs:label "Xerox PARC" .
+
+
+###  https://michaeldebellis.com/people/Year
+:Year rdf:type owl:NamedIndividual ,
+               :Test_Data ,
+               :Time_Unit ;
+      dct:contributor "Michael DeBellis" ;
+      dct:created "2025-10-03T04:05:40Z"^^xsd:dateTime ;
+      rdfs:label "Year" .
 
 
 #################################################################
 #    Annotations
 #################################################################
 
-:Fluffy rdfs:label "Fluffy" .
+<http://michaeldebellis.com/people/Fluffy> rdfs:label "Fluffy" .
 
 
-:Max_Planck_Institute_for_Infection_Biology rdfs:label "Max Planck Institute for Infection Biology" .
+<http://michaeldebellis.com/people/Max_Planck_Institute_for_Infection_Biology> rdfs:label "Max Planck Institute for Infection Biology" .
 
 
 #################################################################
@@ -1894,6 +2811,17 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
                 :Fish
                 :Mammal
                 :Reptile
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Bus
+                :CPU
+                :Keyboard
+                :Monitor
+                :Motherboard
+                :RAM
               )
 ] .
 
@@ -1971,21 +2899,314 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
 #    Rules
 #################################################################
 
+<http://michaeldebellis.com/people/v1> rdf:type swrl:Variable .
+
+<http://michaeldebellis.com/people/v2> rdf:type swrl:Variable .
+
+<http://michaeldebellis.com/people/m1> rdf:type swrl:Variable .
+
+<http://michaeldebellis.com/people/m2> rdf:type swrl:Variable .
+
+<http://michaeldebellis.com/people/cv> rdf:type swrl:Variable .
+
 <http://www.semanticweb.org/mdebe/ontologies/example#p> rdf:type swrl:Variable .
 
 <http://www.semanticweb.org/mdebe/ontologies/example#b> rdf:type swrl:Variable .
 
 <http://www.semanticweb.org/mdebe/ontologies/example#c> rdf:type swrl:Variable .
 
-:p rdf:type swrl:Variable .
+<http://michaeldebellis.com/people/p> rdf:type swrl:Variable .
 
-:c rdf:type swrl:Variable .
+<http://michaeldebellis.com/people/s> rdf:type swrl:Variable .
 
-:s rdf:type swrl:Variable .
+<http://michaeldebellis.com/people/c> rdf:type swrl:Variable .
 
-:address rdf:type swrl:Variable .
+<http://michaeldebellis.com/people/address> rdf:type swrl:Variable .
 
-:city rdf:type swrl:Variable .
+<http://michaeldebellis.com/people/city> rdf:type swrl:Variable .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Distance_Equal_Rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:BuiltinAtom ;
+                           swrl:builtin swrlb:equal ;
+                           swrl:arguments ( <http://michaeldebellis.com/people/v1>
+                                            <http://michaeldebellis.com/people/v2>
+                                          )
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :canonical_value ;
+                                      swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                                      swrl:argument2 <http://michaeldebellis.com/people/v1>
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :canonical_value ;
+                                                 swrl:argument1 <http://michaeldebellis.com/people/m2> ;
+                                                 swrl:argument2 <http://michaeldebellis.com/people/v2>
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate :Distance_Measurement ;
+                                                            swrl:argument1 <http://michaeldebellis.com/people/m2>
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:ClassAtom ;
+                                                                       swrl:classPredicate :Distance_Measurement ;
+                                                                       swrl:argument1 <http://michaeldebellis.com/people/m1>
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate :equal_to ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/m2>
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Distance_Ordering_Rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :canonical_value ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/v1>
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :canonical_value ;
+                                      swrl:argument1 <http://michaeldebellis.com/people/m2> ;
+                                      swrl:argument2 <http://michaeldebellis.com/people/v2>
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:BuiltinAtom ;
+                                                 swrl:builtin swrlb:greaterThan ;
+                                                 swrl:arguments ( <http://michaeldebellis.com/people/v1>
+                                                                  <http://michaeldebellis.com/people/v2>
+                                                                )
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate :Distance_Measurement ;
+                                                            swrl:argument1 <http://michaeldebellis.com/people/m2>
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:ClassAtom ;
+                                                                       swrl:classPredicate :Distance_Measurement ;
+                                                                       swrl:argument1 <http://michaeldebellis.com/people/m1>
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate :greater_than ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/m2>
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Canonical_Distance_Centimeter_Conversion" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :value ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/v1>
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:BuiltinAtom ;
+                                      swrl:builtin swrlb:divide ;
+                                      swrl:arguments [ rdf:type rdf:List ;
+                                                       rdf:first <http://michaeldebellis.com/people/cv> ;
+                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                  rdf:first <http://michaeldebellis.com/people/v1> ;
+                                                                  rdf:rest [ rdf:type rdf:List ;
+                                                                             rdf:first 100 ;
+                                                                             rdf:rest rdf:nil
+                                                                           ]
+                                                                ]
+                                                     ]
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate :has_unit ;
+                                                 swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                                                 swrl:argument2 :Centimeter
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate :Distance_Measurement ;
+                                                            swrl:argument1 <http://michaeldebellis.com/people/m1>
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :canonical_value ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/cv>
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Canonical_Distance_Foot_Conversion" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate :has_unit ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 :Foot
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :value ;
+                                      swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                                      swrl:argument2 <http://michaeldebellis.com/people/v1>
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:BuiltinAtom ;
+                                                 swrl:builtin swrlb:multiply ;
+                                                 swrl:arguments [ rdf:type rdf:List ;
+                                                                  rdf:first <http://michaeldebellis.com/people/cv> ;
+                                                                  rdf:rest [ rdf:type rdf:List ;
+                                                                             rdf:first <http://michaeldebellis.com/people/v1> ;
+                                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                                        rdf:first 0.3048 ;
+                                                                                        rdf:rest rdf:nil
+                                                                                      ]
+                                                                           ]
+                                                                ]
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate :Distance_Measurement ;
+                                                            swrl:argument1 <http://michaeldebellis.com/people/m1>
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :canonical_value ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/cv>
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Canonical_Distance_Kilometer_Conversion" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate :has_unit ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 :Kilometer
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:BuiltinAtom ;
+                                      swrl:builtin swrlb:multiply ;
+                                      swrl:arguments [ rdf:type rdf:List ;
+                                                       rdf:first <http://michaeldebellis.com/people/cv> ;
+                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                  rdf:first <http://michaeldebellis.com/people/v1> ;
+                                                                  rdf:rest [ rdf:type rdf:List ;
+                                                                             rdf:first 1000 ;
+                                                                             rdf:rest rdf:nil
+                                                                           ]
+                                                                ]
+                                                     ]
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :value ;
+                                                 swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                                                 swrl:argument2 <http://michaeldebellis.com/people/v1>
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate :Distance_Measurement ;
+                                                            swrl:argument1 <http://michaeldebellis.com/people/m1>
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :canonical_value ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/cv>
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Canonical_Distance_Meter_Conversion" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :value ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/v1>
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate :has_unit ;
+                                      swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                                      swrl:argument2 :Meter
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:ClassAtom ;
+                                                 swrl:classPredicate :Distance_Measurement ;
+                                                 swrl:argument1 <http://michaeldebellis.com/people/m1>
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :canonical_value ;
+                           swrl:argument1 <http://michaeldebellis.com/people/m1> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/v1>
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
 
 [ swrla:isRuleEnabled "true"^^xsd:boolean ;
    rdfs:comment "" ;
@@ -1993,13 +3214,13 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate :has_Brother ;
+                           swrl:propertyPredicate :has_brother ;
                            swrl:argument1 <http://www.semanticweb.org/mdebe/ontologies/example#p> ;
                            swrl:argument2 <http://www.semanticweb.org/mdebe/ontologies/example#b>
                          ] ;
                rdf:rest [ rdf:type swrl:AtomList ;
                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                      swrl:propertyPredicate :has_Child ;
+                                      swrl:propertyPredicate :has_child ;
                                       swrl:argument1 <http://www.semanticweb.org/mdebe/ontologies/example#p> ;
                                       swrl:argument2 <http://www.semanticweb.org/mdebe/ontologies/example#c>
                                     ] ;
@@ -2008,7 +3229,7 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
              ] ;
    swrl:head [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate :has_Uncle ;
+                           swrl:propertyPredicate :has_uncle ;
                            swrl:argument1 <http://www.semanticweb.org/mdebe/ontologies/example#c> ;
                            swrl:argument2 <http://www.semanticweb.org/mdebe/ontologies/example#b>
                          ] ;
@@ -2022,24 +3243,24 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate :has_Child ;
-                           swrl:argument1 :p ;
-                           swrl:argument2 :c
+                           swrl:propertyPredicate :has_sister ;
+                           swrl:argument1 <http://michaeldebellis.com/people/p> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/s>
                          ] ;
                rdf:rest [ rdf:type swrl:AtomList ;
                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                      swrl:propertyPredicate :has_Sister ;
-                                      swrl:argument1 :p ;
-                                      swrl:argument2 :s
+                                      swrl:propertyPredicate :has_child ;
+                                      swrl:argument1 <http://michaeldebellis.com/people/p> ;
+                                      swrl:argument2 <http://michaeldebellis.com/people/c>
                                     ] ;
                           rdf:rest rdf:nil
                         ]
              ] ;
    swrl:head [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate :has_Aunt ;
-                           swrl:argument1 :c ;
-                           swrl:argument2 :s
+                           swrl:propertyPredicate :has_aunt ;
+                           swrl:argument1 <http://michaeldebellis.com/people/c> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/s>
                          ] ;
                rdf:rest rdf:nil
              ]
@@ -2052,16 +3273,16 @@ skos:prefLabel rdf:type owl:AnnotationProperty ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
                            swrl:propertyPredicate :has_city ;
-                           swrl:argument1 :address ;
-                           swrl:argument2 :city
+                           swrl:argument1 <http://michaeldebellis.com/people/address> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/city>
                          ] ;
                rdf:rest rdf:nil
              ] ;
    swrl:head [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate :is_Contained_In_Direct ;
-                           swrl:argument1 :address ;
-                           swrl:argument2 :city
+                           swrl:propertyPredicate :is_contained_in ;
+                           swrl:argument1 <http://michaeldebellis.com/people/address> ;
+                           swrl:argument2 <http://michaeldebellis.com/people/city>
                          ] ;
                rdf:rest rdf:nil
              ]
